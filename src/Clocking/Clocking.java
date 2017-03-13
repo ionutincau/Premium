@@ -9,10 +9,10 @@ import java.util.GregorianCalendar;
 
 public class Clocking {
     
-    private Calendar hour_in = new GregorianCalendar();
-    private Calendar hour_break = new GregorianCalendar();
-    private Calendar hour_work = new GregorianCalendar();
-    private Calendar hour_out = new GregorianCalendar();
+    private Calendar hour_in = new GregorianCalendar(); // clock-in start work
+    private Calendar hour_break = new GregorianCalendar(); // clock-out for break
+    private Calendar hour_work = new GregorianCalendar(); // clock-in after break
+    private Calendar hour_out = new GregorianCalendar(); // clock-out
 
     public Clocking (GregorianCalendar hour_in, GregorianCalendar hour_break, GregorianCalendar hour_work, GregorianCalendar hour_out) {
         this.hour_in = hour_in;
