@@ -6,4 +6,8 @@ package Login;
  */
 
 public class LoginUI {
+
+    public void getScene() {
+        // TODO: return login scene
+    }
 }
