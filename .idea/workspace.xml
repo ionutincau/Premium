@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a54dfe19-2de1-484e-9d79-9b0427205ec4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Login/LoginController.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Premium/Application.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Application.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Clocking/ClockingProvider.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Clocking/ClockingController.java" afterPath="$PROJECT_DIR$/src/Clocking/ClockingController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Clocking/ClockingUI.java" afterPath="$PROJECT_DIR$/src/Clocking/ClockingUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Login/LoginUI.java" afterPath="$PROJECT_DIR$/src/Login/LoginUI.java" />
     </list>
     <ignored path="Premium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,7 +27,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
@@ -66,14 +63,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClockingUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClockingUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+            <state relative-caret-position="-373">
+              <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1919#1920#0" expanded="true" />
+                <element signature="e#1959#1960#0" expanded="true" />
+                <element signature="e#2116#2117#0" expanded="true" />
+                <element signature="e#2144#2145#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClockingController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -103,10 +113,12 @@
         <option value="$PROJECT_DIR$/src/UI/UIHR.java" />
         <option value="$PROJECT_DIR$/src/UI/UI.java" />
         <option value="$PROJECT_DIR$/src/Application.java" />
-        <option value="$PROJECT_DIR$/src/Clocking/ClockingUI.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Login/LoginController.java" />
         <option value="$PROJECT_DIR$/src/Login/LoginUI.java" />
+        <option value="$PROJECT_DIR$/src/Clocking/ClockingController.java" />
+        <option value="$PROJECT_DIR$/src/Clocking/ClockingProvider.java" />
+        <option value="$PROJECT_DIR$/src/Clocking/ClockingUI.java" />
       </list>
     </option>
   </component>
@@ -495,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489483285994</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Prepare Login Mecanism">
+      <created>1489495215820</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1489495215820</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -572,7 +591,8 @@
     <MESSAGE value="Add folder and comments" />
     <MESSAGE value="Modify Clocking&#10;Add Login&#10;Add tests" />
     <MESSAGE value="Create ClockingUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create ClockingUI" />
+    <MESSAGE value="Prepare Login Mecanism" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prepare Login Mecanism" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -665,14 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/UI/UIAdmin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -743,24 +755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Login/LoginUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Login/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -779,6 +773,43 @@
             <element signature="imports" expanded="true" />
             <element signature="e#264#265#0" expanded="true" />
             <element signature="e#288#289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Login/LoginUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Clocking/ClockingUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-373">
+          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding>
+            <element signature="e#1919#1920#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#2116#2117#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
           </folding>
         </state>
       </provider>
