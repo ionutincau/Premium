@@ -9,14 +9,14 @@ import java.util.GregorianCalendar;
 
 public class Clocking {
 
-    private Calendar date = new GregorianCalendar(); // date
+    private Calendar calendar = new GregorianCalendar(); // date
     private int hour_in; // number of minutes of day - clock-in start work
     private int hour_break; // number of minutes of day - clock-out for break
     private int hour_work; // number of minutes of day  - clock-in after break
     private int hour_out; // number of minutes of day - clock-out
 
-    public Clocking(Calendar date, int hour_in) {
-        this.date = date;
+    public Clocking(Calendar calendar, int hour_in) {
+        this.calendar = calendar;
         this.hour_in = hour_in;
         this.hour_break = 0;
         this.hour_work = 0;
@@ -24,7 +24,7 @@ public class Clocking {
     }
 
     public Clocking (Calendar date, int hour_in, int hour_break, int hour_work, int hour_out) {
-        this.date = date;
+        this.calendar = date;
         this.hour_in = hour_in;
         this.hour_break = hour_break;
         this.hour_work = hour_work;
@@ -32,7 +32,7 @@ public class Clocking {
     }
 
     public Calendar get_date() {
-        return this.date;
+        return this.calendar;
     }
 
     public int get_hour_in() {
@@ -51,8 +51,8 @@ public class Clocking {
         return this.hour_out;
     }
 
-    public void set_date(Calendar date) {
-        this.date = date;
+    public void set_date(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     public void set_hour_in(int hour_in) {
@@ -80,5 +80,29 @@ public class Clocking {
             return hour_break - hour_in;
         }
         return hour_break - hour_in + hour_out - hour_work;
+    }
+
+    private String get_time_format(int n) {
+        if (n == 0) return "00:00";
+        int hours = n / 60;
+        int minutes = n % 60;
+        String h = "" + hours;
+        String m = "" + minutes;
+        if (hours < 10) h = "0" + h;
+        if (minutes < 10) m = "0" + m;
+        return h + ":" + m;
+    }
+
+    @Override
+    public String toString() {
+        String date = calendar.get(Calendar.DAY_OF_MONTH) + "." +
+                calendar.get(Calendar.MONTH) + "." +
+                calendar.get(Calendar.YEAR);
+        String hours = get_time_format(hour_in) + " - " +
+                get_time_format(hour_break) + " - " +
+                get_time_format(hour_work) + " - " +
+                get_time_format(hour_out);
+        String time = get_time_format(get_time());
+        return "          " + date + "                    " + hours + "                    " + time;
     }
 }
