@@ -1,35 +1,36 @@
 package Clocking;
 
-import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingUI extends Application {
+public class ClockingUI implements EventHandler<ActionEvent> {
 
     Button button;
-    StackPane layout;
-    Scene scene;
+    private StackPane layout;
+    private Scene scene;
 
-    public ClockingUI() {}
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ClockingUI");
-        button = new Button("Clockin");
-        layout = new StackPane();
-        layout.getChildren().add(button);
-        scene = new Scene(layout, 300, 250);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public ClockingUI() {
+        this.layout = new StackPane();
+        this.scene = new Scene(layout, 300, 250);
     }
 
-    public void run() {
-        launch();
+    @Override
+    public void handle(ActionEvent event) {
+        if (event.getSource() == button) {
+        }
+    }
+
+    public Scene getScene() {
+        button = new Button("Clockin");
+        layout.getChildren().add(button);
+
+        return scene;
     }
 }
