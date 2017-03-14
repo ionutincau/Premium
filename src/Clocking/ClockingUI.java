@@ -43,26 +43,15 @@ public class ClockingUI implements EventHandler<ActionEvent> {
         topView.getChildren().addAll(button_clockin, button_clockout);
 
         // middle view
-        TextField textField = new TextField();
-        TextField textField2 = new TextField();
-        TextField textField3 = new TextField();
-        TextField textField4 = new TextField();
-        clockingView.getItems().add(0, textField);
-        clockingView.getItems().add(0, textField2);
-        clockingView.getItems().add(0, textField3);
-        clockingView.getItems().add(0, textField4);
-
+        clockingView.getItems().addAll(0, controller.getClocking());
+        clockingView.setFixedCellSize(48);
         middleView.setFitToWidth(true);
         middleView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.middleView.setContent(clockingView);
 
         // main view
         this.mainView.getChildren().addAll(topView, middleView);
-        this.scene = new Scene(mainView, 600, 500);
-    }
-
-    private void getClocking() {
-        controller.getClocking();
+        this.scene = new Scene(mainView, 500, 400);
     }
 
     @Override
