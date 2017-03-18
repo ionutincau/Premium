@@ -32,4 +32,9 @@ public class ClockingTest {
         assertTrue(clocking2.get_time() == 100);
     }
 
+    @Test
+    public void get_time_format() throws Exception {
+        //TODO:
+    }
+
 }
