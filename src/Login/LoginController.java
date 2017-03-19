@@ -24,6 +24,7 @@ public class LoginController {
         LoginUI loginUI = new LoginUI();
         Scene loginScene = loginUI.getScene();
         this.primaryStage.setScene(loginScene);
+        display();
 
         /*
         ClockingUI clockingUI = new ClockingUI();
@@ -34,9 +35,11 @@ public class LoginController {
 
     public void setUserScene()
     {
+        this.primaryStage.close();
         ClockingUI clockingUI = new ClockingUI();
-        Scene scene = clockingUI.getScene();
-        this.primaryStage.setScene(scene);
+        Scene clockingUIScene = clockingUI.getScene();
+        this.primaryStage.setScene(clockingUIScene);
+        display();
     }
 
     public void setHRScene()
@@ -58,4 +61,11 @@ public class LoginController {
 
         }
     }
+
+    public void display()
+    {
+        //TODO find a way to prevent opening a new window (update login window)
+        this.primaryStage.show();
+    }
+
 }
