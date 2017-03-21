@@ -25,6 +25,8 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     private ListView clockingView;
 
     Button button_clockin;
+    Button button_clockbreak;
+    Button button_clockwork;
     Button button_clockout;
 
     public ClockingUI() {
@@ -38,9 +40,8 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     }
 
     private void createView() {
-        button_clockin = new Button("Clockin");
-        button_clockout = new Button("Clockout");
-        topView.getChildren().addAll(button_clockin, button_clockout);
+        // top view
+        get_buttons();
 
         // middle view
         clockingView.getItems().addAll(0, controller.getClocking());
@@ -54,9 +55,39 @@ public class ClockingUI implements EventHandler<ActionEvent> {
         this.scene = new Scene(mainView, 500, 400);
     }
 
+    private void get_buttons() {
+        if (controller.get_status() == 1) {
+            button_clockin = new Button("Clock In");
+            topView.getChildren().addAll(button_clockin);
+        }
+        else if (controller.get_status() == 2) {
+            button_clockbreak = new Button("Clock Break");
+            button_clockout = new Button("Clock Out");
+            topView.getChildren().addAll(button_clockbreak, button_clockout);
+        }
+        else if (controller.get_status() == 3) {
+            button_clockwork = new Button("Clock Work");
+            topView.getChildren().addAll(button_clockwork);
+        }
+        else {
+            button_clockout = new Button("Clock Out");
+            topView.getChildren().addAll(button_clockout);
+        }
+    }
+
     @Override
     public void handle(ActionEvent event) {
         if (event.getSource() == button_clockin) {
+            controller.clockin();
+        }
+        else if (event.getSource() == button_clockbreak) {
+            controller.clockbreak();
+        }
+        else if (event.getSource() == button_clockwork) {
+            controller.clockwork();
+        }
+        else {
+            controller.clockout();
         }
     }
 
