@@ -17,8 +17,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Premium");
 
-        LoginController login = new LoginController(primaryStage);
-        login.setScene();
-        primaryStage.show();
+        LoginController loginController = new LoginController(primaryStage);
+        loginController.setLoginScene();
+        //primaryStage.show();
+        loginController.display();
     }
 }

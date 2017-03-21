@@ -6,5 +6,4 @@ package Clocking;
  */
 
 public class ClockingProvider {
-
 }

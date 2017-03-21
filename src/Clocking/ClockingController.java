@@ -20,24 +20,4 @@ public class ClockingController {
         list.add(new Clocking(new GregorianCalendar(), 164, 254, 351, 456));
         return list;
     }
-
-    public int get_status() {
-        return 3;
-    }
-
-    public void clockin() {
-
-    }
-
-    public void clockbreak() {
-
-    }
-
-    public void clockwork() {
-
-    }
-
-    public void clockout() {
-
-    }
 }
