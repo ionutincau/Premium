@@ -13,7 +13,7 @@ public class ClockingController {
     public ArrayList<Clocking> list = new ArrayList<Clocking>();
     public ArrayList getClocking() {
         //TODO: return a list of clockings
-
+        list.add(new Clocking(new GregorianCalendar(), 0));
         return list;
     }
 
@@ -21,7 +21,7 @@ public class ClockingController {
     public int get_status()
     {
 
-        return 1;
+        return 2;
     }
 
     public void clockin() {
@@ -52,8 +52,28 @@ public class ClockingController {
             System.out.println(list);
         }
     }
-    public void clockbreak() {
+    public void clockbreak()
+    {
 
+        Calendar now = Calendar.getInstance();
+        int hours = now.get(Calendar.HOUR_OF_DAY);
+        int minutes = now.get(Calendar.MINUTE);
+        int calc_minutes = hours * 60 + minutes;
+        Clocking current_time;
+        System.out.println(calc_minutes);
+        for (int i=0;i<list.size();i++)
+        {
+            System.out.println("ok 2");
+            System.out.println(list.get(i).get_date().getCalendarType().equals(now.getCalendarType()));
+            if (list.get(i).get_date().getCalendarType().equals(now.getCalendarType()))
+            {
+                current_time=list.get(i);
+                current_time.set_hour_break(calc_minutes);
+
+                list.set(i,current_time);
+            }
+        }
+        System.out.println(list);
     }
 
     public void clockwork() {

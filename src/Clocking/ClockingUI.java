@@ -70,6 +70,12 @@ public class ClockingUI implements EventHandler<ActionEvent> {
             button_clockbreak = new Button("Clock Break");
             button_clockout = new Button("Clock Out");
             topView.getChildren().addAll(button_clockbreak, button_clockout);
+            button_clockbreak.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    System.out.println("Pas 2");
+                    controller.clockbreak();
+                }
+            });
         }
         else if (controller.get_status() == 3) {
             button_clockwork = new Button("Clock Work");
