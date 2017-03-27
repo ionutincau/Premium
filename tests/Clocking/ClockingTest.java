@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by Incau Ionut on 14-Mar-17.

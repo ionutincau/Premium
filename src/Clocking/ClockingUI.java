@@ -58,6 +58,12 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     private void get_buttons() {
         if (controller.get_status() == 1) {
             button_clockin = new Button("Clock In");
+            button_clockin.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    System.out.println("Pas 1");
+                    controller.clockin();
+                }
+            });
             topView.getChildren().addAll(button_clockin);
         }
         else if (controller.get_status() == 2) {
@@ -78,6 +84,7 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         if (event.getSource() == button_clockin) {
+            System.out.println("Pas 1");
             controller.clockin();
         }
         else if (event.getSource() == button_clockbreak) {
