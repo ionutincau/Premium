@@ -125,12 +125,12 @@ public class ClockingController extends Observable{
         setChanged();
         notifyObservers();
     }
-    public void Edit()
+    public void Edit(Calendar date, int hour_in, int hour_break, int hour_work, int hour_out,int id)
     {
-
+        ///sql.update(c)
     }
-    public void Delete()
+    public void Delete(int id)
     {
-
+        ///sql.delete
     }
 }
