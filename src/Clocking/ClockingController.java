@@ -3,12 +3,13 @@ package Clocking;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Observable;
 
 /**
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingController {
+public class ClockingController extends Observable{
 
 
     public ArrayList<Clocking> list = new ArrayList<Clocking>();
@@ -16,9 +17,10 @@ public class ClockingController {
     public ArrayList getClocking()
     {
         //TODO: return a list of clockings
-        list.add(new Clocking(new GregorianCalendar(), 0,80,70,90));
+        //list.add(new Clocking(new GregorianCalendar(), 0,80,70,0));
         System.out.println(list.size());
         return list;
+
     }
     public int get_status()
     {
@@ -74,7 +76,8 @@ public class ClockingController {
             Clocking current_time = new Clocking(new GregorianCalendar(), calc_minutes);
             list.add(new Clocking(new GregorianCalendar(), calc_minutes));
             System.out.println(list);
-
+            setChanged();
+            notifyObservers();
     }
     public void clockbreak()
     {
@@ -98,7 +101,10 @@ public class ClockingController {
             }
         }
         System.out.println(list);
+        setChanged();
+        notifyObservers();
     }
+
 
     public void clockwork()
     {
@@ -121,6 +127,8 @@ public class ClockingController {
                 list.set(i,current_time);
             }
         }
+        setChanged();
+        notifyObservers();
         System.out.println(list);
     }
     public void clockout()
@@ -143,6 +151,8 @@ public class ClockingController {
                 list.set(i,current_time);
             }
         }
+        setChanged();
+        notifyObservers();
         System.out.println(list);
     }
 }

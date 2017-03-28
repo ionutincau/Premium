@@ -10,11 +10,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingUI implements EventHandler<ActionEvent> {
+public class ClockingUI implements EventHandler<ActionEvent>,Observer{
 
     private ClockingController controller;
 
@@ -31,6 +34,7 @@ public class ClockingUI implements EventHandler<ActionEvent> {
 
     public ClockingUI() {
         this.controller = new ClockingController();
+        this.controller.addObserver(this);
 
         this.mainView = new VBox();
         this.topView = new HBox();
@@ -127,5 +131,14 @@ public class ClockingUI implements EventHandler<ActionEvent> {
 
     public Scene getScene() {
         return scene;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("Up");
+        topView.getChildren().clear();
+        get_buttons();
+        clockingView.getItems().clear();
+        clockingView.getItems().addAll(0, controller.getClocking());
     }
 }
