@@ -40,11 +40,11 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     }
 
     private void createView() {
+        // middle view
+        clockingView.getItems().addAll(0, controller.getClocking());
         // top view
         get_buttons();
 
-        // middle view
-        clockingView.getItems().addAll(0, controller.getClocking());
         clockingView.setFixedCellSize(48);
         middleView.setFitToWidth(true);
         middleView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -56,6 +56,9 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     }
 
     private void get_buttons() {
+        if (controller.get_status()==0){
+            return;
+        }
         if (controller.get_status() == 1) {
             button_clockin = new Button("Clock In");
             button_clockin.setOnAction(new EventHandler<ActionEvent>() {
@@ -76,14 +79,32 @@ public class ClockingUI implements EventHandler<ActionEvent> {
                     controller.clockbreak();
                 }
             });
+            button_clockout.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    System.out.println("Pas 5");
+                    controller.clockout();
+                }
+            });
         }
         else if (controller.get_status() == 3) {
             button_clockwork = new Button("Clock Work");
             topView.getChildren().addAll(button_clockwork);
+            button_clockwork.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    System.out.println("Pas 3");
+                    controller.clockwork();
+                }
+            });
         }
         else {
             button_clockout = new Button("Clock Out");
             topView.getChildren().addAll(button_clockout);
+            button_clockout.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    System.out.println("Pas 2");
+                    controller.clockout();
+                }
+            });
         }
     }
 
