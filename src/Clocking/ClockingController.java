@@ -11,14 +11,14 @@ import java.util.Observable;
 
 public class ClockingController extends Observable{
 
-
     public ArrayList<Clocking> list = new ArrayList<Clocking>();
-    public ArrayList getClocking()
-    {
+
+    public ArrayList getClocking() {
         //TODO: return a list of clockings
         //list.add(new Clocking(new GregorianCalendar(), 0,80,70,0));
         return list;
     }
+
     public int get_status()
     {
         //list.add(new Clocking(new GregorianCalendar(), 0));
@@ -43,10 +43,11 @@ public class ClockingController extends Observable{
         }
         return 0;
     }
+
     public void clockin() {
         //Ora si minutele curente
         Calendar now = Calendar.getInstance();
-        Clocking exist_time = new Clocking(new GregorianCalendar(),0);
+        Clocking exist_time = new Clocking(1, new GregorianCalendar(),0);
         int hours = now.get(Calendar.HOUR_OF_DAY);
         int minutes = now.get(Calendar.MINUTE);
 //        if (list.size()!=0) {
@@ -60,11 +61,12 @@ public class ClockingController extends Observable{
 //            }
 //        }
             int calc_minutes = hours * 60 + minutes;
-            Clocking current_time = new Clocking(new GregorianCalendar(), calc_minutes);
-            list.add(new Clocking(new GregorianCalendar(), calc_minutes));
+            Clocking current_time = new Clocking(1, new GregorianCalendar(), calc_minutes);
+            list.add(new Clocking(1, new GregorianCalendar(), calc_minutes));
             setChanged();
             notifyObservers();
     }
+
     public void clockbreak()
     {
         Calendar now = Calendar.getInstance();
@@ -85,6 +87,7 @@ public class ClockingController extends Observable{
         setChanged();
         notifyObservers();
     }
+
     public void clockwork()
     {
         Calendar now = Calendar.getInstance();
@@ -105,6 +108,7 @@ public class ClockingController extends Observable{
         setChanged();
         notifyObservers();
     }
+
     public void clockout()
     {
         Calendar now = Calendar.getInstance();
@@ -125,10 +129,12 @@ public class ClockingController extends Observable{
         setChanged();
         notifyObservers();
     }
+
     public void Edit(Calendar date, int hour_in, int hour_break, int hour_work, int hour_out,int id)
     {
         ///sql.update(c)
     }
+
     public void Delete(int id)
     {
         ///sql.delete

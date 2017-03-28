@@ -46,13 +46,13 @@ public class ClockingUI implements Observer{
     private void createView() {
         // middle view
         clockingView.getItems().addAll(0, controller.getClocking());
-        // top view
-        get_buttons();
-
         clockingView.setFixedCellSize(48);
         middleView.setFitToWidth(true);
         middleView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.middleView.setContent(clockingView);
+
+        // top view
+        get_buttons();
 
         // main view
         this.mainView.getChildren().addAll(topView, middleView);
@@ -106,6 +106,7 @@ public class ClockingUI implements Observer{
             });
         }
     }
+
     @Override
     public void update(Observable o, Object arg) {
         topView.getChildren().clear();
@@ -113,8 +114,8 @@ public class ClockingUI implements Observer{
         clockingView.getItems().clear();
         clockingView.getItems().addAll(0, controller.getClocking());
     }
-    public Scene getScene()
-    {
+
+    public Scene getScene() {
         return scene;
     }
 }
