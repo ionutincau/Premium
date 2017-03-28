@@ -10,11 +10,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingUI implements EventHandler<ActionEvent> {
+public class ClockingUI implements Observer{
 
     private ClockingController controller;
 
@@ -31,6 +34,7 @@ public class ClockingUI implements EventHandler<ActionEvent> {
 
     public ClockingUI() {
         this.controller = new ClockingController();
+        this.controller.addObserver(this);
 
         this.mainView = new VBox();
         this.topView = new HBox();
@@ -40,11 +44,11 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     }
 
     private void createView() {
+        // middle view
+        clockingView.getItems().addAll(0, controller.getClocking());
         // top view
         get_buttons();
 
-        // middle view
-        clockingView.getItems().addAll(0, controller.getClocking());
         clockingView.setFixedCellSize(48);
         middleView.setFitToWidth(true);
         middleView.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -56,42 +60,57 @@ public class ClockingUI implements EventHandler<ActionEvent> {
     }
 
     private void get_buttons() {
+        if (controller.get_status()==0){
+            return;
+        }
         if (controller.get_status() == 1) {
             button_clockin = new Button("Clock In");
+            button_clockin.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    controller.clockin();
+                }
+            });
             topView.getChildren().addAll(button_clockin);
         }
         else if (controller.get_status() == 2) {
             button_clockbreak = new Button("Clock Break");
             button_clockout = new Button("Clock Out");
             topView.getChildren().addAll(button_clockbreak, button_clockout);
+            button_clockbreak.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    controller.clockbreak();
+                }
+            });
+            button_clockout.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    controller.clockout();
+                }
+            });
         }
         else if (controller.get_status() == 3) {
             button_clockwork = new Button("Clock Work");
             topView.getChildren().addAll(button_clockwork);
+            button_clockwork.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    controller.clockwork();
+                }
+            });
         }
         else {
             button_clockout = new Button("Clock Out");
             topView.getChildren().addAll(button_clockout);
+            button_clockout.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                    controller.clockout();
+                }
+            });
         }
     }
-
     @Override
-    public void handle(ActionEvent event) {
-        if (event.getSource() == button_clockin) {
-            controller.clockin();
-        }
-        else if (event.getSource() == button_clockbreak) {
-            controller.clockbreak();
-        }
-        else if (event.getSource() == button_clockwork) {
-            controller.clockwork();
-        }
-        else {
-            controller.clockout();
-        }
-    }
-
-    public Scene getScene() {
-        return scene;
+    public void update(Observable o, Object arg) {
+        topView.getChildren().clear();
+        get_buttons();
+        clockingView.getItems().clear();
+        clockingView.getItems().addAll(0, controller.getClocking());
     }
 }
