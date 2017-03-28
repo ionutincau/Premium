@@ -9,14 +9,18 @@ import java.util.Observable;
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingController extends Observable{
+public class ClockingController extends Observable {
 
-    public ArrayList<Clocking> list = new ArrayList<Clocking>();
+    private ArrayList<Clocking> list = new ArrayList<Clocking>();
+    private ClockingProvider provider;
+
+    public ClockingController() {
+        provider = new ClockingProvider();
+    }
 
     public ArrayList getClocking() {
-        //TODO: return a list of clockings
-        //list.add(new Clocking(new GregorianCalendar(), 0,80,70,0));
-        return list;
+        //TODO: send id_angajat
+        return provider.getClocking(1);
     }
 
     public int get_status()
@@ -45,26 +49,15 @@ public class ClockingController extends Observable{
     }
 
     public void clockin() {
-        //Ora si minutele curente
         Calendar now = Calendar.getInstance();
-        Clocking exist_time = new Clocking(1, new GregorianCalendar(),0);
         int hours = now.get(Calendar.HOUR_OF_DAY);
         int minutes = now.get(Calendar.MINUTE);
-//        if (list.size()!=0) {
-//            Clocking last = list.get(list.size() - 1);
-//            //verificam daca ultimul element al listei este ziua curenta
-//            //daca este ziua curenta nu il mai adaugam in lista
-//            if (!last.get_date().getCalendarType().equals(now.getCalendarType())) {
-//                int calc_minutes = hours * 60 + minutes;
-//                Clocking current_time = new Clocking(new GregorianCalendar(), calc_minutes);
-//                list.add(new Clocking(new GregorianCalendar(), calc_minutes));
-//            }
-//        }
-            int calc_minutes = hours * 60 + minutes;
-            Clocking current_time = new Clocking(1, new GregorianCalendar(), calc_minutes);
-            list.add(new Clocking(1, new GregorianCalendar(), calc_minutes));
-            setChanged();
-            notifyObservers();
+        int calc_minutes = hours * 60 + minutes;
+
+        list.add(new Clocking(1, new GregorianCalendar(), calc_minutes, 0, 0, 0));
+
+        setChanged();
+        notifyObservers();
     }
 
     public void clockbreak()
@@ -130,12 +123,12 @@ public class ClockingController extends Observable{
         notifyObservers();
     }
 
-    public void Edit(Calendar date, int hour_in, int hour_break, int hour_work, int hour_out,int id)
+    public void edit(Calendar date, int hour_in, int hour_break, int hour_work, int hour_out,int id)
     {
         ///sql.update(c)
     }
 
-    public void Delete(int id)
+    public void delete(int id)
     {
         ///sql.delete
     }

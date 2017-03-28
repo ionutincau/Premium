@@ -16,15 +16,6 @@ public class Clocking {
     private int hour_work; // number of minutes of day  - clock-in after break
     private int hour_out; // number of minutes of day - clock-out
 
-    public Clocking(int id, Calendar calendar, int hour_in) {
-        this.id = id;
-        this.calendar = calendar;
-        this.hour_in = hour_in;
-        this.hour_break = 0;
-        this.hour_work = 0;
-        this.hour_out = 0;
-    }
-
     public Clocking (int id, Calendar date, int hour_in, int hour_break, int hour_work, int hour_out) {
         this.id = id;
         this.calendar = date;
