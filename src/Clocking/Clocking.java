@@ -14,6 +14,7 @@ public class Clocking {
     private int hour_break; // number of minutes of day - clock-out for break
     private int hour_work; // number of minutes of day  - clock-in after break
     private int hour_out; // number of minutes of day - clock-out
+    private int id;
 
     public Clocking(Calendar calendar, int hour_in) {
         this.calendar = calendar;
@@ -23,12 +24,13 @@ public class Clocking {
         this.hour_out = 0;
     }
 
-    public Clocking (Calendar date, int hour_in, int hour_break, int hour_work, int hour_out) {
+    public Clocking (Calendar date, int hour_in, int hour_break, int hour_work, int hour_out,int id) {
         this.calendar = date;
         this.hour_in = hour_in;
         this.hour_break = hour_break;
         this.hour_work = hour_work;
         this.hour_out = hour_out;
+        this.id=id;
     }
 
     public Calendar get_date() {
@@ -71,6 +73,12 @@ public class Clocking {
         this.hour_out = hour_out;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     /**
      * @return number of worked minutes in a day
      */
