@@ -17,7 +17,7 @@ import java.util.Observer;
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingUI implements EventHandler<ActionEvent>,Observer{
+public class ClockingUI implements Observer{
 
     private ClockingController controller;
 
@@ -67,7 +67,6 @@ public class ClockingUI implements EventHandler<ActionEvent>,Observer{
             button_clockin = new Button("Clock In");
             button_clockin.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("Pas 1");
                     controller.clockin();
                 }
             });
@@ -79,13 +78,11 @@ public class ClockingUI implements EventHandler<ActionEvent>,Observer{
             topView.getChildren().addAll(button_clockbreak, button_clockout);
             button_clockbreak.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("Pas 2");
                     controller.clockbreak();
                 }
             });
             button_clockout.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("Pas 5");
                     controller.clockout();
                 }
             });
@@ -95,7 +92,6 @@ public class ClockingUI implements EventHandler<ActionEvent>,Observer{
             topView.getChildren().addAll(button_clockwork);
             button_clockwork.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("Pas 3");
                     controller.clockwork();
                 }
             });
@@ -105,37 +101,13 @@ public class ClockingUI implements EventHandler<ActionEvent>,Observer{
             topView.getChildren().addAll(button_clockout);
             button_clockout.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    System.out.println("Pas 2");
                     controller.clockout();
                 }
             });
         }
     }
-
-    @Override
-    public void handle(ActionEvent event) {
-        if (event.getSource() == button_clockin) {
-            System.out.println("Pas 1");
-            controller.clockin();
-        }
-        else if (event.getSource() == button_clockbreak) {
-            controller.clockbreak();
-        }
-        else if (event.getSource() == button_clockwork) {
-            controller.clockwork();
-        }
-        else {
-            controller.clockout();
-        }
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Up");
         topView.getChildren().clear();
         get_buttons();
         clockingView.getItems().clear();
