@@ -113,4 +113,8 @@ public class ClockingUI implements Observer{
         clockingView.getItems().clear();
         clockingView.getItems().addAll(0, controller.getClocking());
     }
+
+    public Scene getScene() {
+        return scene;
+    }
 }
