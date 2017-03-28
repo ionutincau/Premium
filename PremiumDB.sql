@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `departments` (
 CREATE TABLE IF NOT EXISTS `documents` (
   `id_document` int(11) NOT NULL,
   `id_employee` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL
   `date` date NOT NULL,
   `id_doctype` int(11) NOT NULL,
   `document_path` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
