@@ -1,5 +1,8 @@
 import Login.LoginController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -15,11 +18,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Premium");
 
-        LoginController loginController = new LoginController(primaryStage);
-        loginController.setLoginScene();
-        //primaryStage.show();
-        loginController.display();
+        Parent root = FXMLLoader.load(getClass().getResource("UI/adminUI.fxml"));
+        primaryStage.setTitle("Premium");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
     }
 }

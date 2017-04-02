@@ -1,8 +1,6 @@
 package Login;
 
-import Clocking.ClockingUI;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.sql.*;
 
 /**
  * Created by Incau Ionut on 14-Mar-17.
@@ -10,61 +8,75 @@ import javafx.stage.Stage;
  */
 
 public class LoginController {
-    private Stage primaryStage;
 
-    public LoginController(Stage stage) {
-        this.primaryStage = stage;
-        //TODO: first set loginUI, and, after user is logged in setLoginScene()
+    private Connection connection;
+    private Statement statement;
+    private ResultSet result;
 
-    }
+    private boolean authenticated;
+    private int jobId;
+    private int departamentId;
 
-    public void setLoginScene() {
-        // TODO: choose between user, hr, or admin stage
-
-        LoginUI loginUI = new LoginUI();
-        Scene loginScene = loginUI.getScene();
-        this.primaryStage.setScene(loginScene);
-        display();
-
-        /*
-        ClockingUI clockingUI = new ClockingUI();
-        Scene scene = clockingUI.getScene();
-        this.primaryStage.setLoginScene(scene);
-        */
-    }
-
-    public void setUserScene()
-    {
-        this.primaryStage.close();
-        ClockingUI clockingUI = new ClockingUI();
-        Scene clockingUIScene = clockingUI.getScene();
-        this.primaryStage.setScene(clockingUIScene);
-        display();
-    }
-
-    public void setHRScene()
-    {
+    public LoginController() {
+        connect();
 
     }
 
-    public void setAdminScene()
-    {
-
-    }
-
-    public void login(String username, String password)
-    {
-        //TODO replace code below after database is up
-        if (username.equals("admin") && password.equals("123456"))
-        {
-            this.setUserScene();
+    public void connect() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
+            statement = connection.createStatement();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
-    public void display()
+    public void Login(String username, String password)
     {
-        //TODO find a way to prevent opening a new window (update login window)
-        this.primaryStage.show();
+        try
+        {
+            String querry = "SELECT * FROM `employees` WHERE `username`='" + username + "' AND `password`='" + password + "'";
+            result = statement.executeQuery(querry);
+
+            if (result.next())
+            {
+                if (result.getInt("id_job") == 1 )
+                {
+                    // admin? logged in
+                    authenticated = true;
+
+                }
+                else if (result.getInt("id_job") == 2)
+                {
+                    // hr? logged in
+                    authenticated = true;
+
+                }
+                else if (result.getInt("id_job") == 3)
+                {
+                    // user? logged in
+                    authenticated = true;
+
+                }
+                else
+                {
+                    // invalid username/password
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public boolean isAuthenticated()
+    {
+        return authenticated;
     }
 
 }

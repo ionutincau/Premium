@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane id="tabPane" fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.UIController">
+  <tabs>
+    <Tab id="loginTab" fx:id="loginTab" text="Login">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="458.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField id="usernameField" fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="Username" />
+                        <PasswordField id="passwordField" fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="Password" />
+                        <Button id="loginButton" fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Login" prefHeight="25.0" prefWidth="100.0" text="Login" />
+                     </children>
+                     <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+      </content>
+    </Tab>
+      <Tab id="pontajTab" fx:id="pontajTab" text="Pontaj">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                           <children>
+                              <TextField id="numeAngajatPontajField" fx:id="numeAngajatPontajField" prefHeight="25.0" prefWidth="388.0" promptText="Nume angajat (ex: &quot;Georgescu Calin&quot;)" HBox.hgrow="ALWAYS" />
+                              <Button id="cautaPontajButton" mnemonicParsing="false" text="Cauta" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <TableView id="pontajTable" prefHeight="297.0" prefWidth="580.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="91.0" text="Data" />
+                            <TableColumn prefWidth="210.0" text="Ore" />
+                              <TableColumn minWidth="0.0" prefWidth="86.0" text="Timp" />
+                              <TableColumn prefWidth="178.0" text="Meniu" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="10.0" prefWidth="580.0" spacing="100.0">
+                           <children>
+                              <Button id="adaugaPontajButton" fx:id="adaugaPontajButton" mnemonicParsing="false" text="Adauga" />
+                              <Button id="editeazaPontajButton" fx:id="editeazaPontajButton" mnemonicParsing="false" text="Editeaza" />
+                              <Button id="stergePontajButton" fx:id="stergePontajButton" mnemonicParsing="false" text="Sterge" />
+                           </children>
+                        </HBox>
+                        <AnchorPane prefHeight="32.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label id="deLaLabel" text="De la: " />
+                                    <TextField id="deLaPontajField" />
+                                    <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
+                                    <TextField id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
+                                    <Button id="filtreazaButton" mnemonicParsing="false" text="Filtreaza" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab id="CereriTab" text="Cereri">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ListView id="cereriListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                           <children>
+                              <Label id="cereriAcceptateLabel" text="Acceptate: 3" />
+                              <Label id="cereriRespinseLabel" layoutX="296.0" layoutY="52.0" text="Respinse: 1" />
+                              <Label id="cereriInAsteptareLabel" layoutX="310.0" layoutY="52.0" text="In asteptare: 2" />
+                              <Label id="cereriTotalLabel" layoutX="324.0" layoutY="52.0" text="Total: 6" />
+                           </children>
+                           <padding>
+                              <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+         </content>
+      </Tab>
+      <Tab id="NotificariTab" text="Notificari">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane VBox.vgrow="ALWAYS">
+                           <children>
+                              <ListView id="notificariListView" prefHeight="278.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Button id="adaugaNotificareButton" contentDisplay="CENTER" mnemonicParsing="false" text="Adauga" HBox.hgrow="NEVER" />
+                                    <Button id="editeazaNotificareButton" contentDisplay="CENTER" layoutX="284.0" layoutY="48.0" mnemonicParsing="false" text="Editeaza" />
+                                    <Button id="stergeNotificareButton" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Sterge" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
