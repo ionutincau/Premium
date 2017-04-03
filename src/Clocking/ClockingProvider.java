@@ -31,6 +31,8 @@ public class ClockingProvider {
             statement = con.createStatement();
         }
         catch (Exception e) {
+            System.out.println("Database connection error");
+            System.out.println("Check internet connection");
             System.out.println(e);
             e.printStackTrace();
         }
