@@ -1,5 +1,7 @@
 package Login;
 
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 /**
@@ -16,6 +18,7 @@ public class LoginController {
     private boolean authenticated;
     private int jobId;
     private int departamentId;
+    private String userType;
 
     public LoginController() {
         connect();
@@ -41,30 +44,38 @@ public class LoginController {
             String querry = "SELECT * FROM `employees` WHERE `username`='" + username + "' AND `password`='" + password + "'";
             result = statement.executeQuery(querry);
 
+            // TODO get all employee details from query result
             if (result.next())
             {
-                if (result.getInt("id_job") == 1 )
+                if (result.getString("role").toLowerCase().equals("admin") )
                 {
-                    // admin? logged in
                     authenticated = true;
+                    this.userType = "admin";
 
                 }
-                else if (result.getInt("id_job") == 2)
+                else if (result.getString("role").toLowerCase().equals("hr") )
                 {
-                    // hr? logged in
                     authenticated = true;
+                    this.userType = "hr";
+
 
                 }
-                else if (result.getInt("id_job") == 3)
+                else if (result.getString("role").toLowerCase().equals("user") )
                 {
-                    // user? logged in
                     authenticated = true;
+                    this.userType = "user";
+
 
                 }
-                else
-                {
-                    // invalid username/password
-                }
+            }
+            else
+            {
+                // invalid username/password
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eroare");
+                alert.setHeaderText("Cont invalid!");
+                alert.setContentText("Username/parola gresite!");
+                alert.show();
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -77,6 +88,10 @@ public class LoginController {
     public boolean isAuthenticated()
     {
         return authenticated;
+    }
+    public String getUserType()
+    {
+        return this.userType;
     }
 
 }

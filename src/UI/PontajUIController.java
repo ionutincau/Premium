@@ -1,5 +1,6 @@
-package Clocking;
+package UI;
 
+import Clocking.ClockingController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ import java.util.Observer;
  * Created by MariusDK on 13.03.2017.
  */
 
-public class ClockingUI implements Observer{
+public class PontajUIController implements Observer{
 
     private ClockingController controller;
 
@@ -32,7 +33,7 @@ public class ClockingUI implements Observer{
     Button button_clockwork;
     Button button_clockout;
 
-    public ClockingUI() {
+    public PontajUIController() {
         this.controller = new ClockingController();
         this.controller.addObserver(this);
 

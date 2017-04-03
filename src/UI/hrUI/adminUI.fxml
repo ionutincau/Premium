@@ -33,31 +33,16 @@
                      <children>
                         <HBox prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                            <children>
-                              <TextField id="numeAngajatPontajField" fx:id="numeAngajatPontajField" prefHeight="25.0" prefWidth="388.0" promptText="Nume angajat (ex: &quot;Georgescu Calin&quot;)" HBox.hgrow="ALWAYS" />
-                              <Button id="cautaPontajButton" mnemonicParsing="false" text="Cauta" />
+                              <Button id="clockInButton" fx:id="clockInButton" mnemonicParsing="false" text="Clock In" />
+                              <Button id="clockBreakButton" fx:id="clockBreakButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Clock Break" />
+                              <Button id="clockWorkButton" fx:id="clockWorkButton" layoutX="99.0" layoutY="20.0" mnemonicParsing="false" text="Clock Work" />
+                              <Button id="clockOutButton" fx:id="clockOutButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Clock Out" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </HBox>
-                        <TableView id="pontajTable" prefHeight="297.0" prefWidth="580.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                            <TableColumn prefWidth="91.0" text="Data" />
-                            <TableColumn prefWidth="210.0" text="Ore" />
-                              <TableColumn minWidth="0.0" prefWidth="86.0" text="Timp" />
-                              <TableColumn prefWidth="178.0" text="Meniu" />
-                          </columns>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="10.0" prefWidth="580.0" spacing="100.0">
-                           <children>
-                              <Button id="adaugaPontajButton" fx:id="adaugaPontajButton" mnemonicParsing="false" text="Adauga" />
-                              <Button id="editeazaPontajButton" fx:id="editeazaPontajButton" mnemonicParsing="false" text="Editeaza" />
-                              <Button id="stergePontajButton" fx:id="stergePontajButton" mnemonicParsing="false" text="Sterge" />
-                           </children>
-                        </HBox>
+                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                         <AnchorPane prefHeight="32.0" prefWidth="600.0" VBox.vgrow="NEVER">
                            <children>
                               <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -83,24 +68,31 @@
                <children>
                   <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView id="cereriListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                        <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label id="cereriAcceptateLabel" text="Acceptate: 3" />
-                              <Label id="cereriRespinseLabel" layoutX="296.0" layoutY="52.0" text="Respinse: 1" />
-                              <Label id="cereriInAsteptareLabel" layoutX="310.0" layoutY="52.0" text="In asteptare: 2" />
-                              <Label id="cereriTotalLabel" layoutX="324.0" layoutY="52.0" text="Total: 6" />
+                              <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <Label text="Creeaza cerere de" />
+                              <ChoiceBox prefWidth="150.0" />
+                              <Button mnemonicParsing="false" text="Creeaza" />
+                              <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Label id="cereriAcceptateLabel" text="Acceptate: 3" />
+                                    <Label id="cereriRespinseLabel" layoutX="296.0" layoutY="52.0" text="Respinse: 1" />
+                                    <Label id="cereriInAsteptareLabel" layoutX="310.0" layoutY="52.0" text="In asteptare: 2" />
+                                    <Label id="cereriTotalLabel" layoutX="324.0" layoutY="52.0" text="Total: 6" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
+                                 </padding>
+                              </HBox>
                            </children>
-                           <padding>
-                              <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
-                           </padding>
-                        </HBox>
+                        </VBox>
                      </children>
                   </VBox>
                </children></AnchorPane>
          </content>
       </Tab>
-      <Tab id="NotificariTab" text="Notificari">
+      <Tab id="NotificariTab" fx:id="notificariTab" text="Notificari">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -109,20 +101,6 @@
                         <AnchorPane VBox.vgrow="ALWAYS">
                            <children>
                               <ListView id="notificariListView" prefHeight="278.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <children>
-                                    <Button id="adaugaNotificareButton" contentDisplay="CENTER" mnemonicParsing="false" text="Adauga" HBox.hgrow="NEVER" />
-                                    <Button id="editeazaNotificareButton" contentDisplay="CENTER" layoutX="284.0" layoutY="48.0" mnemonicParsing="false" text="Editeaza" />
-                                    <Button id="stergeNotificareButton" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Sterge" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </padding>
-                              </HBox>
                            </children>
                         </AnchorPane>
                      </children>
