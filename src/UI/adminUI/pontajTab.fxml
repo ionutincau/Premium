@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Tab id="pontajTab" fx:id="pontajTab" text="Pontaj" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.adminUI.ClockingUIController">
+    <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+           <children>
+              <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                 <children>
+                    <HBox prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                       <children>
+                          <TextField id="numeAngajatPontajField" fx:id="numeAngajatPontajField" prefHeight="25.0" prefWidth="388.0" promptText="Nume angajat (ex: &quot;Georgescu Calin&quot;)" HBox.hgrow="ALWAYS" />
+                          <Button id="cautaPontajButton" fx:id="cautaPontajButton" mnemonicParsing="false" text="Cauta" />
+                       </children>
+                       <padding>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                       </padding>
+                    </HBox>
+                    <TableView id="pontajTable" fx:id="pontajTable" prefHeight="297.0" prefWidth="580.0" VBox.vgrow="ALWAYS">
+                      <columns>
+                        <TableColumn prefWidth="91.0" text="Data" fx:id="dataColumn" />
+                        <TableColumn prefWidth="210.0" text="Ore" />
+                          <TableColumn minWidth="0.0" prefWidth="86.0" text="Timp" fx:id="timeColumn" />
+                          <TableColumn prefWidth="178.0" text="Meniu" fx:id="menuColumn"/>
+                      </columns>
+                       <VBox.margin>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                       </VBox.margin>
+                    </TableView>
+                    <HBox alignment="CENTER" prefHeight="10.0" prefWidth="580.0" spacing="100.0">
+                       <children>
+                          <Button id="adaugaPontajButton" fx:id="adaugaPontajButton" mnemonicParsing="false" text="Adauga" />
+                          <Button id="editeazaPontajButton" fx:id="editeazaPontajButton" mnemonicParsing="false" text="Editeaza" />
+                          <Button id="stergePontajButton" fx:id="stergePontajButton" mnemonicParsing="false" text="Sterge" />
+                       </children>
+                    </HBox>
+                    <AnchorPane prefHeight="32.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                       <children>
+                          <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                             <children>
+                                <Label id="deLaLabel" text="De la: " />
+                                <TextField id="deLaPontajField" fx:id="deLaPontajField" />
+                                <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
+                                <TextField id="panaLaPontajField" fx:id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
+                                <Button id="filtreazaButton" fx:id="filtreazaButton" mnemonicParsing="false" text="Filtreaza" />
+                             </children>
+                          </HBox>
+                       </children>
+                    </AnchorPane>
+                 </children>
+              </VBox>
+           </children>
+        </AnchorPane>
+    </content>
+  </Tab>
