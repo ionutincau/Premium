@@ -23,7 +23,6 @@
 hs_err_pid*
 
 # ignore all files in .idea folder
-.idea/
+
 
 # ignore build files
-out/

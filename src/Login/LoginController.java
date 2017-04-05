@@ -32,8 +32,8 @@ public class LoginController {
             statement = connection.createStatement();
         }
         catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
+            System.out.println("Connection with database failed");
+            System.out.println("Check internet connection!");
         }
     }
 
