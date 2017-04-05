@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Tab id="notificariTab" fx:id="notificariTab" text="Notificari" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.adminUI.AlertsUIController">
+   <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <children>
+                        <ListView id="notificariListView" fx:id="notificariListView" prefHeight="278.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button id="adaugaNotificareButton" fx:id="adaugaNotificareButton" contentDisplay="CENTER" mnemonicParsing="false" text="Adauga" HBox.hgrow="NEVER" />
+                              <Button id="editeazaNotificareButton" fx:id="editeazaNotificareButton" contentDisplay="CENTER" layoutX="284.0" layoutY="48.0" mnemonicParsing="false" text="Editeaza" />
+                              <Button id="stergeNotificareButton" fx:id="stergeNotificareButton" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Sterge" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</Tab>
