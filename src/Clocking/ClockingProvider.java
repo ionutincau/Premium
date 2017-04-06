@@ -61,5 +61,46 @@ public class ClockingProvider {
         }
         return list;
     }
+    public void insertClocking(Clocking c,int id_employee) {
+
+        try {
+            String querry = "INSERT INTO `clockings`(`id_employee`,`date`,`hour_in`,`hour_out`,`hour_break`,`hour_work`) VALUES (" + id_employee + "," + c.get_date() + "," + c.get_hour_in() + "," + c.get_hour_out() + "," + c.get_hour_break() + "," + c.get_hour_work() + ")";
+            statement.executeUpdate(querry);
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+
+        }
+    }
+
+
+    public void updateClocking(int id_employee,Calendar date,int hour_in,int hour_out,int hour_break,int hour_work)
+    {
+
+        try {
+            String querry = "UPDATE `clockings` SET `date`="+date+",`hour_in`="+hour_in+",`hour_out`="+hour_out+",`hour_break`="+hour_break+",`hour_work`="+hour_work+" WHERE `id_employee`="+id_employee+";";
+            statement.executeUpdate(querry);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+
+        }
+    }
+
+
+    public void deleteClocking(int id_clocking)
+    {
+
+        try {
+            String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+id_clocking+";";
+            statement.executeUpdate(querry);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+
+        }
+    }
 
 }
