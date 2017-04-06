@@ -30,7 +30,7 @@
                               <TextField id="deLaPontajField" fx:id="deLaPontajField"/>
                               <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
                               <TextField id="panaLaPontajField" fx:id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
-                              <Button id="filtreazaButton" fx:id="filtreazaButton" mnemonicParsing="false" text="Filtreaza" />
+                              <Button id="filtreazaButton" fx:id="filtreazaButton" onAction="#handleButtonAction" mnemonicParsing="false" text="Filtreaza" />
                            </children>
                         </HBox>
                      </children>
