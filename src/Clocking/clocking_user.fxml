@@ -10,7 +10,7 @@
          <children>
             <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                  <HBox id="topView" fx:id="topView" prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                      <children>
                         <Button id="clockInButton" fx:id="clockInButton" mnemonicParsing="false" text="Clock In" />
                         <Button id="clockBreakButton" fx:id="clockBreakButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Clock Break" />
