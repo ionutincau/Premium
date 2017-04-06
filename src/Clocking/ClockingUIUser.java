@@ -5,10 +5,9 @@ import Clocking.ClockingController;
 /**
  * Created by Aurelian on 4/3/2017.
  */
+public class ClockingUIUser {
 
-public class ClockingUIAdmin {
-
-    public ClockingUIAdmin() {
+    public ClockingUIUser() {
         //ClockingController clockingController = new ClockingController();
 
     }

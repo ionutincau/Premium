@@ -1,4 +1,3 @@
-import Login.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,11 +17,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("UI/loginPane.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login/login.fxml"));
         primaryStage.setTitle("Premium");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 }

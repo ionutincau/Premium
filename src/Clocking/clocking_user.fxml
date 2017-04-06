@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Tab id="clocking_user" fx:id="clocking_user" text="Pontaj" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Clocking.ClockingUIUser">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button id="clockInButton" fx:id="clockInButton" mnemonicParsing="false" text="Clock In" />
+                        <Button id="clockBreakButton" fx:id="clockBreakButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Clock Break" />
+                        <Button id="clockWorkButton" fx:id="clockWorkButton" layoutX="99.0" layoutY="20.0" mnemonicParsing="false" text="Clock Work" />
+                        <Button id="clockOutButton" fx:id="clockOutButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Clock Out" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <ListView id="pontajListView" fx:id="pontajListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <AnchorPane prefHeight="32.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label id="deLaLabel" text="De la: " />
+                              <TextField id="deLaPontajField" fx:id="deLaPontajField"/>
+                              <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
+                              <TextField id="panaLaPontajField" fx:id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
+                              <Button id="filtreazaButton" fx:id="filtreazaButton" mnemonicParsing="false" text="Filtreaza" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+  </content>
+</Tab>
