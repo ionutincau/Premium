@@ -26,7 +26,6 @@ public class ClockingProvider {
 
     public void connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
             con = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
             statement = con.createStatement();

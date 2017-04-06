@@ -27,7 +27,6 @@ public class LoginController {
 
     public void connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
             statement = connection.createStatement();
         }
