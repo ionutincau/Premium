@@ -59,10 +59,10 @@ public class DocumentsProvider {
         }
         return list;
     }
-
+    //insereaza document nou dupa id_employee
     public void insertDocument(Document d,int id_employee){
         try {
-            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`hour_in`,`hour_out`,`hour_break`,`hour_work`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc_path() + ");";
+            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document_path`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc_path() + ");";
             statement.executeUpdate(querry);
         } catch (Exception e) {
             System.out.println(e);
@@ -70,7 +70,9 @@ public class DocumentsProvider {
 
         }
     }
-    public void updateClocking(Document d,int id_employee)
+
+    //actualizeaza Documentul dupa id_employee
+    public void updateDocument(Document d,int id_employee)
     {
 
         try {
