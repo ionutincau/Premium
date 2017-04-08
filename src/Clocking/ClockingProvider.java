@@ -74,11 +74,11 @@ public class ClockingProvider {
     }
 
 
-    public void updateClocking(int id_employee,Calendar date,int hour_in,int hour_out,int hour_break,int hour_work)
+    public void updateClocking(Clocking c,int id_employee)
     {
 
         try {
-            String querry = "UPDATE `clockings` SET `date`="+date+",`hour_in`="+hour_in+",`hour_out`="+hour_out+",`hour_break`="+hour_break+",`hour_work`="+hour_work+" WHERE `id_employee`="+id_employee+";";
+            String querry = "UPDATE `clockings` SET `date`="+c.get_date()+",`hour_in`="+c.get_hour_in()+",`hour_out`="+c.get_hour_out()+",`hour_break`="+c.get_hour_break()+",`hour_work`="+c.get_hour_work()+" WHERE `id_employee`="+id_employee+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
@@ -89,11 +89,11 @@ public class ClockingProvider {
     }
 
 
-    public void deleteClocking(int id_clocking)
+    public void deleteClocking (Clocking c)
     {
 
         try {
-            String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+id_clocking+";";
+            String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+c.getId()+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
