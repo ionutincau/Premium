@@ -37,7 +37,7 @@ public class ClockingProvider {
         }
     }
 
-    public ArrayList getClocking(int id_employee) {
+    public ArrayList getClockings(int id_employee) {
         ArrayList<Clocking> list = new ArrayList<Clocking>();
         try {
             String querry = "SELECT * FROM `clockings` WHERE `id_employee`=" + id_employee;

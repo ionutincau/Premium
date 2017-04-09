@@ -1,6 +1,4 @@
-package Documents;
-
-
+package Departments;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,17 +10,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by ASUS on 08.Apr.2017.
+ * Created by ASUS on 09.Apr.2017.
  */
-public class DocumentsProvider {
+public class DepartmentsProvider {
     private Connection con;
     private Statement statement;
     private ResultSet result;
 
-    public DocumentsProvider() {
+    public DepartmentsProvider() {
         connect();
     }
-
     public void connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -36,21 +33,18 @@ public class DocumentsProvider {
         }
     }
 
-    public ArrayList getDocuments(int id_employee) {
-        ArrayList<Document> list = new ArrayList<Document>();
+    public ArrayList getDepartments() {
+        ArrayList<Department> list = new ArrayList<Department>();
         try {
-            String querry = "SELECT * FROM `documents` WHERE `id_employee`=" + id_employee;
+            String querry = "SELECT * FROM `departments` ;";
             result = statement.executeQuery(querry);
             while (result.next()) {
-                int id_document = result.getInt("id_document");
+                int id_department = result.getInt("id_department");
                 String name=result.getString("name");
-                Date date = result.getDate("date");
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(date);
-                int id_doctype = result.getInt("id_doctype");
-                String doc_path= result.getString("document_path");
-                Document doc = new Document(id_document, name,cal,id_doctype,doc_path);
-                list.add(0, doc);
+                int id_manager = result.getInt("id_manager");
+
+                Department department = new Department(id_department,name,id_manager);
+                list.add(0, department);
             }
         }
         catch (Exception e) {
@@ -59,24 +53,22 @@ public class DocumentsProvider {
         }
         return list;
     }
-    //insereaza document nou dupa id_employee
-    public void insertDocument(Document d,int id_employee){
+
+    public void insertDepartment(Department d) {
+
         try {
-            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document_path`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc_path() + ");";
+            String querry = "INSERT INTO `departments`(`name`,`id_manager`) VALUES (" + d.getName() + "," + d.getId_manager() + ")";
             statement.executeUpdate(querry);
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
 
         }
+
     }
-
-    //actualizeaza Documentul dupa id_employee
-    public void updateDocument(Document d,int id_employee)
-    {
-
+    public void updateDepartment(Department d) {
         try {
-            String querry = "UPDATE `documents` SET `name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document_path`="+d.getDoc_path()+" WHERE `id_employee`="+id_employee+";";
+            String querry = "UPDATE `departments` SET `name`="+d.getName()+",`id_manager`="+d.getId_manager()+" WHERE `id_department`="+d.getId()+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
@@ -85,15 +77,15 @@ public class DocumentsProvider {
 
         }
     }
-    public void deleteDocument(Document d)
-    {
+    public void deleteDepartment(Department d){
         try {
-            String querry="DELETE FROM `documents` WRITE `id_document`="+d.getId()+";";
+            String querry = "DELETE FROM `departments` WHERE `id_departmenr`="+d.getId()+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
-            System.out.print(e);
+            System.out.println(e);
             e.printStackTrace();
+
         }
     }
 }
