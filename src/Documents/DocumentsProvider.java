@@ -1,4 +1,6 @@
-package Clocking;
+package Documents;
+
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,22 +12,20 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Incau Ionut on 14-Mar-17.
- * Contact: ionut.incau@gmail.com
+ * Created by ASUS on 08.Apr.2017.
  */
-
-public class ClockingProvider {
-
+public class DocumentsProvider {
     private Connection con;
     private Statement statement;
     private ResultSet result;
 
-    public ClockingProvider() {
+    public DocumentsProvider() {
         connect();
     }
 
     public void connect() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
             con = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
             statement = con.createStatement();
@@ -36,22 +36,21 @@ public class ClockingProvider {
         }
     }
 
-    public ArrayList getClockings(int id_employee) {
-        ArrayList<Clocking> list = new ArrayList<Clocking>();
+    public ArrayList getDocuments(int id_employee) {
+        ArrayList<Document> list = new ArrayList<Document>();
         try {
-            String querry = "SELECT * FROM `clockings` WHERE `id_employee`=" + id_employee;
+            String querry = "SELECT * FROM `documents` WHERE `id_employee`=" + id_employee;
             result = statement.executeQuery(querry);
             while (result.next()) {
-                int id = result.getInt("id_clocking");
+                int id_document = result.getInt("id_document");
+                String name=result.getString("name");
                 Date date = result.getDate("date");
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(date);
-                int hour_in = result.getInt("hour_in");
-                int hour_break = result.getInt("hour_break");
-                int hour_work = result.getInt("hour_work");
-                int hour_out = result.getInt("hour_out");
-                Clocking clocking = new Clocking(id, cal, hour_in, hour_break, hour_work, hour_out);
-                list.add(0, clocking);
+                int id_doctype = result.getInt("id_doctype");
+                String doc_path= result.getString("document_path");
+                Document doc = new Document(id_document, name,cal,id_doctype,doc_path);
+                list.add(0, doc);
             }
         }
         catch (Exception e) {
@@ -60,10 +59,10 @@ public class ClockingProvider {
         }
         return list;
     }
-    public void insertClocking(Clocking c,int id_employee) {
-
+    //insereaza document nou dupa id_employee
+    public void insertDocument(Document d,int id_employee){
         try {
-            String querry = "INSERT INTO `clockings`(`id_employee`,`date`,`hour_in`,`hour_out`,`hour_break`,`hour_work`) VALUES (" + id_employee + "," + c.get_date() + "," + c.get_hour_in() + "," + c.get_hour_out() + "," + c.get_hour_break() + "," + c.get_hour_work() + ")";
+            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document_path`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc_path() + ");";
             statement.executeUpdate(querry);
         } catch (Exception e) {
             System.out.println(e);
@@ -72,12 +71,12 @@ public class ClockingProvider {
         }
     }
 
-
-    public void updateClocking(Clocking c,int id_employee)
+    //actualizeaza Documentul dupa id_employee
+    public void updateDocument(Document d,int id_employee)
     {
 
         try {
-            String querry = "UPDATE `clockings` SET `date`="+c.get_date()+",`hour_in`="+c.get_hour_in()+",`hour_out`="+c.get_hour_out()+",`hour_break`="+c.get_hour_break()+",`hour_work`="+c.get_hour_work()+" WHERE `id_employee`="+id_employee+";";
+            String querry = "UPDATE `documents` SET `name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document_path`="+d.getDoc_path()+" WHERE `id_employee`="+id_employee+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
@@ -86,20 +85,15 @@ public class ClockingProvider {
 
         }
     }
-
-
-    public void deleteClocking (Clocking c)
+    public void deleteDocument(Document d)
     {
-
         try {
-            String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+c.getId()+";";
+            String querry="DELETE FROM `documents` WRITE `id_document`="+d.getId()+";";
             statement.executeUpdate(querry);
         }
         catch(Exception e){
-            System.out.println(e);
+            System.out.print(e);
             e.printStackTrace();
-
         }
     }
-
 }
