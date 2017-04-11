@@ -24,7 +24,7 @@ public class loginUI {
     private LoginController loginController;
 
     public loginUI() {
-        loginController = new LoginController();
+        loginController = LoginController.getInstance();
     }
 
     public void login() {
@@ -60,7 +60,7 @@ public class loginUI {
             tabPane.getTabs().add(notificari);
         }
         catch (IOException ex) {
-            ex.printStackTrace();
+            showInfo("Application can't manage usertype " + usertype);
         }
     }
 
