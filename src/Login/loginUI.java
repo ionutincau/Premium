@@ -1,13 +1,11 @@
 package Login;
 
+import Employees.Employee;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 
@@ -18,71 +16,59 @@ import java.io.IOException;
 
 public class loginUI {
 
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private TabPane tabPane;
-    @FXML
-    private Tab loginTab;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private TabPane tabPane;
+    @FXML private Tab loginTab;
 
     private LoginController loginController;
 
-    public loginUI()
-    {
+    public loginUI() {
         loginController = new LoginController();
-
     }
 
-    public void Login() {
-        loginController.Login(usernameField.getText(), passwordField.getText());
-
-        if (loginController.isAuthenticated()) {
-
+    public void login() {
+        try {
+            loginController.login(usernameField.getText(), passwordField.getText());
+        }
+        catch (Exception e) {
+            showInfo(e.getMessage());
+            if (e.getMessage().equals("Wrong password!")) {
+                passwordField.setText("");
+            }
+            else {
+                usernameField.setText("");
+                passwordField.setText("");
+            }
+        }
+        Employee user = loginController.getUser();
+        if (user != null) {
             closeTab(loginTab);
-
-            String usertype = loginController.getUserType().toLowerCase();
-
-            switch (usertype)
-            {
-                case "admin":
-                {
-                    usertype = "admin";
-                    break;
-                }
-                case "hr":
-                {
-                    usertype = "hr";
-                    break;
-                }
-                default:
-                {
-                    usertype = "user";
-                }
-            }
-
-            try {
-                Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
-                tabPane.getTabs().add(pontaj);
-
-                Tab cereri = FXMLLoader.load(this.getClass().getResource("../Requests/requests_" + usertype + ".fxml"));
-                tabPane.getTabs().add(cereri);
-
-                Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
-                tabPane.getTabs().add(notificari);
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            addTabs(user.getRole());
         }
     }
 
+    public void addTabs(String usertype) {
+        try {
+            Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
+            tabPane.getTabs().add(pontaj);
 
+            Tab cereri = FXMLLoader.load(this.getClass().getResource("../Requests/requests_" + usertype + ".fxml"));
+            tabPane.getTabs().add(cereri);
 
-    public void initialize() {
-        //TODO adaugare tipuri cerere in dropdown
+            Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
+            tabPane.getTabs().add(notificari);
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    private void showInfo(String info) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(info);
+        alert.show();
     }
 
     private void closeTab(Tab tab) {

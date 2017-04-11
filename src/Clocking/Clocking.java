@@ -97,9 +97,15 @@ public class Clocking {
 
     @Override
     public String toString() {
-        String date = calendar.get(Calendar.DAY_OF_MONTH) + "." +
-                calendar.get(Calendar.MONTH) + "." +
-                calendar.get(Calendar.YEAR);
+        int d = calendar.get(Calendar.DAY_OF_MONTH);
+        int m = calendar.get(Calendar.MONTH);
+        String day;
+        String month;
+        if (d < 10) day = "0" + d;
+        else day = "" + d;
+        if (m < 10) month = "0" + m;
+        else month = "" + d;
+        String date = day + "." + month + "." + calendar.get(Calendar.YEAR);
         String hours = get_time_format(hour_in) + " - " +
                 get_time_format(hour_break) + " - " +
                 get_time_format(hour_work) + " - " +

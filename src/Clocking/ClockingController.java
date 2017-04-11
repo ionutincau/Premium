@@ -20,7 +20,7 @@ public class ClockingController extends Observable {
 
     public ArrayList getClocking() {
         //TODO: send id_angajat
-        return provider.getClocking(1);
+        return provider.getClockings(1);
     }
 
     public int get_status()

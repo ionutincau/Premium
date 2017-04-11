@@ -1,8 +1,10 @@
 package Employees;
 
 /**
- * Created by ASUS on 09.Apr.2017.
+ * Created by Incau Ionut on 14-Mar-17.
+ * Contact: ionut.incau@gmail.com
  */
+
 public class Employee {
     private int id_employee;
     private String last_name;
@@ -11,12 +13,12 @@ public class Employee {
     private String password;
     private String cnp;
     private int id_job;
-    private int id_departament;
+    private int id_department;
     private String email;
     private String phone;
     private String role;
 
-    public Employee(int id_employee,String last_name,String first_name,String username,String password,String cnp,int id_job,int id_departament,String email,String phone,String role){
+    public Employee(int id_employee,String last_name,String first_name,String username,String password,String cnp,int id_job,int id_department,String email,String phone,String role){
         this.id_employee=id_employee;
         this.last_name=last_name;
         this.first_name=first_name;
@@ -24,7 +26,7 @@ public class Employee {
         this.password=password;
         this.cnp=cnp;
         this.id_job=id_job;
-        this.id_departament=id_departament;
+        this.id_department=id_department;
         this.email=email;
         this.phone=phone;
         this.role=role;
@@ -37,7 +39,7 @@ public class Employee {
     public String getPassword(){ return this.password;}
     public String getCnp(){ return this.cnp; }
     public int getId_job(){ return this.id_job; }
-    public int getId_departament(){ return this.id_departament; }
+    public int getId_department(){ return this.id_department; }
     public String getEmail(){ return this.email; }
     public String getPhone(){ return this.phone; }
     public String getRole(){ return this.role; }
@@ -49,11 +51,8 @@ public class Employee {
     public void setPassword(String password){this.password=password;}
     public void setCnp(String cnp){this.cnp=cnp;}
     public void setId_job(int id_job){this.id_job=id_job;}
-    public void setId_departament(int id_departament){this.id_departament=id_departament;}
+    public void setId_departament(int id_department){this.id_department=id_department;}
     public void setEmail(String email){this.email=email;}
     public void setPhone(String phone){this.phone=phone;}
     public void setRole(String role){this.role=role;}
-
-
-
 }
