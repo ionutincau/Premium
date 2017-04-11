@@ -1,5 +1,7 @@
 package Clocking;
 
+import Login.LoginController;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,13 +21,12 @@ public class ClockingController extends Observable {
     }
 
     public ArrayList getClocking() {
-        //TODO: send id_angajat
-        return provider.getClockings(1);
+        LoginController loginController = new LoginController();
+        return provider.getClockings(loginController.getUser().getId());
     }
 
     public int get_status()
     {
-        //list.add(new Clocking(new GregorianCalendar(), 0));
         Calendar now = Calendar.getInstance();
         if (list.size() == 0) {
             return 1;

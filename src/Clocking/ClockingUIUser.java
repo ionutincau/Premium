@@ -44,7 +44,7 @@ public class ClockingUIUser implements Initializable, Observer {
         clockInButton.setOnAction(e -> controller.clockin());
         clockBreakButton.setOnAction(e -> controller.clockbreak());
         clockWorkButton.setOnAction(e -> controller.clockwork());
-        clockOutButton.setOnAction(e -> controller.clockbreak());
+        clockOutButton.setOnAction(e -> controller.clockout());
 
         int status = controller.get_status();
         if (status == 0){

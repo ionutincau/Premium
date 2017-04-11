@@ -106,11 +106,11 @@ public class Clocking {
         if (m < 10) month = "0" + m;
         else month = "" + d;
         String date = day + "." + month + "." + calendar.get(Calendar.YEAR);
-        String hours = get_time_format(hour_in) + " - " +
-                get_time_format(hour_break) + " - " +
-                get_time_format(hour_work) + " - " +
+        String hours = get_time_format(hour_in) + "  -  " +
+                get_time_format(hour_break) + "  -  " +
+                get_time_format(hour_work) + "  -  " +
                 get_time_format(hour_out);
         String time = get_time_format(get_time());
-        return "          " + date + "                    " + hours + "                    " + time;
+        return "          " + date + "                              " + hours + "                              " + time;
     }
 }
