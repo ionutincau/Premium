@@ -21,8 +21,7 @@ public class ClockingController extends Observable {
     }
 
     public ArrayList getClocking() {
-        LoginController loginController = new LoginController();
-        return provider.getClockings(loginController.getUser().getId());
+        return provider.getClockings(LoginController.getInstance().getUser().getId());
     }
 
     public int get_status()

@@ -10,11 +10,19 @@ import Employees.EmployeesProvider;
 
 public class LoginController {
 
+    private static LoginController instance;
     private EmployeesProvider provider;
     private Employee user;
 
-    public LoginController() {
+    private LoginController() {
         provider = new EmployeesProvider();
+    }
+
+    public static LoginController getInstance() {
+        if (instance == null){
+            instance = new LoginController();
+        }
+        return instance;
     }
 
     public void login (String username, String password) throws Exception {
