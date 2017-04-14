@@ -12,7 +12,7 @@
                <children>
                   <HBox id="topView" fx:id="topView" prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                      <children>
-                        <Button id="clockInButton" fx:id="clockInButton" mnemonicParsing="false" text="Clock In" />
+                        <Button id="clockInButton" fx:id="clockInButton"  mnemonicParsing="false" text="Clock In" />
                         <Button id="clockBreakButton" fx:id="clockBreakButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Clock Break" />
                         <Button id="clockWorkButton" fx:id="clockWorkButton" layoutX="99.0" layoutY="20.0" mnemonicParsing="false" text="Clock Work" />
                         <Button id="clockOutButton" fx:id="clockOutButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Clock Out" />
@@ -30,7 +30,7 @@
                               <TextField id="deLaPontajField" fx:id="deLaPontajField"/>
                               <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
                               <TextField id="panaLaPontajField" fx:id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
-                              <Button id="filtreazaButton" fx:id="filtreazaButton" onAction="#handleButtonAction" mnemonicParsing="false" text="Filtreaza" />
+                              <Button id="filtreazaButton" fx:id="filtreazaButton"  mnemonicParsing="false" text="Filtreaza" />
                            </children>
                         </HBox>
                      </children>
