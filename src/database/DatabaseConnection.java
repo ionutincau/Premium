@@ -15,7 +15,7 @@ public class DatabaseConnection {
 
     private DatabaseConnection() {
         try {
-            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
             connection = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
         }
         catch (Exception e) {

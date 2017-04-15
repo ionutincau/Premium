@@ -1,14 +1,19 @@
 package Clocking;
 
-import Clocking.ClockingController;
+import Login.LoginController;
+import Utils.UIAlerts;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -17,24 +22,24 @@ import java.util.ResourceBundle;
  * Created by Aurelian on 4/3/2017.
  */
 
-public class ClockingUIAdmin implements Initializable,Observer{
-
+public class ClockingUIAdmin implements Initializable, Observer{
 
     private ClockingController controller;
 
     @FXML private ListView pontajListView;
-    @FXML private TextField numeAngajatPontajField;
-    @FXML private Button cautaPontajButton;
     @FXML private Button adaugaPontajButton;
     @FXML private Button editeazaPontajButton;
     @FXML private Button stergePontajButton;
     @FXML private TextField deLaPontajField;
     @FXML private TextField panaLaPontajField;
     @FXML private Button filtreazaButton;
+
     public ClockingUIAdmin() {
         this.controller = new ClockingController();
         this.controller.addObserver(this);
+        LoginController.getInstance().addObserver(this);
     }
+
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         pontajListView.setFixedCellSize(48);
@@ -43,34 +48,54 @@ public class ClockingUIAdmin implements Initializable,Observer{
     }
 
     private void get_buttons() {
-
-        filtreazaButton.setVisible(true);
+        adaugaPontajButton.setOnAction(e-> adaugare());
+        editeazaPontajButton.setOnAction(e-> editare());
+        stergePontajButton.setOnAction(e-> stergere());
         filtreazaButton.setOnAction(e -> filtrare());
-        cautaPontajButton.setVisible(true);
-        cautaPontajButton.setOnAction(e -> cautareDupaNume());
-        stergePontajButton.setOnAction(e->stergere());
     }
-    public void cautareDupaNume()
-    {
-        pontajListView.getItems().clear();
-        pontajListView.getItems().addAll(0, controller.searchByName(numeAngajatPontajField.getText()));
+
+    public void adaugare() {
+        loadWindow("Adauga", null);
     }
-    public void filtrare()
-    {
+
+    public void editare() {
+        pontajListView.getSelectionModel().getSelectedIndex();
+        Clocking clocking = (Clocking) pontajListView.getSelectionModel().getSelectedItem();
+        if (clocking != null) loadWindow("Editeaza", clocking);
+        else UIAlerts.showInfo("Selectati un pontaj");
+    }
+
+    public void stergere() {
+        pontajListView.getSelectionModel().getSelectedIndex();
+        Clocking clocking = (Clocking) pontajListView.getSelectionModel().getSelectedItem();
+        if (clocking != null) controller.delete(clocking);
+        else UIAlerts.showInfo("Selectati un pontaj");
+    }
+
+    public void filtrare() {
         pontajListView.getItems().clear();
         pontajListView.getItems().addAll(0, controller.search(deLaPontajField.getText(),panaLaPontajField.getText()));
     }
-    public void stergere()
-    {
 
-        pontajListView.getSelectionModel().getSelectedIndex();
-        Clocking c=(Clocking) pontajListView.getSelectionModel().getSelectedItem();
-        controller.delete(c);
-    }
     @Override
     public void update(Observable o, Object arg) {
-        get_buttons();
         pontajListView.getItems().clear();
         pontajListView.getItems().addAll(0, controller.getClocking());
+    }
+
+    private void loadWindow(String name, Clocking clocking) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("clocking_edit.fxml"));
+            AnchorPane root = loader.load();
+            ClockingUIEdit editController = loader.<ClockingUIEdit>getController();
+            editController.initData(name, clocking, controller);
+            Stage stage = new Stage();
+            stage.setTitle(name);
+            stage.setScene(new Scene(root, 300, 250));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

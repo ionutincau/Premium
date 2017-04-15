@@ -1,6 +1,7 @@
 package Login;
 
 import Employees.Employee;
+import Utils.UIAlerts;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,8 +33,8 @@ public class loginUI {
             loginController.login(usernameField.getText(), passwordField.getText());
         }
         catch (Exception e) {
-            showInfo(e.getMessage());
-            if (e.getMessage().equals("Wrong password!")) {
+            UIAlerts.showInfo(e.getMessage());
+            if (e.getMessage().equals("Parola incorecta!")) {
                 passwordField.setText("");
             }
             else {
@@ -41,7 +42,7 @@ public class loginUI {
                 passwordField.setText("");
             }
         }
-        Employee user = loginController.getUser();
+        Employee user = loginController.getLoggedUser();
         if (user != null) {
             closeTab(loginTab);
             addTabs(user.getRole());
@@ -50,6 +51,11 @@ public class loginUI {
 
     public void addTabs(String usertype) {
         try {
+            if (usertype.equals("hr") || usertype.equals("admin")) {
+                Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
+                tabPane.getTabs().add(angajati);
+            }
+
             Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
             tabPane.getTabs().add(pontaj);
 
@@ -60,15 +66,8 @@ public class loginUI {
             tabPane.getTabs().add(notificari);
         }
         catch (IOException ex) {
-            showInfo("Application can't manage usertype " + usertype);
+            UIAlerts.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");
         }
-    }
-
-    private void showInfo(String info) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(info);
-        alert.show();
     }
 
     private void closeTab(Tab tab) {

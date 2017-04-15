@@ -1,8 +1,6 @@
 package Clocking;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,41 +99,26 @@ public class ClockingProvider {
     }
 
 
-    public void insertClocking(Clocking c,int id_employee) throws ParseException {
+    public void insertClocking(Clocking c, int id_employee) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String date = formatter.format(c.get_date().getTime());
 
-
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
-        String date=formatter.format(c.get_date().getTime());
-        System.out.println(date);
-
-
-        //Date date=c.get_date();
-//        try {
-//            String querry = "INSERT INTO `clockings`(`id_employee`,`date`,`hour_in`,`hour_out`,`hour_break`,`hour_work`) VALUES (" + id_employee + "," +"'"+date+"'" + "," + c.get_hour_in() + "," + c.get_hour_out() + "," + c.get_hour_break() + "," + c.get_hour_work() + ")";
-//            System.out.println(querry);
-//
-//            statement.executeUpdate(querry);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            e.printStackTrace();
-//
-//        }
-        String querry = "INSERT INTO clockings(id_employee,date,hour_in,hour_out,hour_break,hour_work) VALUES (?, ?, ?, ?, ?, ?)";
+        String querry = "INSERT INTO clockings(id_employee, date, hour_in, hour_out, hour_break, hour_work) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
-        PreparedStatement pstmt = con.prepareStatement(querry);
+            PreparedStatement pstmt = con.prepareStatement(querry);
 
-        pstmt.setInt(1, id_employee);
-        pstmt.setString(2, date);
-        pstmt.setInt(3, c.get_hour_in());
-        pstmt.setInt(4, c.get_hour_out());
-        pstmt.setInt(5, c.get_hour_break());
-        pstmt.setInt(6, c.get_hour_work());
+            pstmt.setInt(1, id_employee);
+            pstmt.setString(2, date);
+            pstmt.setInt(3, c.get_hour_in());
+            pstmt.setInt(4, c.get_hour_out());
+            pstmt.setInt(5, c.get_hour_break());
+            pstmt.setInt(6, c.get_hour_work());
 
-        pstmt.executeUpdate();
-        pstmt.close();
-        } catch (SQLException e) {
+            pstmt.executeUpdate();
+            pstmt.close();
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

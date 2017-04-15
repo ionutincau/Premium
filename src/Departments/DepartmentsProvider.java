@@ -1,5 +1,7 @@
 package Departments;
 
+import database.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,6 +33,24 @@ public class DepartmentsProvider {
             System.out.println("Database connection error");
             System.out.println("Check internet connection");
         }
+    }
+
+    public Department getDepartament(int id) {
+        Department department = null;
+        try {
+            String querry = "SELECT * FROM `departments` WHERE `id_department`='" + id + "'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            if (result.next()) {
+                int id_department = result.getInt("id_department");
+                String name=result.getString("name");
+                int id_manager = result.getInt("id_manager");
+                department = new Department(id_department,name,id_manager);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return department;
     }
 
     public ArrayList getDepartments() {

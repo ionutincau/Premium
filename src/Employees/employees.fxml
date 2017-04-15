@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<Tab id="employees" fx:id="employees" text="Angajati" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Employees.EmployessUI">
+   <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <HBox layoutY="13.0" prefHeight="27.0">
+               <children>
+                  <Label textFill="cornflowerblue" text="Utilizator selectat: " >
+                      <HBox.margin>
+                          <Insets left="15.0" />
+                      </HBox.margin>
+                  </Label>
+                  <Label textFill="cornflowerblue" layoutX="150.0" fx:id="selectedUser" text="" >
+                       <HBox.margin>
+                           <Insets left="5.0" right="5.0" />
+                       </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+             <HBox layoutY="40.0" prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                 <children>
+                     <TextField id="numeAngajatPontajField" fx:id="numeAngajatPontajField" prefHeight="25.0" prefWidth="388.0" promptText="Nume angajat (ex: &quot;Georgescu Calin&quot;)" HBox.hgrow="ALWAYS" />
+                     <Button id="cautaPontajButton" fx:id="cautaPontajButton" mnemonicParsing="false" text="Cauta" />
+                 </children>
+                 <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                 </padding>
+             </HBox>
+            <ListView fx:id="employeesList" layoutY="82.0" prefHeight="240.0" prefWidth="600.0" VBox.vgrow="ALWAYS"/>
+            <HBox layoutX="14.0" layoutY="330.0" prefHeight="30.0" prefWidth="573.0">
+               <children>
+                  <Button fx:id="addButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Adauga">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Editeaza">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Sterge">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="selectButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Selecteaza">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+         </children></AnchorPane>
+   </content>
+  </Tab>

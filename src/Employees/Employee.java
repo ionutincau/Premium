@@ -1,5 +1,10 @@
 package Employees;
 
+import Departments.Department;
+import Departments.DepartmentsProvider;
+import Jobs.Job;
+import Jobs.JobsProvider;
+
 /**
  * Created by Incau Ionut on 14-Mar-17.
  * Contact: ionut.incau@gmail.com
@@ -55,4 +60,25 @@ public class Employee {
     public void setEmail(String email){this.email=email;}
     public void setPhone(String phone){this.phone=phone;}
     public void setRole(String role){this.role=role;}
+
+    @Override
+    public String toString() {
+        DepartmentsProvider deptProvider = new DepartmentsProvider();
+        Department department = deptProvider.getDepartament(id_department);
+        String deptName;
+        if (department != null) deptName = department.getName();
+        else deptName = "";
+
+        JobsProvider jobsProvider = new JobsProvider();
+        Job job = jobsProvider.getJob(id_job);
+        String jobName;
+        if (job != null) jobName = job.getName();
+        else jobName = "";
+
+        return "  " + last_name + " " + first_name +
+                "  -  " + deptName
+                + "  -  " + jobName
+                + "  -  " + email
+                + "  -  " + phone;
+    }
 }

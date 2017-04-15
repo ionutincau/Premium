@@ -3,13 +3,11 @@ package Clocking;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -30,6 +28,7 @@ public class ClockingUIUser implements Initializable, Observer {
     @FXML private TextField deLaPontajField;
     @FXML private TextField panaLaPontajField;
     @FXML private Button filtreazaButton;
+
     public ClockingUIUser() {
         this.controller = new ClockingController();
         this.controller.addObserver(this);
@@ -49,13 +48,7 @@ public class ClockingUIUser implements Initializable, Observer {
         clockOutButton.setVisible(false);
 
         filtreazaButton.setVisible(true);
-        clockInButton.setOnAction(e -> {
-            try {
-                controller.clockin();
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-        });
+        clockInButton.setOnAction(e -> controller.clockin());
         clockBreakButton.setOnAction(e -> controller.clockbreak());
         clockWorkButton.setOnAction(e -> controller.clockwork());
         clockOutButton.setOnAction(e -> controller.clockout());
@@ -79,11 +72,12 @@ public class ClockingUIUser implements Initializable, Observer {
             clockOutButton.setVisible(true);
         }
     }
-    public void filtrare()
-    {
+
+    public void filtrare() {
         pontajListView.getItems().clear();
-        pontajListView.getItems().addAll(0, controller.search(deLaPontajField.getText(),panaLaPontajField.getText()));
+        pontajListView.getItems().addAll(0, controller.search(deLaPontajField.getText(), panaLaPontajField.getText()));
     }
+
     @Override
     public void update(Observable o, Object arg) {
         get_buttons();

@@ -1,6 +1,7 @@
 package Jobs;
 
 import Departments.Department;
+import database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,6 +31,26 @@ public class JobsProvider {
             System.out.println("Database connection error");
             System.out.println("Check internet connection");
         }
+    }
+
+    public Job getJob(int id) {
+        Job job = null;
+        try {
+            String querry = "SELECT * FROM `jobs` WHERE `id_job`='" + id + "'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            if (result.next()) {
+                int id_job = result.getInt("id_job");
+                String name=result.getString("name");
+                String min_salary=result.getString("min_salary");
+                String number=result.getString("number");
+                int id_document = result.getInt("id_document");
+                job = new Job(id_job, name, min_salary, number, id_document);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return job;
     }
 
     public ArrayList getJobs() {

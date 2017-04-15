@@ -84,7 +84,7 @@ public class Clocking {
         return hour_break - hour_in + hour_out - hour_work;
     }
 
-    private String get_time_format(int n) {
+    public String get_time_format(int n) {
         if (n == 0) return "00:00";
         int hours = n / 60;
         int minutes = n % 60;
@@ -95,22 +95,25 @@ public class Clocking {
         return h + ":" + m;
     }
 
-    @Override
-    public String toString() {
+    public String get_date_format() {
         int d = calendar.get(Calendar.DAY_OF_MONTH);
-        int m = calendar.get(Calendar.MONTH);
+        int m = calendar.get(Calendar.MONTH) + 1;
         String day;
         String month;
         if (d < 10) day = "0" + d;
         else day = "" + d;
         if (m < 10) month = "0" + m;
         else month = "" + d;
-        String date = day + "." + month + "." + calendar.get(Calendar.YEAR);
+        return day + "." + month + "." + calendar.get(Calendar.YEAR);
+    }
+
+    @Override
+    public String toString() {
         String hours = get_time_format(hour_in) + "  -  " +
                 get_time_format(hour_break) + "  -  " +
                 get_time_format(hour_work) + "  -  " +
                 get_time_format(hour_out);
         String time = get_time_format(get_time());
-        return "          " + date + "                              " + hours + "                              " + time;
+        return "          " + get_date_format() + "                              " + hours + "                              " + time;
     }
 }

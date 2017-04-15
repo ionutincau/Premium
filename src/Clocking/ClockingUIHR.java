@@ -1,6 +1,5 @@
 package Clocking;
 
-import Clocking.ClockingController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,7 +7,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -47,13 +45,7 @@ public class ClockingUIHR implements Initializable,Observer {
         clockOutButton.setVisible(false);
 
         filtreazaButton.setVisible(true);
-        clockInButton.setOnAction(e -> {
-            try {
-                controller.clockin();
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-        });
+        clockInButton.setOnAction(e -> controller.clockin());
         clockBreakButton.setOnAction(e -> controller.clockbreak());
         clockWorkButton.setOnAction(e -> controller.clockwork());
         clockOutButton.setOnAction(e -> controller.clockout());
