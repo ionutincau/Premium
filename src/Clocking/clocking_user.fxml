@@ -12,7 +12,7 @@
                <children>
                   <HBox id="topView" fx:id="topView" prefHeight="40.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                      <children>
-                        <Button id="clockInButton" fx:id="clockInButton" mnemonicParsing="false" text="Clock In" />
+                        <Button id="clockInButton" fx:id="clockInButton"  mnemonicParsing="false" text="Clock In" />
                         <Button id="clockBreakButton" fx:id="clockBreakButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Clock Break" />
                         <Button id="clockWorkButton" fx:id="clockWorkButton" layoutX="99.0" layoutY="20.0" mnemonicParsing="false" text="Clock Work" />
                         <Button id="clockOutButton" fx:id="clockOutButton" layoutX="197.0" layoutY="20.0" mnemonicParsing="false" text="Clock Out" />
@@ -27,10 +27,10 @@
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label id="deLaLabel" text="De la: " />
-                              <TextField id="deLaPontajField" fx:id="deLaPontajField"/>
+                              <TextField id="deLaPontajField" fx:id="deLaPontajField" promptText="15.04.2017"/>
                               <Label id="panaLaLabel" layoutX="199.0" layoutY="17.0" text="Pana la: " />
-                              <TextField id="panaLaPontajField" fx:id="panaLaPontajField" layoutX="220.0" layoutY="13.0" />
-                              <Button id="filtreazaButton" fx:id="filtreazaButton" mnemonicParsing="false" text="Filtreaza" />
+                              <TextField id="panaLaPontajField" fx:id="panaLaPontajField" promptText="24.04.2017" layoutX="220.0" layoutY="13.0" />
+                              <Button id="filtreazaButton" fx:id="filtreazaButton"  mnemonicParsing="false" text="Filtreaza" />
                            </children>
                         </HBox>
                      </children>
