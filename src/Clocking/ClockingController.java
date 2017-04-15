@@ -23,7 +23,7 @@ public class ClockingController extends Observable {
 
     public ArrayList getClocking()
     {
-        list=provider.getClockings(1);
+        list=provider.getClockings(LoginController.getInstance().getUser().getId());
 
         return list;
     }
@@ -60,7 +60,7 @@ public class ClockingController extends Observable {
         int calc_minutes = hours * 60 + minutes;
         Clocking c=new Clocking(1, new GregorianCalendar(), calc_minutes, 0, 0, 0);
         list.add(c);
-        provider.insertClocking(c,1);
+        provider.insertClocking(c,LoginController.getInstance().getUser().getId());
         setChanged();
         notifyObservers();
     }
@@ -78,19 +78,31 @@ public class ClockingController extends Observable {
             if (list.get(i).get_date().getCalendarType().equals(now.getCalendarType()))
             {
                 current_time=list.get(i);
-                System.out.println(current_time.getId());
                 current_time.set_hour_break(calc_minutes);
-                provider.updateClocking(current_time,1);
+                provider.updateClocking(current_time,LoginController.getInstance().getUser().getId());
                 list.set(i,current_time);
             }
         }
         setChanged();
         notifyObservers();
     }
+    public  ArrayList searchByName(String name)
+    {
+
+        try {
+            String[] Name = name.split(" ");
+            int id = provider.getIDByName(Name[0], Name[1]);
+            return provider.getClockings(id);
+        }
+    catch (Exception e)
+    {}
+    return list;
+    }
     public  ArrayList search(String Sdate1,String Sdate2)
     {
+
         ArrayList<Clocking> FilterList=new ArrayList<Clocking>();
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH);
 
             try {
                 Date date1 = format.parse(Sdate1);
@@ -102,7 +114,7 @@ public class ClockingController extends Observable {
                 }
                 return FilterList;
             } catch (ParseException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         return list;
@@ -120,7 +132,7 @@ public class ClockingController extends Observable {
             {
                 current_time=list.get(i);
                 current_time.set_hour_work(calc_minutes);
-                provider.updateClocking(current_time,1);
+                provider.updateClocking(current_time,LoginController.getInstance().getUser().getId());
                 list.set(i,current_time);
             }
         }
@@ -141,7 +153,7 @@ public class ClockingController extends Observable {
             {
                 current_time=list.get(i);
                 current_time.set_hour_out(calc_minutes);
-                provider.updateClocking(current_time,1);
+                provider.updateClocking(current_time,LoginController.getInstance().getUser().getId());
                 list.set(i,current_time);
             }
         }
@@ -158,9 +170,9 @@ public class ClockingController extends Observable {
         notifyObservers();
     }
 
-    public void delete(int id)
+    public void delete(Clocking clocking)
     {
-        Clocking clocking=list.get(id);
+
         provider.deleteClocking(clocking);
         setChanged();
         notifyObservers();

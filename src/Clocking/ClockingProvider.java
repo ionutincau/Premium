@@ -85,7 +85,20 @@ public class ClockingProvider {
 //        }
 //        return list;
 //    }
+    public int getIDByName(String lastname,String firstname)
+    {
 
+        try {
+            String querry = "SELECT * FROM `employees` WHERE `last_name`="+"'"+lastname+"'"+" AND `first_name`="+"'" + firstname+"'";
+            result = statement.executeQuery(querry);
+            result.next();
+            int id = result.getInt("id_employee");
+            return id;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 
     public void insertClocking(Clocking c,int id_employee) throws ParseException {
@@ -133,7 +146,6 @@ public class ClockingProvider {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
         String date=formatter.format(c.get_date().getTime());
-        System.out.println(date);
 
         String querry = "UPDATE clockings SET id_employee = ? ,date = ? ,hour_in = ?, hour_out = ?, hour_break = ?, hour_work = ? WHERE id_clocking=?";
 //
