@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
  * Created by MariusDK on 13.03.2017.
  */
 
-public class Clocking {
+public class Clocking implements Comparable<Clocking>{
 
     private int id;
     private Calendar calendar = new GregorianCalendar(); // date
@@ -115,5 +115,9 @@ public class Clocking {
                 get_time_format(hour_out);
         String time = get_time_format(get_time());
         return "          " + get_date_format() + "                              " + hours + "                              " + time;
+    }
+    public int compareTo(Clocking c)
+    {
+        return get_date().compareTo(c.get_date());
     }
 }
