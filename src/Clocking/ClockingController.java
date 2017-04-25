@@ -25,6 +25,7 @@ public class ClockingController extends Observable {
     public ArrayList getClocking() {
         Employee selectedUser = LoginController.getInstance().getSelectedUser();
         if (selectedUser != null) list = provider.getClockings(selectedUser.getId());
+        Collections.sort(list,Collections.reverseOrder());
         return list;
     }
 
