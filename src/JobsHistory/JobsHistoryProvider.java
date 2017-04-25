@@ -1,11 +1,11 @@
 package JobsHistory;
 
 import Jobs.Job;
+import database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,31 +15,18 @@ import java.util.GregorianCalendar;
  * Created by ASUS on 09.Apr.2017.
  */
 public class JobsHistoryProvider {
-    private Connection con;
-    private Statement statement;
-    private ResultSet result;
+
 
     public JobsHistoryProvider() {
-        connect();
+
     }
-    public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
-            con = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
-            statement = con.createStatement();
-        }
-        catch (Exception e) {
-            System.out.println("Database connection error");
-            System.out.println("Check internet connection");
-        }
-    }
+
 
     public ArrayList getJobsHistory(int id_employee) {
         ArrayList<JobHistory> list = new ArrayList<JobHistory>();
         try {
             String querry = "SELECT * FROM `jobs_history` WHERE `id_employee`="+id_employee+";";
-            result = statement.executeQuery(querry);
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             while (result.next()) {
                 int id_job = result.getInt("id_job");
                 Date date = result.getDate("start_date");
@@ -65,7 +52,7 @@ public class JobsHistoryProvider {
 
         try {
             String querry = "INSERT INTO `jobs_history`(`start_date`,`end_date`,`id_employee`,`id_department`,`status`) VALUES (" + jh.getStart_date() + "," + jh.getEnd_date() + "," + jh.getId_department() + "," + jh.getStatus()+")";
-            statement.executeUpdate(querry);
+            DatabaseConnection.getStatement().executeUpdate(querry);
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -77,7 +64,7 @@ public class JobsHistoryProvider {
 
         try {
             String querry = "UPDATE `jobs_history` SET `start_date`="+jh.getStart_date()+",`end_date`="+jh.getEnd_date()+",`id_department`="+jh.getId_department()+",`status`="+jh.getStatus()+" WHERE `id_employee`="+id_employee+";";
-            statement.executeUpdate(querry);
+            DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
             System.out.println(e);
@@ -89,7 +76,7 @@ public class JobsHistoryProvider {
     {
         try {
             String querry="DELETE FROM `jobs_history` WRITE `id_job`="+jh.getId_job()+";";
-            statement.executeUpdate(querry);
+            DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
             System.out.print(e);
