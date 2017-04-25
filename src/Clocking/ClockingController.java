@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Callable;
 
 /**
  * Created by MariusDK on 13.03.2017.
@@ -38,15 +39,15 @@ public class ClockingController extends Observable {
         int day = now.get(Calendar.DAY_OF_MONTH);
         if (list.size() == 0) return 1;
         else {
-            if ((year==list.get(list.size()-1).get_date().get(Calendar.YEAR))&&(month==list.get(list.size()-1).get_date().get(Calendar.MONTH))&&(day==list.get(list.size()-1).get_date().get(Calendar.DAY_OF_MONTH))) {
+            if ((year==list.get(0).get_date().get(Calendar.YEAR))&&(month==list.get(0).get_date().get(Calendar.MONTH))&&(day==list.get(0).get_date().get(Calendar.DAY_OF_MONTH))) {
 
-                if ((list.get(list.size() - 1).get_hour_break() == 0) && (list.get(list.size() - 1).get_hour_work() == 0) && (list.get(list.size() - 1).get_hour_out() == 0)) {
+                if ((list.get(0).get_hour_break() == 0) && (list.get(0).get_hour_work() == 0) && (list.get(0).get_hour_out() == 0)) {
                     return 2;
                 }
-                if ((list.get(list.size() - 1).get_hour_break() != 0) && (list.get(list.size() - 1).get_hour_work() == 0) && (list.get(list.size() - 1).get_hour_out() == 0)) {
+                if ((list.get(0).get_hour_break() != 0) && (list.get(0).get_hour_work() == 0) && (list.get(0).get_hour_out() == 0)) {
                     return 3;
                 }
-                if ((list.get(list.size() - 1).get_hour_break() != 0) && (list.get(list.size() - 1).get_hour_work() != 0) && (list.get(list.size() - 1).get_hour_out() == 0)) {
+                if ((list.get(0).get_hour_break() != 0) && (list.get(0).get_hour_work() != 0) && (list.get(0).get_hour_out() == 0)) {
                     return 4;
                 }
             }
@@ -60,49 +61,33 @@ public class ClockingController extends Observable {
     public void clockin() {
         Clocking c = new Clocking(1, new GregorianCalendar(), getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE), 0, 0, 0);
         provider.insertClocking(c, LoginController.getInstance().getLoggedUser().getId());
-
+        list.add(c);
+        Collections.sort(list,Collections.reverseOrder());
         setChanged();
         notifyObservers();
     }
 
     public void clockbreak() {
-        Calendar now = Calendar.getInstance();
-        for (int i=0; i<list.size(); i++) {
-            if (list.get(i).get_date().getCalendarType().equals(now.getCalendarType())) {
-                Clocking current_time = list.get(i);
-                current_time.set_hour_break(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
-                provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
-            }
-        }
-
+        Clocking current_time = list.get(0);
+        current_time.set_hour_break(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
     }
 
     public void clockwork() {
         Calendar now = Calendar.getInstance();
-        for (int i=0; i < list.size(); i++) {
-            if (list.get(i).get_date().getCalendarType().equals(now.getCalendarType())) {
-                Clocking current_time = list.get(i);
-                current_time.set_hour_work(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
-                provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
-            }
-        }
-
+        Clocking current_time = list.get(0);
+        current_time.set_hour_work(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
     }
 
     public void clockout() {
-        Calendar now = Calendar.getInstance();
-        for (int i=0; i < list.size(); i++) {
-            if (list.get(i).get_date().getCalendarType().equals(now.getCalendarType())) {
-                Clocking current_time = list.get(i);
-                current_time.set_hour_out(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
-                provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
-            }
-        }
-
+        Clocking current_time = list.get(0);
+        current_time.set_hour_out(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
     }
