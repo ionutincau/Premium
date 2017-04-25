@@ -46,6 +46,20 @@ public class DocumentsProvider {
         }
         return list;
     }
+
+    public static int getAvaliableId(){
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_document`) FROM `documents`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_document");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
     //insereaza document nou dupa id_employee
     public void insertDocument(Document d,int id_employee){
         try {

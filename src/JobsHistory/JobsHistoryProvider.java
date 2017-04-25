@@ -48,6 +48,21 @@ public class JobsHistoryProvider {
         }
         return list;
     }
+
+    public static int getAvaliableId(){
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_job`) FROM `jobs_history`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_job");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
+
     public void insertJobHistory(JobHistory jh,int id_employee) {
 
         try {

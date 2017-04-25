@@ -69,6 +69,20 @@ public class EmployeesProvider {
         return user;
     }
 
+    public static int getAvaliableId(){
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_employee`) FROM `employees`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_employee");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
+
     public void insertEmployee(Employee em) {
         try {
             String querry = "INSERT INTO `employees`(`last_name`,`first_name`,`username`,`password`,`cnp`,`id_job`,`id_department`,`email`,`phone`,`role`) VALUES (" + em.getLast_name() + "," + em.getFirst_name() + ","+em.getUsername()+","+em.getPassword()+","+em.getCnp()+","+em.getId_job()+","+em.getId_department()+","+em.getEmail()+","+em.getPhone()+","+em.getRole()+")";
