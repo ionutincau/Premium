@@ -1,5 +1,7 @@
 package Clocking;
 
+import database.DatabaseConnection;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -106,7 +108,7 @@ public class ClockingProvider {
         String querry = "INSERT INTO clockings(id_employee, date, hour_in, hour_out, hour_break, hour_work) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement pstmt = con.prepareStatement(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
 
             pstmt.setInt(1, id_employee);
             pstmt.setString(2, date);
@@ -133,7 +135,7 @@ public class ClockingProvider {
         String querry = "UPDATE clockings SET id_employee = ? ,date = ? ,hour_in = ?, hour_out = ?, hour_break = ?, hour_work = ? WHERE id_clocking=?";
 //
         try {
-            PreparedStatement pstmt = con.prepareStatement(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
 
             pstmt.setInt(1, id_employee);
             pstmt.setString(2, date);

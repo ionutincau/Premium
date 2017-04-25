@@ -37,4 +37,12 @@ public class DatabaseConnection {
         }
         return statement;
     }
+    public static Connection getConnection(){
+        if(instance == null){
+            instance = new DatabaseConnection();
+        }
+        return connection;
+    }
+
+
 }
