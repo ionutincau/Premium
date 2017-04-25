@@ -16,31 +16,19 @@ import java.util.GregorianCalendar;
 
 public class ClockingProvider {
 
-    private Connection con;
-    private Statement statement;
-    private ResultSet result;
+
 
     public ClockingProvider() {
-        connect();
+
     }
 
-    public void connect() {
-        try {
-            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
-            con = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11164406", "sql11164406", "ytcWkGRh58");
-            statement = con.createStatement();
-        }
-        catch (Exception e) {
-            System.out.println("Database connection error");
-            System.out.println("Check internet connection");
-        }
-    }
+
 
     public ArrayList getClockings(int id_employee) {
         ArrayList<Clocking> list = new ArrayList<Clocking>();
         try {
             String querry = "SELECT * FROM `clockings` WHERE `id_employee`=" + id_employee;
-            result = statement.executeQuery(querry);
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             while (result.next()) {
                 int id = result.getInt("id_clocking");
                 Date date = result.getDate("date");
@@ -60,7 +48,22 @@ public class ClockingProvider {
         }
         return list;
     }
-//    public ArrayList getClockingByDate(String Sdate1,String Sdate2) {
+
+    public int getAvaliableId() {
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_clocking`) FROM `clockings`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_clocking");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
+
+    //    public ArrayList getClockingByDate(String Sdate1,String Sdate2) {
 //
 //        ArrayList<Clocking> list = new ArrayList<Clocking>();
 //        try {
@@ -90,7 +93,7 @@ public class ClockingProvider {
 
         try {
             String querry = "SELECT * FROM `employees` WHERE `last_name`="+"'"+lastname+"'"+" AND `first_name`="+"'" + firstname+"'";
-            result = statement.executeQuery(querry);
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             result.next();
             int id = result.getInt("id_employee");
             return id;
@@ -166,7 +169,7 @@ public class ClockingProvider {
 
         try {
             String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+c.getId()+";";
-            statement.executeUpdate(querry);
+            DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
             System.out.println(e);

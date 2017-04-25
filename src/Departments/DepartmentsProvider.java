@@ -35,6 +35,21 @@ public class DepartmentsProvider {
         return department;
     }
 
+
+    public static int getAvaliableId(){
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_department`) FROM `departments`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_department");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
+
     public ArrayList getDepartments() {
         ArrayList<Department> list = new ArrayList<Department>();
         try {

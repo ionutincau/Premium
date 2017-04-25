@@ -49,6 +49,21 @@ public class RequestsProvider {
         return list;
     }
 
+    public static int getAvaliableId(){
+        int id=0;
+        try{
+            String querry = "SELECT MAX(`id_request`) FROM `requests`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id=result.getInt("id_requests");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id+1);
+    }
+
+
     public void insertRequest(Request r) {
 
         try {
