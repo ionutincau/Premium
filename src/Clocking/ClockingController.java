@@ -30,13 +30,16 @@ public class ClockingController extends Observable {
     }
 
     public int get_status() {
+        Date date=new Date();
         Calendar now = Calendar.getInstance();
-        System.out.print(now.getCalendarType());
-        //todo: change calendar tye cu data
-        // se verifica doar la utimu, lista e ordonata ?
+        now.setTime(date);
+        int year = now.get(Calendar.YEAR);
+        int month =now.get(Calendar.MONTH);
+        int day = now.get(Calendar.DAY_OF_MONTH);
         if (list.size() == 0) return 1;
         else {
-            if (list.get(list.size() - 1).get_date().getCalendarType().equals(now.getCalendarType())) {
+            if ((year==list.get(list.size()-1).get_date().get(Calendar.YEAR))&&(month==list.get(list.size()-1).get_date().get(Calendar.MONTH))&&(day==list.get(list.size()-1).get_date().get(Calendar.DAY_OF_MONTH))) {
+
                 if ((list.get(list.size() - 1).get_hour_break() == 0) && (list.get(list.size() - 1).get_hour_work() == 0) && (list.get(list.size() - 1).get_hour_out() == 0)) {
                     return 2;
                 }
