@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="600.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="firstNameLabel" fx:id="firstNameLabel" minWidth="100.0" text="Nume" />
+                        <TextField id="firstNameTextField" fx:id="firstNameTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="lastNameLabel" fx:id="lastNameLabel" minWidth="100.0" text="Prenume" />
+                        <TextField id="lastNameTextField" fx:id="lastNameTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="usernameLabel" fx:id="usernameLabel" minWidth="100.0" text="Nume utilizator" />
+                        <TextField id="userNameTextField" fx:id="userNameTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="passwordLabel" fx:id="passwordLabel" minWidth="100.0" text="Parola" />
+                        <TextField id="passwordTextField" fx:id="passwordTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="cnpLabel" fx:id="cnpLabel" minWidth="100.0" text="CNP" />
+                        <TextField id="cnpTextField" fx:id="cnpTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="jobLabel" fx:id="jobLabel" minWidth="100.0" text="Job" />
+                        <ChoiceBox id="jobChoiceBox" fx:id="jobChoiceBox" maxWidth="5000.0" minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Job 1" />
+                                    <String fx:value="Job 2" />
+                                    <String fx:value="Job 3" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="departmentLabel" fx:id="departmentLabel" minWidth="100.0" text="Departament" />
+                        <ChoiceBox id="departmentChoiceBox" fx:id="departmentChoiceBox" maxWidth="5000.0" minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Departament 1" />
+                                    <String fx:value="Departament 2" />
+                                    <String fx:value="Departament 3" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+                <HBox id="emailLabel" fx:id="emailLabel" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label minWidth="100.0" text="Email" />
+                        <TextField id="emailTextField" fx:id="emailTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="phoneLabel" fx:id="phoneLabel" minWidth="100.0" text="Telefon" />
+                        <TextField id="phoneTextField" fx:id="phoneTextField" minWidth="250.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox layoutX="30.0" layoutY="376.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="roleLabel" fx:id="roleLabel" minWidth="100.0" text="Rol" />
+                        <ChoiceBox id="roleChoiceBox" fx:id="roleChoiceBox" maxWidth="5000.0" minWidth="-Infinity" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Role 1" />
+                                    <String fx:value="Role 2" />
+                                    <String fx:value="Role 3" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" layoutX="30.0" layoutY="561.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Button id="addUserButton" fx:id="addUserButton" mnemonicParsing="false" text="Adauga" />
+                        <Button id="cancelButton" fx:id="cancelButton" mnemonicParsing="false" text="Anuleaza" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
