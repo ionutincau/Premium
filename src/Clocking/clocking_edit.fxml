@@ -29,19 +29,19 @@
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin></TextField>
-                        <TextField fx:id="inField" prefHeight="25.0">
+                        <TextField fx:id="inField" promptText="hh:mm" prefHeight="25.0">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin></TextField>
-                        <TextField fx:id="breakField" prefHeight="25.0">
+                        <TextField fx:id="breakField" promptText="hh:mm"  prefHeight="25.0">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin></TextField>
-                        <TextField fx:id="workField" prefHeight="25.0">
+                        <TextField fx:id="workField"  promptText="hh:mm" prefHeight="25.0">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin></TextField>
-                        <TextField fx:id="outField" prefHeight="25.0">
+                        <TextField fx:id="outField"  promptText="hh:mm" prefHeight="25.0">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin></TextField>

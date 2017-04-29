@@ -40,7 +40,7 @@ public class LoginController extends Observable {
             throw new Exception("Parola incorecta!");
         }
         this.loggedUser = user;
-        if (user.getRole().equals("user")) this.selectedUser = user;
+        if (user.getRole().equals("user") || user.getRole().equals("hr")) this.selectedUser = user;
     }
 
     public Employee getLoggedUser() {
