@@ -1,5 +1,8 @@
 package DocumentTypes;
 
+import Employees.Employee;
+import JobsHistory.JobsHistoryController;
+import Login.LoginController;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
@@ -10,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Incau Ionut on 29-Apr-17.
@@ -34,18 +36,18 @@ public class Vacation implements Serializable {
     private String job;
     private String department;
     private int used_days;
-    private Date date;
+    private Calendar date;
 
     public Vacation(String start_vacation, String end_vacation) {
         this.start_vacation = start_vacation;
         this.end_vacation = end_vacation;
 
-        // todo: get from logged
-        name = "Johnny";
-        job = "Job";
-        department = "Dept";
-        used_days = 0;
-        date = Calendar.getInstance().getTime();
+        Employee user = LoginController.getInstance().getLoggedUser();
+        name = user.getLast_name() + " " + user.getFirst_name();
+        job = user.getJob();
+        department = user.getDepartment();
+        used_days = JobsHistoryController.getVacationDays(user.getId());
+        date = Calendar.getInstance();
     }
 
     public void generatePDF() throws Exception {
@@ -54,8 +56,7 @@ public class Vacation implements Serializable {
         document.addTitle(title);
 
         try {
-            String filanameDateFormat = new SimpleDateFormat("ddMMyyyyHHmmss").format(date);
-            PdfWriter.getInstance(document, new FileOutputStream(title + " - " + name + " - " + filanameDateFormat + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(getFilenameName()));
             document.open();
 
             Paragraph titleParagraph = new Paragraph(documentTitle);
@@ -69,7 +70,7 @@ public class Vacation implements Serializable {
             Paragraph fin = new Paragraph("\nVa multumesc,");
             document.add(fin);
 
-            String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date);
+            String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date.getTime());
             Paragraph endDate = new Paragraph("\nData: " + dateFormat);
             document.add(endDate);
         }
@@ -78,5 +79,14 @@ public class Vacation implements Serializable {
         }
 
         document.close();
+    }
+
+    public String getFilenameName() {
+        String filanameDateFormat = new SimpleDateFormat("ddMMyyyyHHmmss").format(date.getTime());
+        return title + " - " + name + " - " + filanameDateFormat + ".pdf";
+    }
+
+    public Calendar getDate() {
+        return date;
     }
 }

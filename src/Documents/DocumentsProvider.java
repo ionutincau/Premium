@@ -1,9 +1,5 @@
 package Documents;
 
-
-
-
-
 import database.DatabaseConnection;
 
 import java.sql.ResultSet;
@@ -31,7 +27,7 @@ public class DocumentsProvider {
                 cal.setTime(date);
                 int id_doctype = result.getInt("id_doctype");
                 Object doc = result.getObject("document");
-                Document d = new Document(id_document, name, cal, id_doctype, doc);
+                Document d = new Document(id_document, id_employee, name, cal, id_doctype, doc);
                 list.add(0, d);
             }
         }
@@ -57,32 +53,30 @@ public class DocumentsProvider {
     }
 
     //insereaza document nou dupa id_employee
-    public void insertDocument(Document d,int id_employee){
+    public void insertDocument(Document d, int id_employee){
         try {
             String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc() + ");";
             DatabaseConnection.getStatement().executeUpdate(querry);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
 
     //actualizeaza Documentul dupa id_employee
     public void updateDocument(Document d,int id_employee) {
         try {
-            String querry = "UPDATE `documents` SET `name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document`="+d.getDoc()+" WHERE `id_employee`="+id_employee+";";
+            String querry = "UPDATE `documents` SET `id_employee`="+d.getEmployeeId()+",`name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document`="+d.getDoc()+" WHERE `id_employee`="+id_employee+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
 
-    public void deleteDocument(Document d)
-    {
+    public void deleteDocument(Document d) {
         try {
             String querry="DELETE FROM `documents` WRITE `id_document`="+d.getId()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);

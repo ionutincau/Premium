@@ -52,7 +52,6 @@ public class ClockingProvider {
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             if (result.next()) {
                 id = result.getInt(1);
-                System.out.print(id);
             }
         }
         catch (Exception e) {

@@ -1,5 +1,6 @@
 package Login;
 
+import Documents.DocumentsController;
 import Employees.Employee;
 import Utils.UIAlerts;
 import javafx.event.Event;
@@ -68,6 +69,8 @@ public class loginUI {
         catch (IOException ex) {
             UIAlerts.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");
         }
+
+        DocumentsController d = new DocumentsController(); // todo: remove this
     }
 
     private void closeTab(Tab tab) {

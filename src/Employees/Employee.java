@@ -49,6 +49,24 @@ public class Employee {
     public String getPhone(){ return this.phone; }
     public String getRole(){ return this.role; }
 
+    public String getDepartment() {
+        DepartmentsProvider deptProvider = new DepartmentsProvider();
+        Department department = deptProvider.getDepartament(id_department);
+        String deptName;
+        if (department != null) deptName = department.getName();
+        else deptName = "";
+        return deptName;
+    }
+
+    public String getJob() {
+        JobsProvider jobsProvider = new JobsProvider();
+        Job job = jobsProvider.getJob(id_job);
+        String jobName;
+        if (job != null) jobName = job.getName();
+        else jobName = "";
+        return jobName;
+    }
+
     public void setId(int id_employee){this.id_employee=id_employee;}
     public void setLast_name(String last_name){this.last_name=last_name;}
     public void setFirst_name(String first_name){this.first_name=first_name;}
@@ -63,21 +81,9 @@ public class Employee {
 
     @Override
     public String toString() {
-        DepartmentsProvider deptProvider = new DepartmentsProvider();
-        Department department = deptProvider.getDepartament(id_department);
-        String deptName;
-        if (department != null) deptName = department.getName();
-        else deptName = "";
-
-        JobsProvider jobsProvider = new JobsProvider();
-        Job job = jobsProvider.getJob(id_job);
-        String jobName;
-        if (job != null) jobName = job.getName();
-        else jobName = "";
-
         return "  " + last_name + " " + first_name +
-                "  -  " + deptName
-                + "  -  " + jobName
+                "  -  " + getDepartment()
+                + "  -  " + getJob()
                 + "  -  " + email
                 + "  -  " + phone;
     }
