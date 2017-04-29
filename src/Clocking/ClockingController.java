@@ -61,8 +61,9 @@ public class ClockingController extends Observable {
     }
 
     public void clockin() {
+        Calendar calendar = new GregorianCalendar();
         int id = provider.getAvaliableId();
-        Clocking c = new Clocking(id, new GregorianCalendar(), getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE), 0, 0, 0);
+        Clocking c = new Clocking(id, new GregorianCalendar(), getMinutes(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)), 0, 0, 0);
         provider.insertClocking(c, LoginController.getInstance().getLoggedUser().getId());
         list.add(c);
         Collections.sort(list, Collections.reverseOrder());
@@ -71,24 +72,27 @@ public class ClockingController extends Observable {
     }
 
     public void clockbreak() {
+        Calendar calendar = new GregorianCalendar();
         Clocking current_time = list.get(0);
-        current_time.set_hour_break(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        current_time.set_hour_break(getMinutes(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
     }
 
     public void clockwork() {
+        Calendar calendar = new GregorianCalendar();
         Clocking current_time = list.get(0);
-        current_time.set_hour_work(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        current_time.set_hour_work(getMinutes(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
     }
 
     public void clockout() {
+        Calendar calendar = new GregorianCalendar();
         Clocking current_time = list.get(0);
-        current_time.set_hour_out(getMinutes(Calendar.HOUR_OF_DAY, Calendar.MINUTE));
+        current_time.set_hour_out(getMinutes(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         provider.updateClocking(current_time, LoginController.getInstance().getLoggedUser().getId());
         setChanged();
         notifyObservers();
@@ -170,6 +174,7 @@ public class ClockingController extends Observable {
     }
 
     private int getMinutes(int hours, int minutes) {
+        System.out.println(hours+" "+minutes);
         return hours * 60 + minutes;
     }
 }
