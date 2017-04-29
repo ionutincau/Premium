@@ -37,6 +37,7 @@ public class EmployessUI implements Initializable {
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         employeesList.setFixedCellSize(48);
         employeesList.getItems().addAll(0, controller.getEmployees());
+        userSelection();
     }
 
     private void userSelection() {

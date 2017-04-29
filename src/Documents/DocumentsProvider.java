@@ -15,13 +15,8 @@ import java.util.GregorianCalendar;
 /**
  * Created by ASUS on 08.Apr.2017.
  */
+
 public class DocumentsProvider {
-
-    public DocumentsProvider() {
-
-    }
-
-    
 
     public ArrayList getDocuments(int id_employee) {
         ArrayList<Document> list = new ArrayList<Document>();
@@ -35,9 +30,9 @@ public class DocumentsProvider {
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(date);
                 int id_doctype = result.getInt("id_doctype");
-                String doc_path= result.getString("document_path");
-                Document doc = new Document(id_document, name,cal,id_doctype,doc_path);
-                list.add(0, doc);
+                Object doc = result.getObject("document");
+                Document d = new Document(id_document, name, cal, id_doctype, doc);
+                list.add(0, d);
             }
         }
         catch (Exception e) {
@@ -60,10 +55,11 @@ public class DocumentsProvider {
         }
         return (id+1);
     }
+
     //insereaza document nou dupa id_employee
     public void insertDocument(Document d,int id_employee){
         try {
-            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document_path`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc_path() + ");";
+            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc() + ");";
             DatabaseConnection.getStatement().executeUpdate(querry);
         } catch (Exception e) {
             System.out.println(e);
@@ -73,11 +69,9 @@ public class DocumentsProvider {
     }
 
     //actualizeaza Documentul dupa id_employee
-    public void updateDocument(Document d,int id_employee)
-    {
-
+    public void updateDocument(Document d,int id_employee) {
         try {
-            String querry = "UPDATE `documents` SET `name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document_path`="+d.getDoc_path()+" WHERE `id_employee`="+id_employee+";";
+            String querry = "UPDATE `documents` SET `name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document`="+d.getDoc()+" WHERE `id_employee`="+id_employee+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
@@ -86,6 +80,7 @@ public class DocumentsProvider {
 
         }
     }
+
     public void deleteDocument(Document d)
     {
         try {

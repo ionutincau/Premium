@@ -27,3 +27,6 @@ hs_err_pid*
 
 # ignore build files
 /out
+
+# generated files
+*.pdf
