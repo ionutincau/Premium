@@ -16,13 +16,9 @@ import java.util.GregorianCalendar;
 
 public class ClockingProvider {
 
-
-
     public ClockingProvider() {
 
     }
-
-
 
     public ArrayList getClockings(int id_employee) {
         ArrayList<Clocking> list = new ArrayList<Clocking>();
@@ -50,47 +46,23 @@ public class ClockingProvider {
     }
 
     public int getAvaliableId() {
-        int id=0;
-        try{
+        int id = 0;
+        try {
             String querry = "SELECT MAX(`id_clocking`) FROM `clockings`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
-            id=result.getInt("id_clocking");
+            if (result.next()) {
+                id = result.getInt(1);
+                System.out.print(id);
+            }
         }
         catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
         }
-        return (id+1);
+        return (id + 1);
     }
 
-    //    public ArrayList getClockingByDate(String Sdate1,String Sdate2) {
-//
-//        ArrayList<Clocking> list = new ArrayList<Clocking>();
-//        try {
-//            String querry = "SELECT * FROM `clockings` WHERE `date` >= "+"'"+Sdate1+"'"+" AND "+"`date` < "+ "'"+Sdate2+"'";
-//            result = statement.executeQuery(querry);
-//            while (result.next()) {
-//                int id = result.getInt("id_clocking");
-//                Date date = result.getDate("date");
-//                Calendar cal = new GregorianCalendar();
-//                cal.setTime(date);
-//                int hour_in = result.getInt("hour_in");
-//                int hour_break = result.getInt("hour_break");
-//                int hour_work = result.getInt("hour_work");
-//                int hour_out = result.getInt("hour_out");
-//                Clocking clocking = new Clocking(id, cal, hour_in, hour_break, hour_work, hour_out);
-//                list.add(0, clocking);
-//            }
-//        }
-//        catch (Exception e) {
-//            System.out.println(e);
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-    public int getIDByName(String lastname,String firstname)
-    {
-
+    public int getIDByName(String lastname,String firstname) {
         try {
             String querry = "SELECT * FROM `employees` WHERE `last_name`="+"'"+lastname+"'"+" AND `first_name`="+"'" + firstname+"'";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
@@ -129,14 +101,12 @@ public class ClockingProvider {
     }
 
 
-    public void updateClocking(Clocking c,int id_employee)
-    {
-
+    public void updateClocking(Clocking c, int id_employee) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
         String date=formatter.format(c.get_date().getTime());
 
         String querry = "UPDATE clockings SET id_employee = ? ,date = ? ,hour_in = ?, hour_out = ?, hour_break = ?, hour_work = ? WHERE id_clocking=?";
-//
+
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
 
@@ -149,32 +119,21 @@ public class ClockingProvider {
             pstmt.setInt(7, c.getId());
             pstmt.executeUpdate();
             pstmt.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-//        try {
-//            String querry = "UPDATE `clockings` SET `date`="+"'"+date+"'"+",`hour_in`="+c.get_hour_in()+",`hour_out`="+c.get_hour_out()+",`hour_break`="+c.get_hour_break()+",`hour_work`="+c.get_hour_work()+" WHERE `id_employee`="+id_employee+";";
-//            statement.executeUpdate(querry);
-//        }
-//        catch(Exception e){
-//            System.out.println(e);
-//            e.printStackTrace();
-//        }
-
     }
 
 
-    public void deleteClocking (Clocking c)
-    {
-
+    public void deleteClocking (Clocking c) {
         try {
             String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+c.getId()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
-        catch(Exception e){
+        catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
 

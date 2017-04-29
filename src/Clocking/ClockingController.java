@@ -104,7 +104,8 @@ public class ClockingController extends Observable {
         int h_break = getMinutes(hour_break);
         int h_work = getMinutes(hour_work);
         int h_out = getMinutes(hour_out);
-        Clocking clocking = new Clocking(1, calendar, h_in, h_break, h_work, h_out);
+        int id = provider.getAvaliableId();
+        Clocking clocking = new Clocking(id, calendar, h_in, h_break, h_work, h_out);
 
         list.add(clocking);
         provider.insertClocking(clocking, LoginController.getInstance().getSelectedUser().getId());
@@ -174,7 +175,6 @@ public class ClockingController extends Observable {
     }
 
     private int getMinutes(int hours, int minutes) {
-        System.out.println(hours+" "+minutes);
         return hours * 60 + minutes;
     }
 }
