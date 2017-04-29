@@ -37,12 +37,6 @@ public class EmployessUI implements Initializable {
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         employeesList.setFixedCellSize(48);
         employeesList.getItems().addAll(0, controller.getEmployees());
-
-        cautaPontajButton.setOnAction(e -> cautareDupaNume());
-        addButton.setOnAction(e -> controller.addEmployee());
-        editButton.setOnAction(e -> controller.editEmployee());
-        deleteButton.setOnAction(e -> controller.deleteEmployee());
-        userSelection();
     }
 
     private void userSelection() {
