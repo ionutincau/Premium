@@ -39,7 +39,6 @@ public class ClockingProvider {
             }
         }
         catch (Exception e) {
-            System.out.println(e);
             e.printStackTrace();
         }
         return list;
@@ -131,7 +130,7 @@ public class ClockingProvider {
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch (Exception e){
-            System.out.println(e);
+
             e.printStackTrace();
         }
     }
