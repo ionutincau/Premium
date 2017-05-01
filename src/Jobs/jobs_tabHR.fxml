@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Tab id="jobsTab" fx:id="jobsTab" text="Job-uri" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jobs.JobsUI">
+<Tab id="jobsTab" fx:id="jobsTab" text="Job-uri" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jobs.JobsUIHR">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>

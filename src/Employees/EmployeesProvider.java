@@ -38,6 +38,7 @@ public class EmployeesProvider {
                 Employee employee = new Employee(id_employee,last_name,first_name,username,password,cnp,id_job,id_department,email,phone,role);
                 list.add(0, employee);
             }
+            result.close();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -22,5 +22,15 @@ public class Department {
     public void setName(String name) { this.name=name; }
     public void setId_manager(int id_manager) { this.id_manager=id_manager; }
 
-
+    public String getManager()
+    {
+        DepartmentsProvider provider=new DepartmentsProvider();
+        String managerName=provider.GetNameManager(id_manager);
+        return managerName;
+    }
+    @Override
+    public String toString()
+    {
+     return  name + " - " + getManager();
+    }
 }

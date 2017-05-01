@@ -30,6 +30,8 @@ public class Job {
     public void setNumber(String number) { this.number=number; }
     public void setId_document(int id_document) { this.id_document=id_document; }
 
-
-
+    @Override
+    public String toString() {
+        return name + " - " + min_salary + " - " + number;
+    }
 }
