@@ -52,10 +52,19 @@ public class loginUI {
 
     public void addTabs(String usertype) {
         try {
-            if (usertype.equals("hr") || usertype.equals("admin")) {
+            if (usertype.equals("admin")) {
                 Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tab.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tab.fxml"));
+                tabPane.getTabs().add(angajati);
+                tabPane.getTabs().add(departamente);
+                tabPane.getTabs().add(job);
+            }
+            if (usertype.equals("hr"))
+            {
+                Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
+                Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tabHR.fxml"));
+                Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tabHR.fxml"));
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
