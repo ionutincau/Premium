@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label id="jobNameLabel" fx:id="jobNameLabel" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Nume" />
+                        <TextField id="jobNameTextField" fx:id="jobNameTextField" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="30.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label id="minimumSalaryLabel" fx:id="minimumSalaryLabel" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Salariu minim" />
+                        <TextField id="minimumSalaryTextField" fx:id="minimumSalaryTextField" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="92.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label id="employeeNumberLabel" fx:id="employeeNumberLabel" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Numar angajati" />
+                        <TextField id="employeeNumberTextField" fx:id="employeeNumberTextField" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Button id="jobOKButton" fx:id="jobOKButton" mnemonicParsing="false" text="Adauga" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
