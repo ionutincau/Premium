@@ -19,8 +19,8 @@ import java.util.ResourceBundle;
  */
 public class EmployeeUIEdit implements Initializable{
 
-    Employee employee;
-    EmployeesController controller;
+    private Employee employee;
+    private EmployeesController controller;
 
     @FXML private TextField firstNameTextField;
     @FXML private TextField lastNameTextField;

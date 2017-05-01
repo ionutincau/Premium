@@ -54,9 +54,12 @@ public class loginUI {
         try {
             if (usertype.equals("hr") || usertype.equals("admin")) {
                 Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
+                Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tab.fxml"));
+                Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tab.fxml"));
                 tabPane.getTabs().add(angajati);
+                tabPane.getTabs().add(departamente);
+                tabPane.getTabs().add(job);
             }
-
             Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
             tabPane.getTabs().add(pontaj);
 

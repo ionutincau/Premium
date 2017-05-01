@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Departments.DepartmentsUIEdit">
     <children>
         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -30,7 +30,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button id="departmentOKButton" fx:id="departmentOKButton" mnemonicParsing="false" text="Adauga" />
+                        <Button id="departmentOKButton" fx:id="departmentOKButton" mnemonicParsing="false" text="" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="20.0" />

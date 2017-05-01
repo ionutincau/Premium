@@ -2,8 +2,10 @@ package Departments;
 
 import database.DatabaseConnection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -36,19 +38,19 @@ public class DepartmentsProvider {
     }
 
 
-    public static int getAvaliableId(){
-        int id=0;
-        try{
-            String querry = "SELECT MAX(`id_department`) FROM `departments`";
-            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
-            id=result.getInt("id_department");
-        }
-        catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-        return (id+1);
-    }
+//    public static int getAvaliableId(){
+//        int id=0;
+//        try{
+//            String querry = "SELECT MAX(`id_department`) FROM `departments`";
+//            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+//            id=result.getInt("id_department");
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//            e.printStackTrace();
+//        }
+//        return (id+1);
+//    }
 
     public ArrayList getDepartments() {
         ArrayList<Department> list = new ArrayList<Department>();
@@ -63,6 +65,8 @@ public class DepartmentsProvider {
                 Department department = new Department(id_department,name,id_manager);
                 list.add(0, department);
             }
+            result.close();
+
         }
         catch (Exception e) {
             System.out.println(e);
@@ -70,12 +74,33 @@ public class DepartmentsProvider {
         }
         return list;
     }
-
-    public void insertDepartment(Department d) {
-
+    public int id_manager(String name) {
+        String[] Name=name.split(" ");
+        int id_manager=0;
         try {
-            String querry = "INSERT INTO `departments`(`name`,`id_manager`) VALUES (" + d.getName() + "," + d.getId_manager() + ")";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            String querry = "SELECT id_employee FROM `employees` WHERE `last_name`='"+Name[0]+"' AND `first_name`='"+Name[1]+"' ;";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                id_manager = result.getInt("id_employee");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return id_manager;
+    }
+    public void insertDepartment(Department d)
+    {
+        try {
+            String querry = "INSERT INTO departments(id_department,name,id_manager) VALUES (?,?,?)";
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setInt(1, d.getId());
+            pstmt.setString(2, d.getName());
+            pstmt.setInt(3, d.getId_manager());
+            pstmt.executeUpdate();
+            pstmt.close();
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -85,7 +110,25 @@ public class DepartmentsProvider {
     }
     public void updateDepartment(Department d) {
         try {
-            String querry = "UPDATE `departments` SET `name`="+d.getName()+",`id_manager`="+d.getId_manager()+" WHERE `id_department`="+d.getId()+";";
+            String querry = "UPDATE departments SET name=?,id_manager=? WHERE id_department=? ;";
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setString(1, d.getName());
+            pstmt.setInt(2, d.getId_manager());
+            pstmt.setInt(3, d.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+
+        }
+    }
+    public void deleteDepartment(Department d)
+    {
+        try {
+            String querry = "DELETE FROM `departments` WHERE `id_department`="+d.getId()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
@@ -94,15 +137,58 @@ public class DepartmentsProvider {
 
         }
     }
-    public void deleteDepartment(Department d){
+    public ArrayList getEmployeeName()
+    {
+        ArrayList<String> listEmployeesName=new ArrayList<>();
         try {
-            String querry = "DELETE FROM `departments` WHERE `id_departmenr`="+d.getId()+";";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            String querry = "SELECT * FROM `employees` ;";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                String last_name=result.getString("last_name");
+                String first_name=result.getString("first_name");
+                String name=last_name+" "+first_name;
+                listEmployeesName.add(name);
+            }
+            result.close();
         }
-        catch(Exception e){
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-
         }
+        return listEmployeesName;
+    }
+    public  int GetIdManager(String ManagerName)
+    {
+        int id_manager=0;
+        String[] managerName=ManagerName.split(" ");
+        try {
+            String querry = "SELECT * FROM `employees` WHERE `last_name`=" + managerName[0] + " AND `first_name`=" + managerName[1] + ";";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            id_manager=result.getInt("id_employee");
+            result.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return id_manager;
+    }
+    public  String GetNameManager(int id_manger)
+    {
+        String name=null;
+        try {
+            String querry = "SELECT * FROM `employees` WHERE `id_employee`='"+id_manger+"'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
+            String last_name=result.getString("last_name");
+            String first_name=result.getString("first_name");
+            name=last_name+" "+first_name;
+            result.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return name;
     }
 }

@@ -1,6 +1,5 @@
 package Employees;
 
-import Clocking.ClockingUIEdit;
 import Login.LoginController;
 import Utils.UIAlerts;
 import javafx.fxml.FXML;
@@ -43,7 +42,7 @@ public class EmployessUI implements Initializable,Observer {
 
         this.controller = new EmployeesController();
         this.controller.addObserver(this);
-        //LoginController.getInstance().addObserver(this);
+        LoginController.getInstance().addObserver(this);
     }
 
     @Override
@@ -76,8 +75,10 @@ public class EmployessUI implements Initializable,Observer {
         deleteButton.setOnAction(e->{
             employeesList.getSelectionModel().getSelectedIndex();
             Employee selected = (Employee) employeesList.getSelectionModel().getSelectedItem();
-            controller.deleteEmployee(selected);
-        });
+            if (selected!=null) {
+                controller.deleteEmployee(selected);
+            }
+            else UIAlerts.showInfo("Selectati un angajat");});
     }
     @Override
     public void update(Observable o, Object arg) {
