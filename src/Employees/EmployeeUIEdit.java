@@ -1,6 +1,6 @@
 package Employees;
 
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,15 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ResourceBundle;
 
 /**
  * Created by MariusDK on 29.04.2017.
  */
+
 public class EmployeeUIEdit implements Initializable{
 
     private Employee employee;
@@ -39,8 +37,7 @@ public class EmployeeUIEdit implements Initializable{
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {}
 
-    public void initData(String name,Employee employee,EmployeesController controller)
-    {
+    public void initData(String name,Employee employee,EmployeesController controller) {
         this.employee=employee;
         this.controller=controller;
         addUserButton.setText(name);
@@ -48,12 +45,11 @@ public class EmployeeUIEdit implements Initializable{
         departmentChoiceBox.setItems(FXCollections.observableArrayList(controller.GetAllDepartments()));
         roleChoiceBox.setItems(FXCollections.observableArrayList(controller.GetAllRole()));
         cancelButton.setVisible(false);
-        if (name=="Adauga")
-        {
+
+        if (name=="Adauga") {
             addUserButton.setOnAction(event -> add());
         }
-        else
-        {
+        else {
             current_id=employee.getId();
             firstNameTextField.setText(employee.getLast_name());
             lastNameTextField.setText(employee.getFirst_name());
@@ -66,13 +62,11 @@ public class EmployeeUIEdit implements Initializable{
             departmentChoiceBox.setValue(controller.GetDepartment(employee.getId_department()));
             roleChoiceBox.setValue(employee.getRole());
             addUserButton.setOnAction(event -> edit());
-
         }
     }
-    public void add()
-    {
-        try {
 
+    public void add() {
+        try {
             int idJob = controller.idJob(jobChoiceBox.getSelectionModel().getSelectedItem().toString());
             int idDepartment = controller.idDepartment(departmentChoiceBox.getSelectionModel().getSelectedItem().toString());
             controller.addEmployee(firstNameTextField.getText(), lastNameTextField.getText(), userNameTextField.getText(), passwordTextField.getText(), cnpTextField.getText(), idJob, idDepartment, emailTextField.getText(), phoneTextField.getText(), roleChoiceBox.getSelectionModel().getSelectedItem().toString());
@@ -80,14 +74,14 @@ public class EmployeeUIEdit implements Initializable{
             stage.close();
         }
         catch (NumberFormatException e) {
-            UIAlerts.showInfo("Format invalid!\n");
+            UtilFunctions.showInfo("Format invalid!\n");
         }
         catch (Exception e) {
-            UIAlerts.showInfo(e.getMessage());
+            UtilFunctions.showInfo(e.getMessage());
         }
     }
-    public  void edit()
-    {
+
+    public  void edit() {
         try {
             int idJob = controller.idJob(jobChoiceBox.getSelectionModel().getSelectedItem().toString());
             int idDepartment = controller.idDepartment(departmentChoiceBox.getSelectionModel().getSelectedItem().toString());
@@ -96,10 +90,10 @@ public class EmployeeUIEdit implements Initializable{
             stage.close();
         }
         catch (NumberFormatException e) {
-            UIAlerts.showInfo("Format invalid!\n");
+            UtilFunctions.showInfo("Format invalid!\n");
         }
         catch (Exception e) {
-            UIAlerts.showInfo(e.getMessage());
+            UtilFunctions.showInfo(e.getMessage());
         }
     }
 

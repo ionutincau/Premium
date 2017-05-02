@@ -73,22 +73,22 @@ public class ClockingProvider {
         return 0;
     }
 
-
     public void insertClocking(Clocking c, int id_employee) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String date = formatter.format(c.get_date().getTime());
 
-        String querry = "INSERT INTO clockings(id_employee, date, hour_in, hour_out, hour_break, hour_work) VALUES (?, ?, ?, ?, ?, ?)";
+        String querry = "INSERT INTO clockings(id_clocking, id_employee, date, hour_in, hour_out, hour_break, hour_work) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
 
-            pstmt.setInt(1, id_employee);
-            pstmt.setString(2, date);
-            pstmt.setInt(3, c.get_hour_in());
-            pstmt.setInt(4, c.get_hour_out());
-            pstmt.setInt(5, c.get_hour_break());
-            pstmt.setInt(6, c.get_hour_work());
+            pstmt.setInt(1, c.getId());
+            pstmt.setInt(2, id_employee);
+            pstmt.setString(3, date);
+            pstmt.setInt(4, c.get_hour_in());
+            pstmt.setInt(5, c.get_hour_out());
+            pstmt.setInt(6, c.get_hour_break());
+            pstmt.setInt(7, c.get_hour_work());
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -98,12 +98,11 @@ public class ClockingProvider {
         }
     }
 
-
     public void updateClocking(Clocking c, int id_employee) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // your template here
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String date=formatter.format(c.get_date().getTime());
 
-        String querry = "UPDATE clockings SET id_employee = ? ,date = ? ,hour_in = ?, hour_out = ?, hour_break = ?, hour_work = ? WHERE id_clocking=?";
+        String querry = "UPDATE clockings SET id_employee = ?, date = ?, hour_in = ?, hour_out = ?, hour_break = ?, hour_work = ? WHERE id_clocking=?";
 
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
@@ -123,16 +122,13 @@ public class ClockingProvider {
         }
     }
 
-
     public void deleteClocking (Clocking c) {
         try {
             String querry = "DELETE FROM `clockings` WHERE `id_clocking`="+c.getId()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch (Exception e){
-
             e.printStackTrace();
         }
     }
-
 }

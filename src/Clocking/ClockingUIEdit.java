@@ -1,6 +1,6 @@
 package Clocking;
 
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -55,13 +55,13 @@ public class ClockingUIEdit implements Initializable {
             stage.close();
         }
         catch (ParseException e) {
-            UIAlerts.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
+            UtilFunctions.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
         }
         catch (NumberFormatException e) {
-            UIAlerts.showInfo("Format invalid!\nTimpul trebuie introdus sub forma: hh:mm");
+            UtilFunctions.showInfo("Format invalid!\nTimpul trebuie introdus sub forma: hh:mm");
         }
         catch (Exception e) {
-            UIAlerts.showInfo(e.getMessage());
+            UtilFunctions.showInfo(e.getMessage());
         }
     }
 
@@ -72,13 +72,13 @@ public class ClockingUIEdit implements Initializable {
             stage.close();
         }
         catch (NumberFormatException e) {
-            UIAlerts.showInfo("Format invalid!\nTimpul trebuie introdus sub forma: hh:mm");
+            UtilFunctions.showInfo("Format invalid!\nTimpul trebuie introdus sub forma: hh:mm");
         }
         catch (ParseException e) {
-            UIAlerts.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
+            UtilFunctions.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
         }
         catch (Exception e) {
-            UIAlerts.showInfo(e.getMessage());
+            UtilFunctions.showInfo(e.getMessage());
         }
     }
 }

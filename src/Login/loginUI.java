@@ -2,7 +2,7 @@ package Login;
 
 import Documents.DocumentsController;
 import Employees.Employee;
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,7 +34,7 @@ public class loginUI {
             loginController.login(usernameField.getText(), passwordField.getText());
         }
         catch (Exception e) {
-            UIAlerts.showInfo(e.getMessage());
+            UtilFunctions.showInfo(e.getMessage());
             if (e.getMessage().equals("Parola incorecta!")) {
                 passwordField.setText("");
             }
@@ -60,8 +60,7 @@ public class loginUI {
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
             }
-            if (usertype.equals("hr"))
-            {
+            if (usertype.equals("hr")) {
                 Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tabHR.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tabHR.fxml"));
@@ -79,7 +78,7 @@ public class loginUI {
             tabPane.getTabs().add(notificari);
         }
         catch (IOException ex) {
-            UIAlerts.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");
+            UtilFunctions.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");
         }
 
         DocumentsController d = new DocumentsController(); // todo: remove this

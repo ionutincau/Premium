@@ -1,7 +1,7 @@
 package Employees;
 
 import Login.LoginController;
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,17 +37,14 @@ public class EmployessUI implements Initializable,Observer {
     @FXML private Button deleteButton;
     @FXML private Button selectButton;
 
-
     public EmployessUI() {
-
         this.controller = new EmployeesController();
         this.controller.addObserver(this);
         LoginController.getInstance().addObserver(this);
     }
 
     @Override
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources)
-    {
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         employeesList.setFixedCellSize(48);
         employeesList.getItems().addAll(0, controller.getEmployees());
         userAdd();
@@ -56,37 +53,39 @@ public class EmployessUI implements Initializable,Observer {
         userSelection();
         cautareDupaNume();
     }
+
     private void userAdd()
     {
      addButton.setOnAction(e->loadWindow("Adauga", null));
     }
-    private void userEdit()
-    {
+
+    private void userEdit() {
         editButton.setOnAction(event -> {
         employeesList.getSelectionModel().getSelectedIndex();
         Employee employee = (Employee) employeesList.getSelectionModel().getSelectedItem();
         if (employee!=null) {
             loadWindow("Editare", employee);
         }
-        else UIAlerts.showInfo("Selectati un angajat");});
+        else UtilFunctions.showInfo("Selectati un angajat");});
     }
-    private void userDelete()
-    {
+
+    private void userDelete() {
         deleteButton.setOnAction(e->{
             employeesList.getSelectionModel().getSelectedIndex();
             Employee selected = (Employee) employeesList.getSelectionModel().getSelectedItem();
             if (selected!=null) {
                 controller.deleteEmployee(selected);
             }
-            else UIAlerts.showInfo("Selectati un angajat");});
+            else UtilFunctions.showInfo("Selectati un angajat");});
     }
+
     @Override
     public void update(Observable o, Object arg) {
         employeesList.getItems().clear();
         employeesList.getItems().addAll(0, controller.getEmployees());
     }
-    private void loadWindow(String name, Employee employee)
-    {
+
+    private void loadWindow(String name, Employee employee) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("employee_add.fxml"));
             AnchorPane root = loader.load();

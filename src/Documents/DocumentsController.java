@@ -16,23 +16,30 @@ public class DocumentsController {
 
     public DocumentsController() {
         this.provider = new DocumentsProvider();
-        Vacation v = new Vacation("x", "y");
-        Document d = new Document(1, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 1, v);
+    }
+
+    public int addVacationRequest(String start_date, String end_date) {
+        int id_document = DocumentsProvider.getAvaliableId();
+        Vacation v = new Vacation(start_date, end_date);
+        Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 1, v);
         provider.insertDocument(d);
-        try {
-            v.generatePDF();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        // todo: rem this
         ArrayList<Document> list = provider.getDocuments(LoginController.getInstance().getLoggedUser().getId());
         for (Document doc : list) {
             try {
-                if (doc.getId() == 1) ((Vacation) doc.getDoc()).generatePDF();
+                if (doc.getId() == 1) {
+                    System.out.println("doc: " + doc.getName());
+                    Object o = doc.getDoc();
+                    Vacation vac = (Vacation) o;
+                    vac.generatePDF();
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        return id_document;
     }
 }

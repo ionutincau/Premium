@@ -2,6 +2,7 @@ package Clocking;
 
 import Employees.Employee;
 import Login.LoginController;
+import Utils.UtilFunctions;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -99,7 +100,7 @@ public class ClockingController extends Observable {
     }
 
     public void add(String date, String hour_in, String hour_break, String hour_work, String  hour_out) throws ParseException {
-        Calendar calendar = formatDate(date);
+        Calendar calendar = UtilFunctions.formatDate(date);
         int h_in = getMinutes(hour_in);
         int h_break = getMinutes(hour_break);
         int h_work = getMinutes(hour_work);
@@ -115,7 +116,7 @@ public class ClockingController extends Observable {
     }
 
     public void edit(int id, String date, String hour_in, String hour_break, String hour_work, String  hour_out) throws ParseException {
-        Calendar calendar = formatDate(date);
+        Calendar calendar = UtilFunctions.formatDate(date);
         int h_in = getMinutes(hour_in);
         int h_break = getMinutes(hour_break);
         int h_work = getMinutes(hour_work);
@@ -159,14 +160,6 @@ public class ClockingController extends Observable {
         }
 
         return list;
-    }
-
-    private Calendar formatDate(String d) throws ParseException {
-        Calendar cal = new GregorianCalendar();
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = df.parse(d);
-        cal.setTime(date);
-        return cal;
     }
 
     private int getMinutes(String time) {

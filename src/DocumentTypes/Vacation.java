@@ -4,7 +4,6 @@ import Employees.Employee;
 import JobsHistory.JobsHistoryController;
 import Login.LoginController;
 
-
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
@@ -15,8 +14,6 @@ import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static sun.plugin.javascript.navig.JSType.Document;
 
 /**
  * Created by Incau Ionut on 29-Apr-17.
@@ -50,7 +47,7 @@ public class Vacation implements Serializable {
         name = user.getLast_name() + " " + user.getFirst_name();
         job = user.getJob();
         department = user.getDepartment();
-        used_days = JobsHistoryController.getVacationDays(user.getId());
+        used_days = new JobsHistoryController().getVacationDays(user.getId());
         date = Calendar.getInstance();
     }
 

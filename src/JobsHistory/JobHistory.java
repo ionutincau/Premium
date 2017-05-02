@@ -5,6 +5,7 @@ import java.util.Calendar;
 /**
  * Created by ASUS on 09.Apr.2017.
  */
+
 public class JobHistory {
     private int id_job;
     private Calendar start_date;
@@ -29,7 +30,7 @@ public class JobHistory {
     public int getId_department(){return this.id_department;}
     public String getStatus(){return this.status;}
 
-    public void  setId(int id_job){
+    public void setId(int id_job){
         this.id_job=id_job;
     }
     public void setStart_date(Calendar start_date){
@@ -45,9 +46,6 @@ public class JobHistory {
         this.id_department=id_department;
     }
     public void setStatus(String status){
-
         this.status=status;
     }
-
-
 }

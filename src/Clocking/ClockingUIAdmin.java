@@ -1,7 +1,7 @@
 package Clocking;
 
 import Login.LoginController;
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,14 +62,14 @@ public class ClockingUIAdmin implements Initializable, Observer{
         pontajListView.getSelectionModel().getSelectedIndex();
         Clocking clocking = (Clocking) pontajListView.getSelectionModel().getSelectedItem();
         if (clocking != null) loadWindow("Editeaza", clocking);
-        else UIAlerts.showInfo("Selectati un pontaj");
+        else UtilFunctions.showInfo("Selectati un pontaj");
     }
 
     public void stergere() {
         pontajListView.getSelectionModel().getSelectedIndex();
         Clocking clocking = (Clocking) pontajListView.getSelectionModel().getSelectedItem();
         if (clocking != null) controller.delete(clocking);
-        else UIAlerts.showInfo("Selectati un pontaj");
+        else UtilFunctions.showInfo("Selectati un pontaj");
     }
 
     public void filtrare() {

@@ -1,7 +1,7 @@
 package Jobs;
 
 import Login.LoginController;
-import Utils.UIAlerts;
+import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,10 +17,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-
 /**
  * Created by MariusDK on 01.05.2017.
  */
+
 public class JobsUI implements Initializable,Observer{
     private JobsController controller;
     @FXML private ListView jobsListView;
@@ -28,23 +28,22 @@ public class JobsUI implements Initializable,Observer{
     @FXML private Button editJobButton;
     @FXML private Button deleteJobButton;
 
-    public JobsUI()
-    {
+    public JobsUI() {
         this.controller = new JobsController();
         this.controller.addObserver(this);
         LoginController.getInstance().addObserver(this);
     }
+
     @Override
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources)
-    {
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         jobsListView.setFixedCellSize(48);
         jobsListView.getItems().addAll(0, controller.getJobs());
         jobAdd();
         jobEdit();
         jobDelete();
     }
-    private void loadWindow(String name, Job job)
-    {
+
+    private void loadWindow(String name, Job job) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add_job.fxml"));
             AnchorPane root = loader.load();
@@ -55,29 +54,28 @@ public class JobsUI implements Initializable,Observer{
             stage.setScene(new Scene(root, 300, 250));
             stage.show();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void jobAdd()
     {
         addJobButton.setOnAction(event -> loadWindow("Adauga",null));
     }
-    public void jobEdit()
-    {
-     editJobButton.setOnAction(event -> {
-         jobsListView.getSelectionModel().getSelectedIndex();
-         Job job=(Job)jobsListView.getSelectionModel().getSelectedItem();
-         if (job!=null)
-         {
-             loadWindow("Editare",job);
-         }
-         else UIAlerts.showInfo("Selectati un job");
-     });
+
+    public void jobEdit() {
+        editJobButton.setOnAction(event -> {
+            jobsListView.getSelectionModel().getSelectedIndex();
+            Job job=(Job)jobsListView.getSelectionModel().getSelectedItem();
+            if (job!=null) {
+                loadWindow("Editare",job);
+            }
+            else UtilFunctions.showInfo("Selectati un job");
+        });
     }
-    public  void jobDelete()
-    {
+
+    public  void jobDelete() {
         deleteJobButton.setOnAction(event -> {
             jobsListView.getSelectionModel().getSelectedIndex();
             Job job=(Job)jobsListView.getSelectionModel().getSelectedItem();
@@ -85,9 +83,10 @@ public class JobsUI implements Initializable,Observer{
             {
                 controller.removeJob(job);
             }
-            else UIAlerts.showInfo("Selectati un job");
+            else UtilFunctions.showInfo("Selectati un job");
         });
     }
+
     @Override
     public void update(Observable o, Object arg) {
         jobsListView.getItems().clear();

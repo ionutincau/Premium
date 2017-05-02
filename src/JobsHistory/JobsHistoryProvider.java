@@ -1,12 +1,10 @@
 package JobsHistory;
 
-import Jobs.Job;
 import database.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,11 +16,9 @@ import java.util.GregorianCalendar;
  */
 public class JobsHistoryProvider {
 
-
     public JobsHistoryProvider() {
 
     }
-
 
     public ArrayList getJobsHistory(int id_employee) {
         ArrayList<JobHistory> list = new ArrayList<JobHistory>();
@@ -52,7 +48,7 @@ public class JobsHistoryProvider {
     }
 
     public static int getAvaliableId(){
-        int id=0;
+        int id = 0;
         try{
             String querry = "SELECT MAX(`id_job`) FROM `jobs_history`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
@@ -83,18 +79,17 @@ public class JobsHistoryProvider {
             pstmt.setInt(5, jh.getId_department());
             pstmt.setString(6, jh.getStatus());
 
-
             pstmt.executeUpdate();
             pstmt.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
-    public void updateJobHistory(JobHistory jh)
-    {
-        String querry = "UPDATE `jobs_history` SET `start_date`= ? ,`end_date`= ? ,`id_department`= ? ,`status`= ?  WHERE `id_employee`= ? ;";
+
+    public void updateJobHistory(JobHistory jh) {
+        String querry = "UPDATE `jobs_history` SET `start_date`= ? ,`end_date`= ? ,`id_employee`= ? ,`id_department`= ? ,`status`= ?  WHERE `id_job`= ? ;";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String start_date = formatter.format(jh.getStart_date().getTime());
         String end_date = formatter.format(jh.getEnd_date().getTime());
@@ -110,16 +105,14 @@ public class JobsHistoryProvider {
 
             pstmt.executeUpdate();
             pstmt.close();
-
         }
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
-    public void deleteJobHistory(JobHistory jh)
-    {
+
+    public void deleteJobHistory(JobHistory jh) {
         try {
             String querry="DELETE FROM `jobs_history` WRITE `id_job`="+jh.getId_job()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
@@ -130,4 +123,18 @@ public class JobsHistoryProvider {
         }
     }
 
+    public int getVacationDays(int id_employee) {
+        int nr_days = 0;
+        try {
+            String querry = "SELECT COUNT(*) FROM `jobs_history` WHERE `id_employee`='" + id_employee + "'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
+            nr_days = result.getInt(1);
+            result.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nr_days;
+    }
 }

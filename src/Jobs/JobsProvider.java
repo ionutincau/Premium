@@ -1,6 +1,5 @@
 package Jobs;
 
-import Departments.Department;
 import database.DatabaseConnection;
 
 import java.sql.*;
@@ -10,8 +9,8 @@ import java.util.ArrayList;
 /**
  * Created by ASUS on 09.Apr.2017.
  */
-public class JobsProvider {
 
+public class JobsProvider {
 
     public JobsProvider() {
 
@@ -26,7 +25,7 @@ public class JobsProvider {
                 int id_job = result.getInt("id_job");
                 String name=result.getString("name");
                 String min_salary=result.getString("min_salary");
-                String number=result.getString("number");
+                int number=result.getInt("number");
                 int id_document = result.getInt("id_document");
                 job = new Job(id_job, name, min_salary, number, id_document);
             }
@@ -46,7 +45,7 @@ public class JobsProvider {
                 int id_job = result.getInt("id_job");
                 String name=result.getString("name");
                 String min_salary=result.getString("min_salary");
-                String number=result.getString("number");
+                int number=result.getInt("number");
                 int id_document = result.getInt("id_document");
 
                 Job job = new Job(id_job,name,min_salary,number,id_document);
@@ -75,7 +74,6 @@ public class JobsProvider {
 //    }
 
     public void insertJob(Job j) {
-
         try {
             String querry = "INSERT INTO jobs(id_job,name,min_salary,number,id_document) VALUES (?,?,?,?,?)";
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
@@ -83,14 +81,14 @@ public class JobsProvider {
             pstmt.setInt(1, j.getId());
             pstmt.setString(2, j.getName());
             pstmt.setString(3, j.getMin_salary());
-            pstmt.setString(4, j.getNumber());
+            pstmt.setInt(4, j.getNumber());
             pstmt.setInt(5, j.getId_document());
             pstmt.executeUpdate();
             pstmt.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
 
@@ -100,7 +98,7 @@ public class JobsProvider {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
             pstmt.setString(1, j.getName());
             pstmt.setString(2, j.getMin_salary());
-            pstmt.setString(3, j.getNumber());
+            pstmt.setInt(3, j.getNumber());
             pstmt.setInt(4, j.getId_document());
             pstmt.setInt(5, j.getId());
             pstmt.executeUpdate();
@@ -109,9 +107,9 @@ public class JobsProvider {
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
+
     public void deleteJob(Job j){
         try {
             String querry = "DELETE FROM `jobs` WHERE `id_job`="+j.getId()+";";
@@ -120,21 +118,19 @@ public class JobsProvider {
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
-    public  int numberOfEmployeePerJob(int  id_job)
-    {
-        int nr_employee=0;
+
+    public int numberOfEmployeePerJob(int id_job) {
+        int nr_employee = 0;
         try {
-            String querry = "SELECT COUNT(*) FROM `employees` WHERE `id_job`='"+id_job+"'";
+            String querry = "SELECT COUNT(*) FROM `employees` WHERE `id_job`='" + id_job + "'";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             result.next();
             nr_employee=result.getInt(1);
             result.close();
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return nr_employee;
