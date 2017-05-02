@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static sun.plugin.javascript.navig.JSType.Document;
+
 /**
  * Created by Incau Ionut on 29-Apr-17.
  * Contact: ionut.incau@gmail.com
