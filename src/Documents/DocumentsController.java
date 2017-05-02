@@ -18,7 +18,7 @@ public class DocumentsController {
         this.provider = new DocumentsProvider();
         Vacation v = new Vacation("x", "y");
         Document d = new Document(1, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 1, v);
-        provider.insertDocument(d, LoginController.getInstance().getLoggedUser().getId());
+        provider.insertDocument(d);
         try {
             v.generatePDF();
         }

@@ -25,7 +25,7 @@ public class Document {
 
     public int getId(){ return this.id_document; }
     public int getEmployeeId(){ return this.id_employee; }
-    public int getName(){ return this.id_employee; }
+    public String getName(){ return this.name; }
     public Calendar getDate(){ return this.date; }
     public int getId_doctype(){ return this.id_doctype; }
     public Object getDoc(){ return this.doc; }

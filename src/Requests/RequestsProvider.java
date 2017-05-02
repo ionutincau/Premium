@@ -4,7 +4,9 @@ import Clocking.Clocking;
 import database.DatabaseConnection;
 
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.GregorianCalendar;
  */
 
 public class RequestsProvider {
-    
+
     public RequestsProvider() {
 
     }
@@ -54,7 +56,9 @@ public class RequestsProvider {
         try{
             String querry = "SELECT MAX(`id_request`) FROM `requests`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
-            id=result.getInt("id_requests");
+            if (result.next()) {
+                id = result.getInt(1);
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -65,10 +69,22 @@ public class RequestsProvider {
 
 
     public void insertRequest(Request r) {
+        String querry = "INSERT INTO `requests`(`id_document`,`status`,`deadline`,`date_approval`) VALUES (?,?,?,?);";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String deadline = formatter.format(r.getDeadline().getTime());
+        String date_approval = formatter.format(r.getDate_approval().getTime());
 
         try {
-            String querry = "INSERT INTO `requests`(`id_document`,`status`,`deadline`,`date_approval`) VALUES (" +r.getId_document()+ "," +r.getStatus()+ ","+r.getDeadline()+","+r.getDate_approval()+");";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setInt(1, r.getId());
+            pstmt.setString(2, r.getStatus());
+            pstmt.setString(3, deadline);
+            pstmt.setString(4, date_approval);
+
+            pstmt.executeUpdate();
+            pstmt.close();
+
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
@@ -76,9 +92,21 @@ public class RequestsProvider {
     }
 
     public void updateRequest(Request r) {
+        String querry = "UPDATE `requests` SET `id_document`= ? ,`status`= ? ,`deadline`= ? ,`date_approval`= ? WHERE `id_request`= ? ;";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String deadline = formatter.format(r.getDeadline().getTime());
+        String date_approval = formatter.format(r.getDate_approval().getTime());
         try {
-            String querry = "UPDATE `requests` SET `id_document`="+r.getId_document()+",`status`="+r.getStatus()+",`deadline`="+r.getDeadline()+",`date_approval`="+r.getDate_approval()+" WHERE `id_request`="+r.getId()+";";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setString(1, r.getStatus());
+            pstmt.setString(2, deadline);
+            pstmt.setString(3, date_approval);
+            pstmt.setInt(4, r.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+
         }
         catch(Exception e){
             System.out.println(e);

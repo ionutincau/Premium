@@ -2,7 +2,9 @@ package Documents;
 
 import database.DatabaseConnection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +45,9 @@ public class DocumentsProvider {
         try{
             String querry = "SELECT MAX(`id_document`) FROM `documents`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
-            id=result.getInt("id_document");
+            if (result.next()) {
+                id = result.getInt(1);
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -52,11 +56,25 @@ public class DocumentsProvider {
         return (id+1);
     }
 
-    //insereaza document nou dupa id_employee
-    public void insertDocument(Document d, int id_employee){
+    //insereaza document nou
+    public void insertDocument(Document d){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String date = formatter.format(d.getDate().getTime());
+
+        String querry = "INSERT INTO `documents`(`id_document`,`id_employee`,`name`,`date`,`id_doctype`,`document`) VALUES (?,?,?,?,?,?);";
         try {
-            String querry = "INSERT INTO `documents`(`id_employee`,`name`,`date`,`id_doctype`,`document`) VALUES (" + id_employee + ","+d.getName()+"," + d.getDate() + "," + d.getId_doctype() + "," + d.getDoc() + ");";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setInt(1, d.getId());
+            pstmt.setInt(2, d.getEmployeeId());
+            pstmt.setString(3, d.getName());
+            pstmt.setString(4, date);
+            pstmt.setInt(5, d.getId_doctype());
+            pstmt.setObject(6, d.getDoc());
+
+
+            pstmt.executeUpdate();
+            pstmt.close();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -64,11 +82,24 @@ public class DocumentsProvider {
         }
     }
 
-    //actualizeaza Documentul dupa id_employee
-    public void updateDocument(Document d,int id_employee) {
-        try {
-            String querry = "UPDATE `documents` SET `id_employee`="+d.getEmployeeId()+",`name`="+d.getName()+",`date`="+d.getDate()+",`id_doctype`="+d.getId_doctype()+",`document`="+d.getDoc()+" WHERE `id_employee`="+id_employee+";";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+    //actualizeaza Documentul
+    public void updateDocument(Document d) {
+        String querry = "UPDATE `documents` SET `name`= ? ,`date`= ? ,`id_doctype`= ? ,`document`= ?  WHERE `id_employee`= ?;";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String date = formatter.format(d.getDate().getTime());
+
+        try{
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setString(1, d.getName());
+            pstmt.setString(2, date);
+            pstmt.setInt(3, d.getId_doctype());
+            pstmt.setObject(4, d.getDoc());
+            pstmt.setInt(5, d.getEmployeeId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+
         }
         catch(Exception e){
             System.out.println(e);

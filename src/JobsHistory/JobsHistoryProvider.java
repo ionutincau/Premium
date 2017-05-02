@@ -5,7 +5,9 @@ import database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,7 +40,7 @@ public class JobsHistoryProvider {
                 int id_department = result.getInt("id_department");
                 String status=result.getString("status");
 
-                JobHistory jobHistory = new JobHistory(id_job,start_date,end_date,id_department,status);
+                JobHistory jobHistory = new JobHistory(id_job,start_date,end_date,id_employee,id_department,status);
                 list.add(0,jobHistory);
             }
         }
@@ -54,7 +56,9 @@ public class JobsHistoryProvider {
         try{
             String querry = "SELECT MAX(`id_job`) FROM `jobs_history`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
-            id=result.getInt("id_job");
+            if (result.next()) {
+                id = result.getInt(1);
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -63,23 +67,50 @@ public class JobsHistoryProvider {
         return (id+1);
     }
 
-    public void insertJobHistory(JobHistory jh,int id_employee) {
+    public void insertJobHistory(JobHistory jh) {
+        String querry = "INSERT INTO `jobs_history`(`id_job`,`start_date`,`end_date`,`id_employee`,`id_department`,`status`) VALUES (?,?,?,?,?,?)";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String start_date = formatter.format(jh.getStart_date().getTime());
+        String end_date = formatter.format(jh.getEnd_date().getTime());
 
         try {
-            String querry = "INSERT INTO `jobs_history`(`start_date`,`end_date`,`id_employee`,`id_department`,`status`) VALUES (" + jh.getStart_date() + "," + jh.getEnd_date() + "," + jh.getId_department() + "," + jh.getStatus()+")";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setInt(1, jh.getId_job());
+            pstmt.setString(2, start_date);
+            pstmt.setString(3, end_date);
+            pstmt.setInt(4, jh.getId_employee());
+            pstmt.setInt(5, jh.getId_department());
+            pstmt.setString(6, jh.getStatus());
+
+
+            pstmt.executeUpdate();
+            pstmt.close();
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
 
         }
     }
-    public void updateJobHistory(JobHistory jh,int id_employee)
+    public void updateJobHistory(JobHistory jh)
     {
-
+        String querry = "UPDATE `jobs_history` SET `start_date`= ? ,`end_date`= ? ,`id_department`= ? ,`status`= ?  WHERE `id_employee`= ? ;";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String start_date = formatter.format(jh.getStart_date().getTime());
+        String end_date = formatter.format(jh.getEnd_date().getTime());
         try {
-            String querry = "UPDATE `jobs_history` SET `start_date`="+jh.getStart_date()+",`end_date`="+jh.getEnd_date()+",`id_department`="+jh.getId_department()+",`status`="+jh.getStatus()+" WHERE `id_employee`="+id_employee+";";
-            DatabaseConnection.getStatement().executeUpdate(querry);
+            PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
+
+            pstmt.setString(1, start_date);
+            pstmt.setString(2, end_date);
+            pstmt.setInt(3, jh.getId_employee());
+            pstmt.setInt(4, jh.getId_department());
+            pstmt.setString(5, jh.getStatus());
+            pstmt.setInt(6, jh.getId_job());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+
         }
         catch(Exception e){
             System.out.println(e);
