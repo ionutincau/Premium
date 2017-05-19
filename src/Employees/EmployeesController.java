@@ -99,16 +99,26 @@ public class EmployeesController extends Observable{
     }
     public ArrayList searchByName(String name) {
         ArrayList<Employee> listE = new ArrayList<>();
-        if (!name.equals("")) {
-            String[] listName = name.split(" ");
-            String last_name = listName[0];
-            String first_name = listName[1];
+        if (name.contains("@"))
+        {
             for (Employee o : list) {
-                if ((last_name.equals(o.getLast_name())) && (first_name.equals(o.getFirst_name()))) {
+                if (o.getEmail().equals(name)) {
                     listE.add(o);
                 }
             }
             return listE;
+        }
+        else if (!name.equals("")) {
+            String[] listName = name.split(" ");
+            String last_name = listName[0];
+            String first_name = listName[1];
+            for (Employee o : list) {
+                if ((last_name.equalsIgnoreCase(o.getLast_name())) && (first_name.equalsIgnoreCase(o.getFirst_name()))) {
+                    listE.add(o);
+                }
+            }
+            return listE;
+
         }
         setChanged();
         notifyObservers();

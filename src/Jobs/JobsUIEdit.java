@@ -31,8 +31,6 @@ public class JobsUIEdit implements Initializable {
     public void initData(String name, Job job, JobsController controller) {
         this.controller=controller;
         this.job=job;
-        employeeNumberTextField.setVisible(false);
-        employeeNumberLabel.setVisible(false);
         jobOKButton.setText(name);
         if (name=="Adauga") {
             jobOKButton.setOnAction(e->Add());
@@ -47,7 +45,7 @@ public class JobsUIEdit implements Initializable {
 
     public void Add() {
         try {
-            controller.addJob(jobNameTextField.getText(),minimumSalaryTextField.getText(),1);
+            controller.addJob(jobNameTextField.getText(),minimumSalaryTextField.getText(),employeeNumberLabel.getText(),1);
             Stage stage = (Stage)jobOKButton.getScene().getWindow();
             stage.close();
         }
@@ -61,7 +59,7 @@ public class JobsUIEdit implements Initializable {
 
     public void Edit() {
         try {
-            controller.editJob(job.getId(),jobNameTextField.getText(),minimumSalaryTextField.getText(),1);
+            controller.editJob(job.getId(),jobNameTextField.getText(),minimumSalaryTextField.getText(),employeeNumberLabel.getText(),1);
             Stage stage = (Stage) jobOKButton.getScene().getWindow();
             stage.close();
         }
