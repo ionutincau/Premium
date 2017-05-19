@@ -1,6 +1,5 @@
 package Login;
 
-import Documents.DocumentsController;
 import Employees.Employee;
 import Utils.UtilFunctions;
 import javafx.event.Event;
@@ -76,12 +75,15 @@ public class loginUI {
 
             Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
             tabPane.getTabs().add(notificari);
+
+            Tab a = FXMLLoader.load(this.getClass().getResource("../Requests/requests_hr.fxml"));
+            Tab b = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
+            tabPane.getTabs().add(a);
+            tabPane.getTabs().add(b);
         }
         catch (IOException ex) {
             UtilFunctions.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");
         }
-
-        DocumentsController d = new DocumentsController(); // todo: remove this
     }
 
     private void closeTab(Tab tab) {

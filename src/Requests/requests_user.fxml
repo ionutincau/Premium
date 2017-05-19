@@ -13,16 +13,10 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ListView id="cereriListView" fx:id="cereriListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                        <Label text="Creeaza cerere de" />
+                        <Label text="Solicita document:" />
                         <ChoiceBox id="cereriChoiceBox" fx:id="cereriChoiceBox" prefWidth="150.0" />
-                        <Button id="creeazaCerereButton" fx:id="creeazaCerereButton" mnemonicParsing="false" text="Creeaza" />
+                        <Button id="creeazaCerereButton" fx:id="creeazaCerereButton" mnemonicParsing="false" text="Solicita" />
                         <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
-                           <children>
-                              <Label id="cereriAcceptateLabel" fx:id="cereriAcceptateLabel" text="Acceptate: 3" />
-                              <Label id="cereriRespinseLabel" fx:id="cereriRespinseLabel" layoutX="296.0" layoutY="52.0" text="Respinse: 1" />
-                              <Label id="cereriInAsteptareLabel" fx:id="cereriInAsteptareLabel" layoutX="310.0" layoutY="52.0" text="In asteptare: 2" />
-                              <Label id="cereriTotalLabel" fx:id="cereriTotalLabel" layoutX="324.0" layoutY="52.0" text="Total: 6" />
-                           </children>
                            <padding>
                               <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                            </padding>
