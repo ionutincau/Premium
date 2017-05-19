@@ -72,4 +72,9 @@ public class Alert {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return  delivery_date + " - " + " deadline: " + deadline + " mesaj: " + text;
+    }
 }

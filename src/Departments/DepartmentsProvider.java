@@ -125,8 +125,8 @@ public class DepartmentsProvider {
 
         }
     }
-    public void deleteDepartment(Department d)
-    {
+
+    public void deleteDepartment(Department d) {
         try {
             String querry = "DELETE FROM `departments` WHERE `id_department`="+d.getId()+";";
             DatabaseConnection.getStatement().executeUpdate(querry);
@@ -134,9 +134,9 @@ public class DepartmentsProvider {
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
+
     public ArrayList getEmployeeName()
     {
         ArrayList<String> listEmployeesName=new ArrayList<>();

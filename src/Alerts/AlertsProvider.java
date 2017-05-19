@@ -22,22 +22,22 @@ public class AlertsProvider {
      *
      */
     public ArrayList getAlerts(int id_employee) {
-        ArrayList<Alert> list = new ArrayList<Alert>();
+        ArrayList<Alert> list = new ArrayList();
         try {
-            String querry = "SELECT `alerts_employees`.`id_alert_employee`,`alerts`.`id_alert`,`alerts`.`text`,`alerts_employees`.`delivery_date`,`alerts`.`deadline`,`alerts_employees`.`status`  FROM `alerts` JOIN `alerts_employees` ON `alerts`.`id_alert` = `alerts_employees`.`id_alert` WHERE`alerts_employees`.`id_employee` ="+id_employee;
+            String querry = "SELECT `alerts_employees`.`id_alert_employee`,`alerts`.`id_alert`,`alerts`.`text`,`alerts_employees`.`delivery_date`,`alerts`.`deadline`,`alerts_employees`.`status`  FROM `alerts` JOIN `alerts_employees` ON `alerts`.`id_alert` = `alerts_employees`.`id_alert` WHERE `alerts_employees`.`id_employee` =" + id_employee;
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             while (result.next()) {
                 int id_alert = result.getInt("id_alert");
                 String text = result.getString("text");
+                java.util.Date deadline = result.getDate("deadline");
+                Calendar cal1 = new GregorianCalendar();
+                cal1.setTime(deadline);
                 java.util.Date delivary_date = result.getDate("delivery_date");
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(delivary_date);
-                java.util.Date deadline = result.getDate("deadline");
-                Calendar cal1 = new GregorianCalendar();
-                cal.setTime(deadline);
                 String status = result.getString("status");
 
-                Alert alert = new Alert(id_alert, id_employee, text, cal, cal1, status);
+                Alert alert = new Alert(id_alert, id_employee, text, cal1, cal , status);
                 list.add(0, alert);
             }
         }
@@ -49,8 +49,8 @@ public class AlertsProvider {
     }
 
     public static int getAvaliableId(){
-        int id=0;
-        try{
+        int id = 0;
+        try {
             String querry = "SELECT MAX(`id_alert_employee`) FROM `alerts_employees`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             if (result.next()) {
@@ -61,7 +61,7 @@ public class AlertsProvider {
             System.out.println(e);
             e.printStackTrace();
         }
-        return (id+1);
+        return (id + 1);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AlertsProvider {
      *
      */
     public void insertNotification(Alert a){
-        String querry1 = "INSERT INTO `alerts`(`deadline`, `text`) VALUES (?,?);";
+        String querry1 = "INSERT INTO `alerts`(`id_alert`, `deadline`, `text`) VALUES (?,?,?);";
         String querry2 = "INSERT INTO `alerts_employees`(`id_alert_employee`,`id_employee`,`id_alert`,`delivery_date`,`status`) VALUES (?,?,(SELECT `id_alert` FROM `alerts` WHERE `alerts`.`text`= ? ),?,?);";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String deadline = formatter.format(a.getDeadline().getTime());
@@ -84,8 +84,9 @@ public class AlertsProvider {
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry1);
 
-            pstmt.setString(1, deadline);
-            pstmt.setString(2, a.getText());
+            pstmt.setInt(1, a.getId_alert());
+            pstmt.setString(2, deadline);
+            pstmt.setString(3, a.getText());
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -100,7 +101,6 @@ public class AlertsProvider {
 
             pstmt2.executeUpdate();
             pstmt2.close();
-
         }
         catch (Exception e) {
             System.out.println(e);
