@@ -4,6 +4,7 @@ import database.DatabaseConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,11 +62,16 @@ public class RequestsProvider {
     }
 
     public void insertRequest(Request r) {
+
+        String date_approval="0000-00-00";
         String querry = "INSERT INTO `requests`(`id_request`,`id_document`,`status`,`date_approval`) VALUES (?,?,?,?);";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String date_approval = formatter.format(r.getDate_approval().getTime());
-
+        if (r.getDate_approval()!=null)
+        {
+            date_approval = formatter.format(r.getDate_approval().getTime());
+        }
         try {
+
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
 
             pstmt.setInt(1, r.getId());
@@ -80,6 +86,24 @@ public class RequestsProvider {
             System.out.println(e);
             e.printStackTrace();
         }
+    }
+    public ArrayList<String> getRequestDocTypeName()
+    {
+        ArrayList<String> list=new ArrayList<>();
+        try {
+            String querry = "SELECT `doctype_name` FROM `document_types`;";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                String docName = result.getString("doctype_name");
+                list.add(0, docName);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return list;
+
     }
 
     public void updateRequest(Request r) {
@@ -113,4 +137,51 @@ public class RequestsProvider {
             e.printStackTrace();
         }
     }
+    public int getDocTypeIdbyName(String name)
+    {
+        int id=0;
+
+        try {
+            String querry = "SELECT `id_doctype` FROM `document_types` WHERE `doctype_name`='"+name+"';";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            if (result.next()) {
+                id = result.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return id;
+    }
+    public ArrayList<Request> getRequestsList(int id_user)
+    {
+        ArrayList<Request> list = new ArrayList();
+        try {
+            String query ="SELECT requests.id_request,requests.id_document,requests.Status,requests.date_approval from requests " +
+                    "inner join documents  on requests.id_document = documents.id_document " +
+                    "inner join document_types on documents.id_doctype = document_types.id_doctype " +
+                    "where documents.id_employee = "+id_user+";";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(query);
+            while (result.next()) {
+
+                int id = result.getInt("id_request");
+                int id_document=result.getInt("id_document");
+                String status = result.getString("status");
+                Date date_approval = result.getDate("date_approval");
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(date_approval);
+
+                Request request = new Request(id, id_document, status, cal);
+                System.out.println(request);
+                list.add(request);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

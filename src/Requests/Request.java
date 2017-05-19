@@ -29,4 +29,14 @@ public class Request {
     public void setId_document(int id_document) { this.id_document = id_document; }
     public void setStatus(String status){ this.status = status; }
     public void setDate_approval(Calendar date_approval){ this.date_approval = date_approval; }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id_request=" + id_request +
+                ", id_document=" + id_document +
+                ", status='" + status + '\'' +
+                ", date_approval=" + date_approval +
+                '}';
+    }
 }

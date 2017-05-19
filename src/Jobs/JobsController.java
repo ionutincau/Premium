@@ -33,17 +33,19 @@ public class JobsController extends Observable {
         return id_job;
     }
 
-    public void addJob(String name,String min_salary,int id_documnet) {
+    public void addJob(String name,String min_salary,String max_number,int id_documnet) {
         int id_job=idJob();
-        Job j = new Job(id_job, name, min_salary, provider.numberOfEmployeePerJob(id_job), id_documnet);
+        int Max_number=Integer.getInteger(max_number);
+        Job j = new Job(id_job, name, min_salary, Max_number, id_documnet);
         provider.insertJob(j);
         list.add(j);
         setChanged();
         notifyObservers();
     }
 
-    public void editJob(int id_job,String name,String min_salary,int id_document) {
-        Job j=new Job(id_job, name, min_salary, provider.numberOfEmployeePerJob(id_job), id_document);
+    public void editJob(int id_job,String name,String min_salary,String max_number,int id_document) {
+        int Max_number=Integer.getInteger(max_number);
+        Job j=new Job(id_job, name, min_salary, Max_number, id_document);
         provider.updateJob(j);
         int nr=0;
         for (Job o:list) {

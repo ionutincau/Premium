@@ -118,4 +118,7 @@ public class WorkedPeriod {
         String filanameDateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss").format(date.getTime());
         return title + " - " + name + " - " + filanameDateFormat + ".pdf";
     }
+    public Calendar getDate() {
+        return date;
+    }
 }
