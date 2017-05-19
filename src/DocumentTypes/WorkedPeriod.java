@@ -2,6 +2,7 @@ package DocumentTypes;
 
 import Employees.Employee;
 import Login.LoginController;
+import Utils.UtilFunctions;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -19,7 +20,9 @@ import java.util.Calendar;
 /**
  * Created by Aurelian on 5/5/2017.
  */
+
 public class WorkedPeriod {
+
     private final String company = "Evozon";
     private final String title = "Worked Period Statement";
     private final String documentTitle = "Adeverinta de vechime in munca";
@@ -30,7 +33,7 @@ public class WorkedPeriod {
     private final String t5 = ", CNP ";
     private final String t6 = " in baza contractului individual de munca cu norma intreaga / cu timp partial de ……………. .ore / zi, incheiat pe durata determinata / nedeterminata, inregistrat la Inspectoratul Teritorial de Munca";
     private final String t7 = " ……………… cu nr. ………../…………., in functia / meseria de ";
-    private final String t8 = " Pe durata executarii contractului individual de munca au intervenit urmatoarele mutatii ( incheierea, modificarea, suspendarea si incetarea contractului individual de munca ): \n\n";
+    private final String t8 = " Pe durata executarii contractului individual de munca au intervenit urmatoarele mutatii (incheierea, modificarea, suspendarea si incetarea contractului individual de munca): \n\n";
 
     private String name;
     private String job;
@@ -38,8 +41,7 @@ public class WorkedPeriod {
     private String CNP;
     private Calendar date = Calendar.getInstance();
 
-    public WorkedPeriod()
-    {
+    public WorkedPeriod() {
         Employee user = LoginController.getInstance().getLoggedUser();
         name = user.getLast_name() + " " + user.getFirst_name();
         job = user.getJob();
@@ -47,7 +49,7 @@ public class WorkedPeriod {
         CNP = user.getCnp();
     }
 
-    public void generatePDF() throws Exception {
+    public void generatePDF() {
         Document document = new Document();
         document.addAuthor(name);
         document.addTitle(title);
@@ -82,12 +84,11 @@ public class WorkedPeriod {
             table.addCell("1");
             table.addCell("Marire salariu");
             table.addCell("12.02.2017");
-            table.addCell("Manele/\nlautar profesionist");
+            table.addCell(department + "/\n" + job);
             table.addCell("2500");
             table.addCell("157/12.02.2017");
 
-            for (int rowNr = 0 ; rowNr < table.getRows().size(); rowNr++)
-            {
+            for (int rowNr = 0 ; rowNr < table.getRows().size(); rowNr++) {
                 for (PdfPCell tc: table.getRow(rowNr).getCells()) {
                     tc.setVerticalAlignment(Element.ALIGN_CENTER);
                     tc.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -106,9 +107,9 @@ public class WorkedPeriod {
             footer2.add(new Chunk(separator));
             footer2.add(dateFormat);
             document.add(footer2);
-
-        } catch (Exception e) {
-            throw new Exception("Adeverinta nu a putut fi creata!");
+        }
+        catch (Exception e) {
+            UtilFunctions.showInfo("Adeverinta nu a putut fi creata!");
         }
         document.close();
     }

@@ -4,6 +4,7 @@ import Employees.Employee;
 import JobsHistory.JobsHistoryController;
 import Login.LoginController;
 
+import Utils.UtilFunctions;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
@@ -51,7 +52,7 @@ public class Vacation implements Serializable {
         date = Calendar.getInstance();
     }
 
-    public void generatePDF() throws Exception {
+    public void generatePDF() {
         Document document = new Document();
         document.addAuthor(name);
         document.addTitle(title);
@@ -76,7 +77,7 @@ public class Vacation implements Serializable {
             document.add(endDate);
         }
         catch (Exception e) {
-            throw new Exception("Cererea nu a putut fi creata");
+            UtilFunctions.showInfo("Cererea nu a putut fi creata");
         }
 
         document.close();

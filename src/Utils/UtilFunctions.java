@@ -2,6 +2,7 @@ package Utils;
 
 import javafx.scene.control.Alert;
 
+import javax.swing.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,10 @@ public class UtilFunctions {
         alert.setTitle("Error");
         alert.setHeaderText(info);
         alert.show();
+    }
+
+    public static String dialog(String mesaj) {
+        return JOptionPane.showInputDialog(mesaj);
     }
 
     public static Calendar formatDate(String d) throws ParseException {

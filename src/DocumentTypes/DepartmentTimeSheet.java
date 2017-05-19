@@ -1,5 +1,6 @@
 package DocumentTypes;
 
+import Utils.UtilFunctions;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 /**
  * Created by Aurelian on 5/19/2017.
  */
+
 public class DepartmentTimeSheet {
 
     private final String company = "Evozon";
@@ -24,13 +26,12 @@ public class DepartmentTimeSheet {
     private Calendar date;
     private final String department;
 
-    public DepartmentTimeSheet()
-    {
+    public DepartmentTimeSheet() {
         department = " manele";
         date = Calendar.getInstance();
     }
 
-    public void generatePDF() throws Exception {
+    public void generatePDF() {
         Document document = new Document();
         document.addAuthor("Premium");
         document.addTitle(title);
@@ -44,7 +45,6 @@ public class DepartmentTimeSheet {
             document.add(titleParagraph);
             LineSeparator ls = new LineSeparator();
             document.add(new Chunk(ls));
-
 
             Paragraph para = new Paragraph(t1 + company + "\n" + t2 + department + "\n");
             document.add(para);
@@ -60,8 +60,9 @@ public class DepartmentTimeSheet {
             // TODO add a new paragraph for each user from the department
 
 
-        } catch (Exception e) {
-            throw new Exception("Adeverinta nu a putut fi creata!");
+        }
+        catch (Exception e) {
+            UtilFunctions.showInfo("Adeverinta nu a putut fi creata!");
         }
         document.close();
     }

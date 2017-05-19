@@ -1,7 +1,6 @@
 package DocumentTypes;
 
 import Employees.Employee;
-import JobsHistory.JobsHistoryController;
 import Login.LoginController;
 
 import com.itextpdf.text.Chunk;
@@ -20,6 +19,7 @@ import java.util.Calendar;
 /**
  * Created by Aurelian on 5/3/2017.
  */
+
 public class Income implements Serializable {
     private final String company = "Evozon";
     private final String title = "Income Statement";
@@ -29,17 +29,16 @@ public class Income implements Serializable {
     private final String t3 = ", cu contract individual de munca pe perioada determinata/nedeterminata de la data de ";
     private final String t4 = ", in functia de ";
     private final String t5 = ", departamentul ";
-    private final String t6 = ", cu un salariu brut de ";
-    private final String t7 = " lei.";
-    private final String t8 = "Prezenta s-a eliberat pentru a-i servi la ............................................................................ ";
-    private final String dots = "......";
+    private final String t6 = ", cu un salariu brut, pe ultimele 3 luni, de: ";
+    private final String t8 = "Prezenta s-a eliberat pentru a-i servi la ";
+    private final String dots = "................................................................";
 
     private String name;
     private String job;
     private String department;
     private Calendar startDate;
     private Calendar date;
-    private Integer salary;
+    private String purpose;
 
     // TODO Replace below values with the right ones from DB
     private Integer salary1;
@@ -49,19 +48,16 @@ public class Income implements Serializable {
     private String month2;
     private String month3;
 
-    public Income()
-    {
+    public Income(String purpose) {
         Employee user = LoginController.getInstance().getLoggedUser();
         name = user.getLast_name() + " " + user.getFirst_name();
         job = user.getJob();
         department = user.getDepartment();
+        this.purpose = purpose;
 
         // TODO implement required function and replace dummy date below
         startDate = Calendar.getInstance(); // new JobsHistoryController().getStartDate();  - not implemented yet
         date = Calendar.getInstance();
-        salary = 1850;
-
-
 
         salary1 = 1900;
         salary2 = 1950;
@@ -70,7 +66,8 @@ public class Income implements Serializable {
         month2 = "August";
         month3 = "Septembrie";
     }
-    public void generatePDF() throws Exception {
+
+    public void generatePDF() {
         Document document = new Document();
         document.addAuthor(name);
         document.addTitle(title);
@@ -85,18 +82,16 @@ public class Income implements Serializable {
             LineSeparator ls = new LineSeparator();
             document.add(new Chunk(ls));
 
-            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + startDate + t4 + job + t5 + department + t6 + "\n");
+            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + startDate + t4 + job + t5 + department + t6 + "\n\n");
             document.add(para);
 
             Paragraph monthlySalary = new Paragraph(month1 + dots + salary1 + "\n" + month2 + dots + salary2 + "\n" + month3 + dots + salary3 + "\n");
             document.add(monthlySalary);
 
-            Paragraph fin = new Paragraph(t8 + "\n\n");
+            Paragraph fin = new Paragraph("\n" + t8 + purpose + "\n\n");
             document.add(fin);
 
             String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date.getTime());
-
-
 
             Chunk separator = new Chunk(new VerticalPositionMark());
             Paragraph footer1 = new Paragraph("Data: " );
@@ -108,10 +103,9 @@ public class Income implements Serializable {
             footer2.add(new Chunk(separator));
             footer2.add(".....................");
             document.add(footer2);
-
         }
         catch (Exception e) {
-            throw new Exception("Cererea nu a putut fi creata");
+            Utils.UtilFunctions.showInfo("Cererea nu a putut fi creata");
         }
 
         document.close();
