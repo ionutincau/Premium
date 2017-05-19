@@ -63,7 +63,7 @@ public class RequestsProvider {
 
     public void insertRequest(Request r) {
 
-        String date_approval="0000-00-00";
+        String date_approval="2000-00-00";
         String querry = "INSERT INTO `requests`(`id_request`,`id_document`,`status`,`date_approval`) VALUES (?,?,?,?);";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         if (r.getDate_approval()!=null)
@@ -154,6 +154,114 @@ public class RequestsProvider {
         }
         return id;
     }
+    public ArrayList<RequestsUser> getRequestsListOnlyPending()
+    {
+        ArrayList<RequestsUser> list = new ArrayList();
+        try {
+            String query ="SELECT requests.id_request,requests.id_document,requests.Status,requests.date_approval," +
+                    "employees.last_name,employees.first_name " +
+                    "from requests " +
+                    "inner join documents  on requests.id_document = documents.id_document " +
+                    "inner join document_types on documents.id_doctype = document_types.id_doctype " +
+                    "INNER JOIN employees on documents.id_employee = employees.id_employee "+
+                    "where requests.Status = 'pending';";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(query);
+            while (result.next()) {
+
+                int id = result.getInt("id_request");
+                int id_document=result.getInt("id_document");
+                String status = result.getString("status");
+                Date date_approval = result.getDate("date_approval");
+                String last_name = result.getString("last_name");
+                String first_name=result.getString("first_name");
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(date_approval);
+                RequestsUser request = new RequestsUser(id, id_document, status, cal,last_name,first_name);
+                list.add(request);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public ArrayList<RequestsUser> getAllRequestsList()
+    {
+        ArrayList<RequestsUser> list = new ArrayList();
+        try {
+            String query ="SELECT requests.id_request,requests.id_document,requests.Status,requests.date_approval," +
+                    "employees.last_name,employees.first_name " +
+                    "from requests " +
+                    "inner join documents  on requests.id_document = documents.id_document " +
+                    "inner join document_types on documents.id_doctype = document_types.id_doctype " +
+                    "INNER JOIN employees on documents.id_employee = employees.id_employee ";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(query);
+            while (result.next()) {
+
+                int id = result.getInt("id_request");
+                int id_document=result.getInt("id_document");
+                String status = result.getString("status");
+                Date date_approval = result.getDate("date_approval");
+                String last_name = result.getString("last_name");
+                String first_name=result.getString("first_name");
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(date_approval);
+                RequestsUser request = new RequestsUser(id, id_document, status, cal,last_name,first_name);
+                list.add(request);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public  int getAccNum()
+    {
+        int nr=0;
+        try {
+            String querry = "SELECT count(*) FROM `requests` WHERE `Status`='approved';";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
+            nr=result.getInt(1);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return nr;
+    }
+    public  int getDenNum()
+    {
+        int nr=0;
+        try {
+            String querry = "SELECT count(*) FROM `requests` WHERE `Status`='rejected';";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
+            nr=result.getInt(1);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return nr;
+    }
+    public  int getPendNum()
+    {
+        int nr=0;
+        try {
+            String querry = "SELECT count(*) FROM `requests` WHERE `Status`='pending';";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
+            nr=result.getInt(1);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return nr;
+    }
     public ArrayList<Request> getRequestsList(int id_user)
     {
         ArrayList<Request> list = new ArrayList();
@@ -173,7 +281,6 @@ public class RequestsProvider {
                 cal.setTime(date_approval);
 
                 Request request = new Request(id, id_document, status, cal);
-                System.out.println(request);
                 list.add(request);
             }
         }

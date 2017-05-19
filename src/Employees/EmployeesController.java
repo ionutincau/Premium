@@ -97,9 +97,22 @@ public class EmployeesController extends Observable{
         setChanged();
         notifyObservers();
     }
-    public ArrayList searchByName(String name) {
+    public boolean contine(String a,String name)
+    {
+        String[] lname=name.split("");
+        for (String o:lname)
+        {
+            if (o.equals(a))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public ArrayList searchByNameOREmail(String name) {
         ArrayList<Employee> listE = new ArrayList<>();
-        if (name.contains("@"))
+        if (contine("@",name))
         {
             for (Employee o : list) {
                 if (o.getEmail().equals(name)) {
@@ -109,7 +122,7 @@ public class EmployeesController extends Observable{
             return listE;
         }
         else if (!name.equals("")) {
-            String[] listName = name.split(" ");
+            String[] listName = name.split(" ",2);
             String last_name = listName[0];
             String first_name = listName[1];
             for (Employee o : list) {

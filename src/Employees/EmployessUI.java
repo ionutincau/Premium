@@ -114,7 +114,7 @@ public class EmployessUI implements Initializable,Observer {
     public void cautareDupaNume() {
         cautaPontajButton.setOnAction(event -> {
             employeesList.getItems().clear();
-            employeesList.getItems().addAll(0, controller.searchByName(numeAngajatPontajField.getText()));
+            employeesList.getItems().addAll(0, controller.searchByNameOREmail(numeAngajatPontajField.getText()));
         });
     }
 }
