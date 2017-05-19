@@ -9,12 +9,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 /**
  * Created by Aurelian on 4/3/2017.
  */
-public class RequestsUIUser implements Initializable{
+public class RequestsUIUser implements Initializable,Observer{
     private RequestsController controller;
 
     @FXML private ListView cereriListView;
@@ -26,8 +28,8 @@ public class RequestsUIUser implements Initializable{
     public RequestsUIUser()
     {
         this.controller=new RequestsController();
-//        this.controller.addObserver(this);
-//        LoginController.getInstance().addObserver(this);
+        this.controller.addObserver(this);
+        LoginController.getInstance().addObserver(this);
     }
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -35,5 +37,10 @@ public class RequestsUIUser implements Initializable{
         cereriListView.getItems().addAll(0,controller.getRequestsListForUser());
         cereriChoiceBox.setItems(FXCollections.observableArrayList(controller.getRequestType()));
         creeazaCerereButton.setOnAction(e->controller.saveRequestUserAndDoc((String) cereriChoiceBox.getSelectionModel().getSelectedItem()));
+    }
+    @Override
+    public void update(Observable o, Object arg) {
+        cereriListView.getItems().clear();
+        cereriListView.getItems().addAll(0,controller.getRequestsListForUser());
     }
 }

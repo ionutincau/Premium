@@ -86,4 +86,5 @@ public class ClockingUIHR implements Initializable,Observer {
         pontajListView.getItems().addAll(0, controller.getClocking());
         get_buttons();
     }
+
 }
