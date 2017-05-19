@@ -9,6 +9,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -16,7 +17,7 @@ import java.util.Calendar;
  * Created by Aurelian on 5/19/2017.
  */
 
-public class DepartmentTimeSheet {
+public class DepartmentTimeSheet implements Serializable {
 
     private final String company = "Evozon";
     private final String title = "Department Worked Hours";

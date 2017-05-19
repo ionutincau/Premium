@@ -14,6 +14,7 @@ import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -21,7 +22,7 @@ import java.util.Calendar;
  * Created by Aurelian on 5/5/2017.
  */
 
-public class WorkedPeriod {
+public class WorkedPeriod  implements Serializable {
 
     private final String company = "Evozon";
     private final String title = "Worked Period Statement";
