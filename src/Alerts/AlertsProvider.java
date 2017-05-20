@@ -1,5 +1,6 @@
 package Alerts;
 
+import Employees.Employee;
 import database.DatabaseConnection;
 
 import java.sql.*;
@@ -48,10 +49,26 @@ public class AlertsProvider {
         return list;
     }
 
-    public static int getAvaliableId(){
+    public static int getAEAvaliableId(){
         int id = 0;
         try {
             String querry = "SELECT MAX(`id_alert_employee`) FROM `alerts_employees`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            if (result.next()) {
+                id = result.getInt(1);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return (id + 1);
+    }
+
+    public static int getAvaliableId(){
+        int id = 0;
+        try {
+            String querry = "SELECT MAX(`id_alert`) FROM `alerts`";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
             if (result.next()) {
                 id = result.getInt(1);
@@ -74,33 +91,45 @@ public class AlertsProvider {
      * Mai pe scurt adaugi o "notificare noua" facand insert in ambele tabele (`alerts`,`alerts_employees`)
      *
      */
-    public void insertNotification(Alert a){
+    public void insertNotification(Alert a, int id_user){
         String querry1 = "INSERT INTO `alerts`(`id_alert`, `deadline`, `text`) VALUES (?,?,?);";
-        String querry2 = "INSERT INTO `alerts_employees`(`id_alert_employee`,`id_employee`,`id_alert`,`delivery_date`,`status`) VALUES (?,?,(SELECT `id_alert` FROM `alerts` WHERE `alerts`.`text`= ? ),?,?);";
+        String querry2 = "INSERT INTO `alerts_employees`(`id_alert_employee`,`id_employee`,`id_alert`,`delivery_date`,`status`) VALUES (?,?,?,?,?);";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String deadline = formatter.format(a.getDeadline().getTime());
         String delivery_date = formatter.format(a.getDelivery_date().getTime());
 
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry1);
-
             pstmt.setInt(1, a.getId_alert());
             pstmt.setString(2, deadline);
             pstmt.setString(3, a.getText());
-
             pstmt.executeUpdate();
             pstmt.close();
 
-            PreparedStatement pstmt2 = DatabaseConnection.getConnection().prepareStatement(querry2);
-
-            pstmt2.setInt(1, a.getId_alert());
-            pstmt2.setInt(2, a.getId_employee());
-            pstmt2.setString(3, a.getText());
-            pstmt2.setString(4, delivery_date);
-            pstmt2.setString(5, a.getStatus());
-
-            pstmt2.executeUpdate();
-            pstmt2.close();
+            if (id_user == -1) {
+                ArrayList ids = getEmployees();
+                for (int i = 0; i < ids.size(); i++) {
+                    PreparedStatement pstmt2 = DatabaseConnection.getConnection().prepareStatement(querry2);
+                    pstmt2.setInt(1, getAEAvaliableId());
+                    pstmt2.setInt(2, (int) ids.get(i));
+                    System.out.println("id: " + a.getId_alert());
+                    pstmt2.setInt(3, a.getId_alert());
+                    pstmt2.setString(4, delivery_date);
+                    pstmt2.setString(5, a.getStatus());
+                    pstmt2.executeUpdate();
+                    pstmt2.close();
+                }
+            }
+            else {
+                PreparedStatement pstmt2 = DatabaseConnection.getConnection().prepareStatement(querry2);
+                pstmt2.setInt(1, getAEAvaliableId());
+                pstmt2.setInt(2, id_user);
+                pstmt2.setInt(3, a.getId_alert());
+                pstmt2.setString(4, delivery_date);
+                pstmt2.setString(5, a.getStatus());
+                pstmt2.executeUpdate();
+                pstmt2.close();
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -150,4 +179,59 @@ public class AlertsProvider {
             e.printStackTrace();
         }
     }
+
+    public ArrayList getEmployeeName() {
+        ArrayList<String> listEmployeesName = new ArrayList<>();
+        try {
+            String querry = "SELECT * FROM `employees` ;";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                String last_name = result.getString("last_name");
+                String first_name = result.getString("first_name");
+                String name = last_name + " " + first_name;
+                listEmployeesName.add(name);
+            }
+            result.close();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return listEmployeesName;
+    }
+
+    public int id_user(String name) {
+        String[] Name = name.split(" ");
+        int id_user = 0;
+        try {
+            String querry = "SELECT id_employee FROM `employees` WHERE `last_name`='"+Name[0]+"' AND `first_name`='"+Name[1]+"' ;";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                id_user = result.getInt("id_employee");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return id_user;
+    }
+
+    private ArrayList getEmployees() {
+        ArrayList list = new ArrayList();
+        try {
+            String querry = "SELECT `id_employee` FROM `employees` WHERE `role`='" + "user" + "'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                int id_employee = result.getInt("id_employee");
+                list.add(id_employee);
+            }
+            result.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

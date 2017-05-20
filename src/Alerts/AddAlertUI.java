@@ -1,11 +1,11 @@
 package Alerts;
 
 import Utils.UtilFunctions;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.ParseException;
@@ -21,6 +21,8 @@ public class AddAlertUI implements Initializable {
     @FXML private Button alertAddButton;
     @FXML private TextArea alertTextArea;
     @FXML private TextField dateField;
+    @FXML private ChoiceBox alertEmployeeLabelChoiceBox;
+    @FXML private CheckBox checkBox;
 
     private Alert alert;
     private AlertsController controller;
@@ -31,6 +33,7 @@ public class AddAlertUI implements Initializable {
     public void initData(String name, Alert alert, AlertsController controller) {
         this.controller = controller;
         this.alert = alert;
+        alertEmployeeLabelChoiceBox.setItems(FXCollections.observableArrayList(controller.getEmployeeName()));
         if (name == "Adauga") {
             alertAddButton.setOnAction(e->addAlert());
         }
@@ -42,9 +45,15 @@ public class AddAlertUI implements Initializable {
     }
 
     public void addAlert() {
-        int id_employee = 2;
+        String name = null;
+        if (alertEmployeeLabelChoiceBox.getSelectionModel().getSelectedItem() != null) {
+            name = alertEmployeeLabelChoiceBox.getSelectionModel().getSelectedItem().toString();
+        }
+        boolean checked = checkBox.isSelected();
         try {
-            controller.add(controller.getAvaliableId(), id_employee, alertTextArea.getText(), dateField.getText(), new GregorianCalendar(), "send");
+            controller.add(name, checked, alertTextArea.getText(), dateField.getText(), new GregorianCalendar(), "send");
+            Stage stage = (Stage) alertAddButton.getScene().getWindow();
+            stage.close();
         }
         catch (ParseException e) {
             UtilFunctions.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");

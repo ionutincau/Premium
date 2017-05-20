@@ -37,7 +37,6 @@ public class AlertsUIHR implements Initializable, Observer {
     public void update(java.util.Observable o, Object arg) {
         notificariListView.getItems().clear();
         notificariListView.getItems().addAll(0, controller.getAlert());
-
     }
 
     private void loadWindow(String name, Alert alert) {

@@ -29,11 +29,11 @@ public class DepartmentsUIEdit implements Initializable{
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {}
 
     public void initData(String name, Department department, DepartmentsController controller) {
-        this.controller=controller;
-        this.department=department;
+        this.controller = controller;
+        this.department = department;
         departmentManagerChoiceBox.setItems(FXCollections.observableArrayList(controller.getEmployeeName()));
         departmentOKButton.setText(name);
-        if (name=="Adauga") {
+        if (name == "Adauga") {
             departmentOKButton.setOnAction(e->Add());
         }
         else {
@@ -45,7 +45,7 @@ public class DepartmentsUIEdit implements Initializable{
 
     public void Add() {
         try {
-            controller.addDepartment(departmentNameTextField.getText(),departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
+            controller.addDepartment(departmentNameTextField.getText(), departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
             Stage stage = (Stage)departmentOKButton.getScene().getWindow();
             stage.close();
         }

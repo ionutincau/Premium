@@ -8,16 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  * Created by ASUS on 09.Apr.2017.
  */
+
 public class DepartmentsProvider {
    
     public DepartmentsProvider() {
         
     }
-    
 
     public Department getDepartament(int id) {
         Department department = null;
@@ -66,7 +65,6 @@ public class DepartmentsProvider {
                 list.add(0, department);
             }
             result.close();
-
         }
         catch (Exception e) {
             System.out.println(e);
@@ -74,6 +72,7 @@ public class DepartmentsProvider {
         }
         return list;
     }
+
     public int id_manager(String name) {
         String[] Name=name.split(" ");
         int id_manager=0;
@@ -90,8 +89,8 @@ public class DepartmentsProvider {
         }
         return id_manager;
     }
-    public void insertDepartment(Department d)
-    {
+
+    public void insertDepartment(Department d) {
         try {
             String querry = "INSERT INTO departments(id_department,name,id_manager) VALUES (?,?,?)";
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
@@ -101,13 +100,13 @@ public class DepartmentsProvider {
             pstmt.setInt(3, d.getId_manager());
             pstmt.executeUpdate();
             pstmt.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
-
         }
-
     }
+
     public void updateDepartment(Department d) {
         try {
             String querry = "UPDATE departments SET name=?,id_manager=? WHERE id_department=? ;";
@@ -122,7 +121,6 @@ public class DepartmentsProvider {
         catch(Exception e){
             System.out.println(e);
             e.printStackTrace();
-
         }
     }
 
@@ -137,8 +135,7 @@ public class DepartmentsProvider {
         }
     }
 
-    public ArrayList getEmployeeName()
-    {
+    public ArrayList getEmployeeName() {
         ArrayList<String> listEmployeesName=new ArrayList<>();
         try {
             String querry = "SELECT * FROM `employees` ;";
@@ -157,8 +154,8 @@ public class DepartmentsProvider {
         }
         return listEmployeesName;
     }
-    public  int GetIdManager(String ManagerName)
-    {
+
+    public  int GetIdManager(String ManagerName) {
         int id_manager=0;
         String[] managerName=ManagerName.split(" ",2);
         try {
@@ -167,14 +164,13 @@ public class DepartmentsProvider {
             id_manager=result.getInt("id_employee");
             result.close();
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return id_manager;
     }
-    public  String GetNameManager(int id_manger)
-    {
+
+    public  String GetNameManager(int id_manger) {
         String name=null;
         try {
             String querry = "SELECT * FROM `employees` WHERE `id_employee`='"+id_manger+"'";
@@ -185,8 +181,7 @@ public class DepartmentsProvider {
             name=last_name+" "+first_name;
             result.close();
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return name;

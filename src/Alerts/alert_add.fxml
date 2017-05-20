@@ -30,10 +30,30 @@
                         <Insets left="20.0" right="10.0" />
                     </VBox.margin>
                 </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label id="alertEmployeeLabel" fx:id="alertEmployeeLabel" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Angajat" />
+                        <ChoiceBox id="alertEmployeeLabelChoiceBox" fx:id="alertEmployeeLabelChoiceBox" maxWidth="2000.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+                    <children>
+                        <CheckBox  id="checkBox" fx:id="checkBox" mnemonicParsing="false" text="Trmite tuturor angajatilor" /></children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </VBox.margin>
+                </HBox>
+
                 <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
                     <children>
                         <Button id="alertAddButton" fx:id="alertAddButton" mnemonicParsing="false" text="Adauga" />
                     </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                 </HBox>
             </children>
         </VBox>

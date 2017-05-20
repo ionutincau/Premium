@@ -1,7 +1,5 @@
 package Alerts;
 
-
-import Departments.Department;
 import Employees.Employee;
 import Login.LoginController;
 import Utils.*;
@@ -18,7 +16,7 @@ import java.util.Observable;
  */
 
 public class AlertsController extends Observable {
-    private ArrayList<Alert> list = new ArrayList<Alert>();
+    private ArrayList<Alert> list = new ArrayList();
     private AlertsProvider provider;
 
     public AlertsController() {
@@ -33,12 +31,16 @@ public class AlertsController extends Observable {
         return list;
     }
 
-    public void add(int id_alert, int id_employee, String text, String deadline, Calendar calendar2, String status) throws ParseException {
+    public void add(String name, boolean add_all, String text, String deadline, Calendar calendar2, String status) throws ParseException {
         Calendar calendar1 = UtilFunctions.formatDate(deadline);
-        id_alert = provider.getAvaliableId();
+        int id_alert = provider.getAvaliableId();
+        int id_user = -1;
+        if (add_all == false) {
+            id_user = provider.id_user(name);
+        }
         Alert alert = new Alert(id_alert, LoginController.getInstance().getSelectedUser().getId(), text, calendar1, calendar2, status);
         list.add(alert);
-        provider.insertNotification(alert);
+        provider.insertNotification(alert, id_user);
 
         setChanged();
         notifyObservers();
@@ -51,7 +53,7 @@ public class AlertsController extends Observable {
         notifyObservers();
     }
 
-    public int getAvaliableId() {
-        return provider.getAvaliableId();
+    public ArrayList<String> getEmployeeName() {
+        return provider.getEmployeeName();
     }
 }
