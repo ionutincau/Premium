@@ -48,7 +48,7 @@ public class Vacation implements Serializable {
         name = user.getLast_name() + " " + user.getFirst_name();
         job = user.getJob();
         department = user.getDepartment();
-        used_days = new JobsHistoryController().getVacationDays(user.getId());
+        used_days = new JobsHistoryController().getUsedVacationDays(user.getId());
         date = Calendar.getInstance();
     }
 

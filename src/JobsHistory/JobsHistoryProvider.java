@@ -2,14 +2,10 @@ package JobsHistory;
 
 import database.DatabaseConnection;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Created by ASUS on 09.Apr.2017.
@@ -331,5 +327,71 @@ public class JobsHistoryProvider {
             e.printStackTrace();
         }
         return id_manager;
+    }
+
+    public List<Integer> getLastThreeSalaries(int employeeID)
+    {
+        List<Integer> salaries = new ArrayList<Integer>();
+        String query = "SELECT * FROM `jobs_history` INNER JOIN `jobs` ON `jobs_history`.`id_job`=`jobs`.`id_job` WHERE `id_employee`=" + employeeID + " ORDER BY `jobs_history`.`id_job_history` DESC LIMIT 3";
+        Array resultArray ;
+        try {
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(query);
+            result.next();
+            salaries.add(result.getInt("min_salary"));
+            result.next();
+            salaries.add(result.getInt("min_salary"));
+            result.next();
+            salaries.add(result.getInt("min_salary"));
+            result.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return salaries;
+    }
+
+    public java.sql.Date getStartDate(int employeeID)
+    {
+        java.sql.Date date = new java.sql.Date(0,0,0);
+        String query = "SELECT * FROM `jobs_history` WHERE `jobs_history`.`id_employee`=" + employeeID + " ORDER BY `jobs_history`.`start_date` ASC";
+        try {
+            ResultSet resultSet = DatabaseConnection.getStatement().executeQuery(query);
+            resultSet.next();
+            date = resultSet.getDate("start_date");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public int getUsedVacationDays(int employeeID)
+    {
+        long days = 0;
+        String query = "SELECT * FROM `jobs_history` WHERE `jobs_history`.`id_employee`=" + employeeID + " AND status='vacation'";
+        try {
+            ResultSet resultSet = DatabaseConnection.getStatement().executeQuery(query);
+            while(resultSet.next())
+            {
+                java.sql.Date start = resultSet.getDate("start_date");
+                java.sql.Date end = resultSet.getDate("end_date");
+
+                Calendar thatDay = Calendar.getInstance();
+                thatDay.set(Calendar.DAY_OF_MONTH,start.getDay());
+                thatDay.set(Calendar.MONTH,start.getMonth()); //0-11
+                thatDay.set(Calendar.YEAR, start.getYear());
+
+                Calendar today = Calendar.getInstance();
+                today.set(Calendar.DAY_OF_MONTH,end.getDay());
+                today.set(Calendar.MONTH,end.getMonth());
+                today.set(Calendar.YEAR, end.getYear());
+
+                long diff = today.getTimeInMillis() - thatDay.getTimeInMillis();
+
+                days += diff / (24 * 60 * 60 * 1000);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (int) days;
     }
 }
