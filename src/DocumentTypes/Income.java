@@ -1,6 +1,7 @@
 package DocumentTypes;
 
 import Employees.Employee;
+import JobsHistory.JobsHistoryController;
 import Login.LoginController;
 
 import Utils.UtilFunctions;
@@ -16,6 +17,8 @@ import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Aurelian on 5/3/2017.
@@ -37,11 +40,10 @@ public class Income implements Serializable {
     private String name;
     private String job;
     private String department;
-    private Calendar startDate;
+    private Date startDate;
     private Calendar date;
     private String purpose;
 
-    // TODO Replace below values with the right ones from DB
     private Integer salary1;
     private Integer salary2;
     private Integer salary3;
@@ -50,22 +52,29 @@ public class Income implements Serializable {
     private String month3;
 
     public Income(String purpose) {
+        int userID = LoginController.getInstance().getLoggedUser().getId();
+        JobsHistoryController jobsHistoryController = new JobsHistoryController();
+        List<Integer> salaries = jobsHistoryController.getLastThreeSalaries(userID);
+        salary1 = salaries.get(0);
+        salary2 = salaries.get(1);
+        salary3 = salaries.get(2);
+
         Employee user = LoginController.getInstance().getLoggedUser();
         name = user.getLast_name() + " " + user.getFirst_name();
         job = user.getJob();
         department = user.getDepartment();
         this.purpose = purpose;
 
-        // TODO implement required function and replace dummy date below
-        startDate = Calendar.getInstance(); // new JobsHistoryController().getStartDate();  - not implemented yet
+        java.sql.Date sqlDate = jobsHistoryController.getStartDate(userID);
+        startDate = new Date(sqlDate.getYear(),sqlDate.getMonth(),sqlDate.getDay());
         date = Calendar.getInstance();
 
-        salary1 = 1900;
-        salary2 = 1950;
-        salary3 = 2100;
-        month1 = "Iulie";
-        month2 = "August";
-        month3 = "Septembrie";
+        int monthNumber = Calendar.getInstance().get(Calendar.MONTH);
+        String[] monthName = { "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie" };
+
+        month1 = monthName[monthNumber - 1];
+        month2 = monthName[monthNumber - 2];
+        month3 = monthName[monthNumber - 3];
     }
 
     public void generatePDF() {
@@ -83,7 +92,7 @@ public class Income implements Serializable {
             LineSeparator ls = new LineSeparator();
             document.add(new Chunk(ls));
 
-            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + UtilFunctions.get_date_format(startDate) + t4 + job + t5 + department + t6 + "\n\n");
+            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + startDate + t4 + job + t5 + department + t6 + "\n\n");
             document.add(para);
 
             Paragraph monthlySalary = new Paragraph(month1 + dots + salary1 + "\n" + month2 + dots + salary2 + "\n" + month3 + dots + salary3 + "\n");
@@ -92,13 +101,15 @@ public class Income implements Serializable {
             Paragraph fin = new Paragraph("\n" + t8 + purpose + "\n\n");
             document.add(fin);
 
+            String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date.getTime());
+
             Chunk separator = new Chunk(new VerticalPositionMark());
             Paragraph footer1 = new Paragraph("Data: " );
             footer1.add(new Chunk(separator));
             footer1.add("Semnatura");
             document.add(footer1);
 
-            Paragraph footer2 = new Paragraph(UtilFunctions.get_date_format(date));
+            Paragraph footer2 = new Paragraph(dateFormat);
             footer2.add(new Chunk(separator));
             footer2.add(".....................");
             document.add(footer2);

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Observable;
+import java.util.List;
 
 /**
  * Created by Incau Ionut on 29-Apr-17.
@@ -96,6 +97,16 @@ public class JobsHistoryController extends Observable{
     public int getVacationDays(int id_employee) {
         return provider.getVacationDays(id_employee);
     }
+
+    public List<Integer> getLastThreeSalaries(int employeeID)
+    {
+        return provider.getLastThreeSalaries(employeeID);
+    }
+
+    public java.sql.Date getStartDate(int employeeID)
+    {
+        return provider.getStartDate(employeeID);
+    }
     public String getDepartmentName(int id)
     {
         return provider.GetNameDepartment(id);
@@ -103,5 +114,10 @@ public class JobsHistoryController extends Observable{
     public String getJobName(int id)
     {
         return provider.GetNameJob(id);
+    }
+
+    public int getUsedVacationDays(int employeeID)
+    {
+        return provider.getUsedVacationDays(employeeID);
     }
 }
