@@ -43,6 +43,10 @@ public class LoginController extends Observable {
         if (user.getRole().equals("user") || user.getRole().equals("hr")) this.selectedUser = user;
     }
 
+    public void setLoggedUser(Employee loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
     public Employee getLoggedUser() {
         return this.loggedUser;
     }

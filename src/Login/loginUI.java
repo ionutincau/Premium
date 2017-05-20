@@ -20,8 +20,8 @@ public class loginUI {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private TabPane tabPane;
     @FXML private Tab loginTab;
+    private TabPane tabPane;
 
     private LoginController loginController;
 
@@ -72,6 +72,7 @@ public class loginUI {
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
             }
+
             Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
             tabPane.getTabs().add(pontaj);
 
@@ -83,6 +84,9 @@ public class loginUI {
 
             Tab requests = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
             tabPane.getTabs().add(requests);
+
+            Tab logout = FXMLLoader.load(this.getClass().getResource("logout.fxml"));
+            tabPane.getTabs().add(logout);
 
             if (!AlertsProvider.unreadAlerts(loginController.getLoggedUser().getId()).isEmpty()) {
                 UtilFunctions.showInfo("Aveti alerte necitite\nVerificati tabul Alerte!");
@@ -97,8 +101,10 @@ public class loginUI {
         EventHandler<Event> handler = tab.getOnClosed();
         if (null != handler) {
             handler.handle(null);
-        } else {
-            tab.getTabPane().getTabs().remove(tab);
+        }
+        else {
+            tabPane = tab.getTabPane();
+            tabPane.getTabs().remove(tab);
         }
     }
 }
