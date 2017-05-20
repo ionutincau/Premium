@@ -10,19 +10,29 @@
          <children>
             <VBox prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                   <ListView id="cereriListView" fx:id="cereriListView" prefHeight="200.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView id="cereriListView" fx:id="cereriListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                        <Label text="Solicita document:" />
-                        <ChoiceBox id="cereriChoiceBox" fx:id="cereriChoiceBox" prefWidth="150.0" />
-                        <Button id="creeazaCerereButton" fx:id="creeazaCerereButton" mnemonicParsing="false" text="Solicita" />
-                        <HBox alignment="CENTER" prefHeight="11.0" prefWidth="600.0" spacing="20.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label text="Solicita document:" />
+                              <ChoiceBox id="cereriChoiceBox" fx:id="cereriChoiceBox" prefWidth="150.0" />
+                           </children>
                            <padding>
                               <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                            </padding>
                         </HBox>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                         <Button id="creeazaCerereButton" fx:id="creeazaCerereButton" mnemonicParsing="false" text="Solicita" />
+                         <Button id="seeFile" fx:id="seeFile" contentDisplay="CENTER" mnemonicParsing="false" text="Vezi Cererea" onAction="#seeFile" HBox.hgrow="NEVER" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="2.0" />
+                     </padding>
+                  </HBox>
                </children>
             </VBox>
          </children></AnchorPane>

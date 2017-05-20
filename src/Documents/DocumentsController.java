@@ -29,7 +29,7 @@ public class DocumentsController {
     public int addWorkedPeriodRequest() {
         int id_document = DocumentsProvider.getAvaliableId();
         WorkedPeriod v = new WorkedPeriod();
-        Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 1, v);
+        Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 2, v);
         provider.insertDocument(d);
         return id_document;
     }
@@ -37,7 +37,7 @@ public class DocumentsController {
     public int addIncomeRequest(String value) {
         int id_document = DocumentsProvider.getAvaliableId();
         Income v = new Income(value);
-        Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 1, v);
+        Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 3, v);
         provider.insertDocument(d);
         return id_document;
     }

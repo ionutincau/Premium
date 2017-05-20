@@ -134,4 +134,32 @@ public class DocumentsProvider {
             e.printStackTrace();
         }
     }
+
+    public static Document getDocumentById(int id_document) {
+        Document document = null;
+        try {
+            String querry = "SELECT * FROM `documents` WHERE `id_document`=" + id_document + ";";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                int id_employee = result.getInt("id_employee");
+                String name = result.getString("name");
+                Date date = result.getDate("date");
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(date);
+                int id_doctype = result.getInt("id_doctype");
+
+                byte[] st = (byte[]) result.getObject("document");
+                ByteArrayInputStream baip = new ByteArrayInputStream(st);
+                ObjectInputStream ois = new ObjectInputStream(baip);
+                Object emp = ois.readObject();
+
+                document = new Document(id_document, id_employee, name, cal, id_doctype, emp);
+            }
+            result.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return document;
+    }
 }

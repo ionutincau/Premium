@@ -15,6 +15,7 @@
                         <ListView id="cereriListView" fx:id="cereriListView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
+                              <Button id="seeFile" fx:id="seeFile" contentDisplay="CENTER" mnemonicParsing="false" text="Vezi Cererea" onAction="#seeFile" HBox.hgrow="NEVER" />
                               <Button id="acceptButton" fx:id="acceptButton" contentDisplay="CENTER" mnemonicParsing="false" text="Accepta" HBox.hgrow="NEVER" />
                               <Button id="rejectButton" fx:id="rejectButton" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Respinge" />
                            </children>

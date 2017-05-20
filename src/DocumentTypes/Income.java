@@ -3,6 +3,7 @@ package DocumentTypes;
 import Employees.Employee;
 import Login.LoginController;
 
+import Utils.UtilFunctions;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -82,7 +83,7 @@ public class Income implements Serializable {
             LineSeparator ls = new LineSeparator();
             document.add(new Chunk(ls));
 
-            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + startDate + t4 + job + t5 + department + t6 + "\n\n");
+            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + UtilFunctions.get_date_format(startDate) + t4 + job + t5 + department + t6 + "\n\n");
             document.add(para);
 
             Paragraph monthlySalary = new Paragraph(month1 + dots + salary1 + "\n" + month2 + dots + salary2 + "\n" + month3 + dots + salary3 + "\n");
@@ -91,15 +92,13 @@ public class Income implements Serializable {
             Paragraph fin = new Paragraph("\n" + t8 + purpose + "\n\n");
             document.add(fin);
 
-            String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date.getTime());
-
             Chunk separator = new Chunk(new VerticalPositionMark());
             Paragraph footer1 = new Paragraph("Data: " );
             footer1.add(new Chunk(separator));
             footer1.add("Semnatura");
             document.add(footer1);
 
-            Paragraph footer2 = new Paragraph(dateFormat);
+            Paragraph footer2 = new Paragraph(UtilFunctions.get_date_format(date));
             footer2.add(new Chunk(separator));
             footer2.add(".....................");
             document.add(footer2);

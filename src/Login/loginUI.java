@@ -82,9 +82,6 @@ public class loginUI {
             Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
             tabPane.getTabs().add(notificari);
 
-            Tab requests = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
-            tabPane.getTabs().add(requests);
-
             Tab logout = FXMLLoader.load(this.getClass().getResource("logout.fxml"));
             tabPane.getTabs().add(logout);
 
