@@ -26,12 +26,12 @@ public class AlertsUIUser implements Initializable, Observer {
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         notificariListView.setFixedCellSize(48);
-        notificariListView.getItems().addAll(0, controller.getAlert());
+        notificariListView.getItems().addAll(0, controller.getAlerts());
     }
 
     @Override
     public void update(Observable o, Object arg) {
         notificariListView.getItems().clear();
-        notificariListView.getItems().addAll(0, controller.getAlert());
+        notificariListView.getItems().addAll(0, controller.getAlerts());
     }
 }

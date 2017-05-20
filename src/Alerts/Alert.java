@@ -1,5 +1,7 @@
 package Alerts;
 
+import Utils.UtilFunctions;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -75,6 +77,6 @@ public class Alert {
 
     @Override
     public String toString() {
-        return  delivery_date + " - " + " deadline: " + deadline + " mesaj: " + text;
+        return  " deadline: " + UtilFunctions.get_date_format(deadline) + " mesaj: " + text;
     }
 }

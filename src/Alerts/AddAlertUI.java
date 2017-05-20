@@ -51,12 +51,17 @@ public class AddAlertUI implements Initializable {
         }
         boolean checked = checkBox.isSelected();
         try {
+            if (name == null && checked == false) throw new Exception("Selectati un angajat sau trimiteti la toti angajatii");
+            if (alertTextArea.getText().isEmpty()) throw new Exception("Completati mesajul");
             controller.add(name, checked, alertTextArea.getText(), dateField.getText(), new GregorianCalendar(), "send");
             Stage stage = (Stage) alertAddButton.getScene().getWindow();
             stage.close();
         }
         catch (ParseException e) {
             UtilFunctions.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
+        }
+        catch (Exception e) {
+            UtilFunctions.showInfo(e.getMessage());
         }
     }
 

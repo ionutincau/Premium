@@ -35,4 +35,16 @@ public class UtilFunctions {
         cal.setTime(date);
         return cal;
     }
+
+    public static String get_date_format(Calendar calendar) {
+        int d = calendar.get(Calendar.DAY_OF_MONTH);
+        int m = calendar.get(Calendar.MONTH) + 1;
+        String day;
+        String month;
+        if (d < 10) day = "0" + d;
+        else day = "" + d;
+        if (m < 10) month = "0" + m;
+        else month = "" + d;
+        return day + "." + month + "." + calendar.get(Calendar.YEAR);
+    }
 }

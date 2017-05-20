@@ -1,5 +1,7 @@
 package Requests;
 
+import Utils.UtilFunctions;
+
 import java.util.Calendar;
 
 /**
@@ -14,10 +16,10 @@ public class Request {
     private Calendar date_approval;
 
     public Request(int id_request, int id_document, String status, Calendar date_approval){
-        this.id_request=id_request;
-        this.id_document=id_document;
-        this.status=status;
-        this.date_approval=date_approval;
+        this.id_request = id_request;
+        this.id_document = id_document;
+        this.status = status;
+        this.date_approval = date_approval;
     }
 
     public int getId() { return this.id_request; }
@@ -32,11 +34,8 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" +
-                "id_request=" + id_request +
-                ", id_document=" + id_document +
-                ", status='" + status + '\'' +
-                ", date_approval=" + date_approval +
-                '}';
+        String details = " status: " + status;
+        if (date_approval != null) details += " approved in: " + UtilFunctions.get_date_format(date_approval);
+        return " status: " + status;
     }
 }

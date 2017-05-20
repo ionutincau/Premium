@@ -30,13 +30,13 @@ public class AlertsUIHR implements Initializable, Observer {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         notificariListView.setFixedCellSize(48);
-        notificariListView.getItems().addAll(0, controller.getAlert());
+        notificariListView.getItems().addAll(0, controller.getAllAlerts());
     }
 
     @Override
     public void update(java.util.Observable o, Object arg) {
         notificariListView.getItems().clear();
-        notificariListView.getItems().addAll(0, controller.getAlert());
+        notificariListView.getItems().addAll(0, controller.getAllAlerts());
     }
 
     private void loadWindow(String name, Alert alert) {
@@ -71,7 +71,6 @@ public class AlertsUIHR implements Initializable, Observer {
 
 
     public void deleteAlert() {
-        notificariListView.getSelectionModel().getSelectedIndex();
         Alert alert = (Alert) notificariListView.getSelectionModel().getSelectedItem();
         if (alert != null) {
             controller.removeAlert(alert);

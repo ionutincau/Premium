@@ -1,6 +1,5 @@
 package Alerts;
 
-import Employees.Employee;
 import database.DatabaseConnection;
 
 import java.sql.*;
@@ -39,6 +38,28 @@ public class AlertsProvider {
                 String status = result.getString("status");
 
                 Alert alert = new Alert(id_alert, id_employee, text, cal1, cal , status);
+                list.add(0, alert);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList getAllAlerts() {
+        ArrayList<Alert> list = new ArrayList();
+        try {
+            String querry = "SELECT * FROM `alerts`";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                int id_alert = result.getInt("id_alert");
+                String text = result.getString("text");
+                java.util.Date deadline = result.getDate("deadline");
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(deadline);
+                Alert alert = new Alert(id_alert, 0, text, cal, null , null);
                 list.add(0, alert);
             }
         }
@@ -164,14 +185,11 @@ public class AlertsProvider {
         }
     }
 
-    /**
-     * Sterge doar din tabelul `alerts_employees` pentru ca dupa tabelul respectiv se afiseaza notificarile
-     * Din tabelul `alerts` nu se sterg iteme (doar forcefully din DB daca e nevoie) ,dar acest factor nu schimba cu nimic Notificarile ca total :D
-     *
-     */
     public void deleteNotification(Alert a){
         try {
-            String querry1 = "DELETE FROM `alerts_employees`  WHERE `alerts_employees`.`id_alert_employee`="+a.getId_alert()+";";
+            String querry = "DELETE FROM `alerts` WHERE `alerts`.`id_alert`=" + a.getId_alert() + ";";
+            DatabaseConnection.getStatement().executeUpdate(querry);
+            String querry1 = "DELETE FROM `alerts_employees`  WHERE `alerts_employees`.`id_alert_employee`=" + a.getId_alert() + ";";
             DatabaseConnection.getStatement().executeUpdate(querry1);
         }
         catch (Exception e) {
@@ -233,5 +251,4 @@ public class AlertsProvider {
         }
         return list;
     }
-
 }

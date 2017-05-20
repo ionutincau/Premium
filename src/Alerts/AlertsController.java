@@ -21,13 +21,17 @@ public class AlertsController extends Observable {
 
     public AlertsController() {
         provider = new AlertsProvider();
-
     }
 
-    public ArrayList getAlert(){
+    public ArrayList getAlerts(){
         Employee selectedUser = LoginController.getInstance().getSelectedUser();
         if (selectedUser != null) list = provider.getAlerts(selectedUser.getId());
         Collections.sort(list, Collections.reverseOrder());
+        return list;
+    }
+
+    public ArrayList getAllAlerts() {
+        list = provider.getAllAlerts();
         return list;
     }
 

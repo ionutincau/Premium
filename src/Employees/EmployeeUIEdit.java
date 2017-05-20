@@ -34,6 +34,7 @@ public class EmployeeUIEdit implements Initializable{
     @FXML private Button cancelButton;
 
     public int current_id;
+
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {}
 
@@ -96,20 +97,4 @@ public class EmployeeUIEdit implements Initializable{
             UtilFunctions.showInfo(e.getMessage());
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
