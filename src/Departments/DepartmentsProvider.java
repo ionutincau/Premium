@@ -160,7 +160,7 @@ public class DepartmentsProvider {
     public  int GetIdManager(String ManagerName)
     {
         int id_manager=0;
-        String[] managerName=ManagerName.split(" ");
+        String[] managerName=ManagerName.split(" ",2);
         try {
             String querry = "SELECT * FROM `employees` WHERE `last_name`=" + managerName[0] + " AND `first_name`=" + managerName[1] + ";";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
