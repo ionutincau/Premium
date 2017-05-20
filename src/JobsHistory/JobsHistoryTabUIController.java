@@ -1,6 +1,5 @@
 package JobsHistory;
 
-import Login.LoginController;
 import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,30 +19,24 @@ import java.util.ResourceBundle;
 /**
  * Created by Aurelian on 5/19/2017.
  */
-public class JobsHistoryTabUIController implements Initializable, Observer {
+public class JobsHistoryTabUIController implements Initializable,Observer {
 
     private JobsHistoryController controller;
-    @FXML
-    private Button jobsHistoryEditButton;
-
-    @FXML
-    private Button jobsHistoryAddButton;
-
-    @FXML
-    private Button jobsHistoryDeleteButton;
-    @FXML
-    private ListView<JobHistory> jobsHistoryListView;
+    @FXML private Button jobsHistoryEditButton;
+    @FXML private Button jobsHistoryAddButton;
+    @FXML private Button jobsHistoryDeleteButton;
+    @FXML private ListView<JobHistory> jobsHistoryListView;
 
     private JobsHistoryTabUIController()
     {
         this.controller=new JobsHistoryController();
         this.controller.addObserver(this);
-        LoginController.getInstance().addObserver(this);
+
     }
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
+        System.out.println("OK");
        jobsHistoryListView.setFixedCellSize(48);
        jobsHistoryListView.getItems().addAll(0, controller.getJobHistoryList());
        JobHistoryAdd();
