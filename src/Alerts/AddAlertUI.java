@@ -34,11 +34,12 @@ public class AddAlertUI implements Initializable {
         this.controller = controller;
         this.alert = alert;
         alertEmployeeLabelChoiceBox.setItems(FXCollections.observableArrayList(controller.getEmployeeName()));
+        alertAddButton.setText(name);
         if (name == "Adauga") {
             alertAddButton.setOnAction(e->addAlert());
         }
         else {
-            dateField.setText(alert.getDeadline().toString());
+            dateField.setText(UtilFunctions.get_date_format(alert.getDeadline()));
             alertTextArea.setText(alert.getText());
             alertAddButton.setOnAction(e->editAlert());
         }
@@ -66,6 +67,24 @@ public class AddAlertUI implements Initializable {
     }
 
     public void editAlert() {
-
+        String name = null;
+        if (alertEmployeeLabelChoiceBox.getSelectionModel().getSelectedItem() != null) {
+            name = alertEmployeeLabelChoiceBox.getSelectionModel().getSelectedItem().toString();
+        }
+        boolean checked = checkBox.isSelected();
+        try {
+            if (name == null && checked == false) throw new Exception("Selectati un angajat sau trimiteti la toti angajatii");
+            if (alertTextArea.getText().isEmpty()) throw new Exception("Completati mesajul");
+            controller.removeAlert(alert);
+            controller.add(name, checked, alertTextArea.getText(), dateField.getText(), new GregorianCalendar(), "send");
+            Stage stage = (Stage) alertAddButton.getScene().getWindow();
+            stage.close();
+        }
+        catch (ParseException e) {
+            UtilFunctions.showInfo("Format invalid!\nData trebuie sa fie de forma: zz.ll.aaaa");
+        }
+        catch (Exception e) {
+            UtilFunctions.showInfo(e.getMessage());
+        }
     }
 }

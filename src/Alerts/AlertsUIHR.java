@@ -43,7 +43,7 @@ public class AlertsUIHR implements Initializable, Observer {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("alert_add.fxml"));
             AnchorPane root = loader.load();
-            AddAlertUI editController = loader.<AddAlertUI>getController();
+            AddAlertUI editController = loader.getController();
             editController.initData(name, alert, controller);
             Stage stage = new Stage();
             stage.setTitle(name);

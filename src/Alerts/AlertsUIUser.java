@@ -1,5 +1,6 @@
 package Alerts;
 
+import Utils.UtilFunctions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -33,5 +34,13 @@ public class AlertsUIUser implements Initializable, Observer {
     public void update(Observable o, Object arg) {
         notificariListView.getItems().clear();
         notificariListView.getItems().addAll(0, controller.getAlerts());
+    }
+
+    public void setRead() {
+        Alert alert = (Alert) notificariListView.getSelectionModel().getSelectedItem();
+        if (alert != null) {
+            controller.setRead(alert);
+        }
+        else UtilFunctions.showInfo("Selectati o alerta");
     }
 }

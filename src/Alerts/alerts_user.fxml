@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <Tab id="alerts_user" fx:id="alerts_user" text="Alerte" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Alerts.AlertsUIUser">
    <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -12,6 +13,18 @@
                   <AnchorPane VBox.vgrow="ALWAYS">
                      <children>
                         <ListView id="notificariListView" fx:id="notificariListView" prefHeight="278.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button id="setReadButton" fx:id="setReadButton" contentDisplay="CENTER" onAction="#setRead" mnemonicParsing="false" text="Marcheaza ca citit" HBox.hgrow="NEVER" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </children>

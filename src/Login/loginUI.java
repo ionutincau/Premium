@@ -1,5 +1,6 @@
 package Login;
 
+import Alerts.AlertsProvider;
 import Employees.Employee;
 import Utils.UtilFunctions;
 import javafx.event.Event;
@@ -56,6 +57,7 @@ public class loginUI {
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tab.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tab.fxml"));
                 Tab arhiva = FXMLLoader.load(this.getClass().getResource("../JobsHistory/jobs_history_tab.fxml"));
+
                 tabPane.getTabs().add(arhiva);
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
@@ -79,12 +81,12 @@ public class loginUI {
             Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
             tabPane.getTabs().add(notificari);
 
-            Tab a = FXMLLoader.load(this.getClass().getResource("../Requests/requests_hr.fxml"));
-            Tab b = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
+            Tab alerts = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
+            tabPane.getTabs().add(alerts);
 
-
-            tabPane.getTabs().add(a);
-            tabPane.getTabs().add(b);
+            if (!AlertsProvider.unreadAlerts(loginController.getLoggedUser().getId()).isEmpty()) {
+                UtilFunctions.showInfo("Aveti alerte necitite\nVerificati tabul Alerte!");
+            }
         }
         catch (IOException ex) {
             UtilFunctions.showInfo("Application can't manage usertype " + usertype + "\nContact system administrator");

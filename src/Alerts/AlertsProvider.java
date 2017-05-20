@@ -1,5 +1,6 @@
 package Alerts;
 
+import Employees.Employee;
 import database.DatabaseConnection;
 
 import java.sql.*;
@@ -133,7 +134,6 @@ public class AlertsProvider {
                     PreparedStatement pstmt2 = DatabaseConnection.getConnection().prepareStatement(querry2);
                     pstmt2.setInt(1, getAEAvaliableId());
                     pstmt2.setInt(2, (int) ids.get(i));
-                    System.out.println("id: " + a.getId_alert());
                     pstmt2.setInt(3, a.getId_alert());
                     pstmt2.setString(4, delivery_date);
                     pstmt2.setString(5, a.getStatus());
@@ -189,7 +189,7 @@ public class AlertsProvider {
         try {
             String querry = "DELETE FROM `alerts` WHERE `alerts`.`id_alert`=" + a.getId_alert() + ";";
             DatabaseConnection.getStatement().executeUpdate(querry);
-            String querry1 = "DELETE FROM `alerts_employees`  WHERE `alerts_employees`.`id_alert_employee`=" + a.getId_alert() + ";";
+            String querry1 = "DELETE FROM `alerts_employees`  WHERE `alerts_employees`.`id_alert`=" + a.getId_alert() + ";";
             DatabaseConnection.getStatement().executeUpdate(querry1);
         }
         catch (Exception e) {
@@ -250,5 +250,33 @@ public class AlertsProvider {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static ArrayList unreadAlerts(int id_employee) {
+        ArrayList list = new ArrayList();
+        try {
+            String querry = "SELECT `id_alert` FROM `alerts_employees` WHERE `id_employee`='" + id_employee + "'" + "AND `status`='" + "send" + "'";
+            ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            while (result.next()) {
+                int id_alert = result.getInt("id_alert");
+                list.add(id_alert);
+            }
+            result.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void setRead(int id_employee, int id_alert) {
+        try {
+            String querry1 = "UPDATE `alerts_employees` SET `status`='" + "read" + "' WHERE `alerts_employees`.`id_alert`=" + id_alert + " AND `alerts_employees`.`id_employee`=" + id_employee;
+            DatabaseConnection.getStatement().executeUpdate(querry1);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
     }
 }

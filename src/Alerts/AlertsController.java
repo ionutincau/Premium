@@ -7,7 +7,6 @@ import Utils.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Observable;
 
 /**
@@ -26,7 +25,6 @@ public class AlertsController extends Observable {
     public ArrayList getAlerts(){
         Employee selectedUser = LoginController.getInstance().getSelectedUser();
         if (selectedUser != null) list = provider.getAlerts(selectedUser.getId());
-        Collections.sort(list, Collections.reverseOrder());
         return list;
     }
 
@@ -59,5 +57,13 @@ public class AlertsController extends Observable {
 
     public ArrayList<String> getEmployeeName() {
         return provider.getEmployeeName();
+    }
+
+    public ArrayList unreadAlerts(){
+        return provider.unreadAlerts(LoginController.getInstance().getLoggedUser().getId());
+    }
+
+    public void setRead(Alert alert) {
+        provider.setRead(LoginController.getInstance().getLoggedUser().getId(), alert.getId_alert());
     }
 }
