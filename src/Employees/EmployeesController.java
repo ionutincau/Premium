@@ -1,6 +1,10 @@
 package Employees;
 
+import JobsHistory.JobHistory;
+import JobsHistory.JobsHistoryProvider;
+
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 
 /**
@@ -25,7 +29,8 @@ public class EmployeesController extends Observable{
 
     public void addEmployee(String last_name,String first_name,String username, String password,String cnp,int id_job,int id_department,String email,String phone,String role)
     {
-        Employee e = new Employee(get_next_id(),last_name,first_name,username,password,cnp,id_job,id_department,email,phone,role);
+        int id=get_next_id();
+        Employee e = new Employee(id,last_name,first_name,username,password,cnp,id_job,id_department,email,phone,role);
         provider.insertEmployee(e);
         list.add(e);
         setChanged();
