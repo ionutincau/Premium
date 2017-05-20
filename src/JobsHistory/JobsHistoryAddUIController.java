@@ -75,16 +75,27 @@ public class JobsHistoryAddUIController implements Initializable {
     }
     public void Add() {
         try {
-            LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
-            Date dateIn = java.sql.Date.valueOf(localDateIn);
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String Start = formatter.format(dateIn);
-            LocalDate localDateOut = jobHistoryEndDateDatePicker.getValue();
-            Date dateOut = java.sql.Date.valueOf(localDateOut);
-            String End = formatter.format(dateOut);
-            controller.add(Start,End,jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
-            Stage stage = (Stage)jobHistoryOkButton.getScene().getWindow();
-            stage.close();
+            if (jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem().equals("fired")){
+                LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
+                Date dateIn = java.sql.Date.valueOf(localDateIn);
+                Format formatter = new SimpleDateFormat("dd.MM.yyyy");
+                String Start = formatter.format(dateIn);
+                controller.add(Start,"30.12.2099",jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage)jobHistoryOkButton.getScene().getWindow();
+                stage.close();
+            }
+            else {
+                LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
+                Date dateIn = java.sql.Date.valueOf(localDateIn);
+                Format formatter = new SimpleDateFormat("dd.MM.yyyy");
+                String Start = formatter.format(dateIn);
+                LocalDate localDateOut = jobHistoryEndDateDatePicker.getValue();
+                Date dateOut = java.sql.Date.valueOf(localDateOut);
+                String End = formatter.format(dateOut);
+                controller.add(Start, End, jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage) jobHistoryOkButton.getScene().getWindow();
+                stage.close();
+            }
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");
@@ -96,16 +107,27 @@ public class JobsHistoryAddUIController implements Initializable {
 
     public  void Edit() {
         try {
-            LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
-            Date dateIn = java.sql.Date.valueOf(localDateIn);
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String Start = formatter.format(dateIn);
-            LocalDate localDateOut = jobHistoryEndDateDatePicker.getValue();
-            Date dateOut = java.sql.Date.valueOf(localDateOut);
-            String End = formatter.format(dateOut);
-            controller.edit(jobHistory.getIdJobHistory(),Start,End,jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(),jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
-            Stage stage = (Stage)jobHistoryOkButton.getScene().getWindow();
-            stage.close();
+            if (jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem().equals("fired")) {
+                LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
+                Date dateIn = java.sql.Date.valueOf(localDateIn);
+                Format formatter = new SimpleDateFormat("dd.MM.yyyy");
+                String Start = formatter.format(dateIn);
+                controller.edit(jobHistory.getIdJobHistory(), Start, "30.12.2099", jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage) jobHistoryOkButton.getScene().getWindow();
+                stage.close();
+            }
+            else {
+                LocalDate localDateIn = jobHistoryStartDateDatePicker.getValue();
+                Date dateIn = java.sql.Date.valueOf(localDateIn);
+                Format formatter = new SimpleDateFormat("dd.MM.yyyy");
+                String Start = formatter.format(dateIn);
+                LocalDate localDateOut = jobHistoryEndDateDatePicker.getValue();
+                Date dateOut = java.sql.Date.valueOf(localDateOut);
+                String End = formatter.format(dateOut);
+                controller.edit(jobHistory.getIdJobHistory(), Start, End, jobHistoryUserChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryJobChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryDepartmentChoiceBox.getSelectionModel().getSelectedItem(), jobHistoryTypeChoiceBox.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage) jobHistoryOkButton.getScene().getWindow();
+                stage.close();
+            }
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");

@@ -55,10 +55,8 @@ public class loginUI {
                 Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tab.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tab.fxml"));
-                System.out.println("OK");
                 Tab arhiva = FXMLLoader.load(this.getClass().getResource("../JobsHistory/jobs_history_tab.fxml"));
                 tabPane.getTabs().add(arhiva);
-                System.out.println("ok");
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);

@@ -43,6 +43,7 @@ public class JobsHistoryController extends Observable{
         listType.add("vacation");
         listType.add("working");
         listType.add("trainer");
+        listType.add("fired");
         return listType;
     }
     public String getNameJH(int id_employee)

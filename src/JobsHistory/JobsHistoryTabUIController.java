@@ -27,7 +27,7 @@ public class JobsHistoryTabUIController implements Initializable,Observer {
     @FXML private Button jobsHistoryDeleteButton;
     @FXML private ListView<JobHistory> jobsHistoryListView;
 
-    private JobsHistoryTabUIController()
+    public JobsHistoryTabUIController()
     {
         this.controller=new JobsHistoryController();
         this.controller.addObserver(this);
@@ -36,14 +36,13 @@ public class JobsHistoryTabUIController implements Initializable,Observer {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        System.out.println("OK");
        jobsHistoryListView.setFixedCellSize(48);
        jobsHistoryListView.getItems().addAll(0, controller.getJobHistoryList());
        JobHistoryAdd();
        JobsHistoryDelete();
        JobsHistoryEdit();
     }
-    private void loadWindow(String name, JobHistory jobHistory) {
+    public void loadWindow(String name, JobHistory jobHistory) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("jobs_history_add.fxml"));
             AnchorPane root = loader.load();

@@ -195,24 +195,21 @@ public class JobsHistoryProvider {
     }
 
     public void insertJobHistory(JobHistory jh) {
-        String end_date="2000-00-00";
-        String querry = "INSERT INTO `jobs_history`(`id_job`,`start_date`,`end_date`,`id_employee`,`id_department`,`status`) VALUES (?,?,?,?,?,?)";
+        String querry = "INSERT INTO `jobs_history`(`id_job_history`,`id_job`,`start_date`,`end_date`,`id_employee`,`id_department`,`status`) VALUES (?,?,?,?,?,?,?)";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        if (jh.getEnd_date()!=null) {
-            end_date = formatter.format(jh.getEnd_date().getTime());
-        }
-        end_date = formatter.format(jh.getEnd_date().getTime());
+
+        String  end_date = formatter.format(jh.getEnd_date().getTime());
         String start_date = formatter.format(jh.getStart_date().getTime());
 
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
-
-            pstmt.setInt(1, jh.getId_job());
-            pstmt.setString(2, start_date);
-            pstmt.setString(3, end_date);
-            pstmt.setInt(4, jh.getId_employee());
-            pstmt.setInt(5, jh.getId_department());
-            pstmt.setString(6, jh.getStatus());
+            pstmt.setInt(1, jh.getIdJobHistory());
+            pstmt.setInt(2, jh.getId_job());
+            pstmt.setString(3, start_date);
+            pstmt.setString(4, end_date);
+            pstmt.setInt(5, jh.getId_employee());
+            pstmt.setInt(6, jh.getId_department());
+            pstmt.setString(7, jh.getStatus());
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -224,17 +221,20 @@ public class JobsHistoryProvider {
     }
 
     public void updateJobHistory(JobHistory jh) {
-        String querry = "UPDATE `jobs_history` SET `end_date`= ? ,`id_department`= ? ,`status`= ?  WHERE `id_employee`= ? AND `id_job`= ?;";
+        String querry = "UPDATE `jobs_history` SET `id_job`= ? ,`start_date`=?,`end_date`= ? ,`id_employee` = ?,`id_department`= ? ,`status`= ?  WHERE `id_job_history`= ? ;";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String end_date = formatter.format(jh.getEnd_date().getTime());
+        String start_date = formatter.format(jh.getStart_date().getTime());
         try {
             PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(querry);
-
-            pstmt.setString(1, end_date);
-            pstmt.setInt(2, jh.getId_department());
-            pstmt.setString(3, jh.getStatus());
+            pstmt.setInt(1, jh.getId_job());
+            pstmt.setString(2, start_date);
+            pstmt.setString(3, end_date);
             pstmt.setInt(4, jh.getId_employee());
-            pstmt.setInt(5, jh.getId_job());
+            pstmt.setInt(5, jh.getId_department());
+            pstmt.setString(6, jh.getStatus());
+
+            pstmt.setInt(7, jh.getIdJobHistory());
 
             pstmt.executeUpdate();
             pstmt.close();
@@ -263,7 +263,7 @@ public class JobsHistoryProvider {
     }
     public void deleteJobHistory(JobHistory jh) {
         try {
-            String querry="DELETE FROM `jobs_history` WRITE `id_job`="+jh.getId_job()+";";
+            String querry="DELETE FROM `jobs_history` WHERE `id_job_history`='"+jh.getIdJobHistory()+"';";
             DatabaseConnection.getStatement().executeUpdate(querry);
         }
         catch(Exception e){
@@ -320,8 +320,9 @@ public class JobsHistoryProvider {
         int id_manager=0;
         String[] managerName=employeeName.split(" ",2);
         try {
-            String querry = "SELECT * FROM `employees` WHERE `last_name`=" + managerName[0] + " AND `first_name`=" + managerName[1] + ";";
+            String querry = "SELECT * FROM `employees` WHERE `last_name`='" + managerName[0] + "' AND `first_name`='" + managerName[1] + "';";
             ResultSet result = DatabaseConnection.getStatement().executeQuery(querry);
+            result.next();
             id_manager=result.getInt("id_employee");
             result.close();
         }
