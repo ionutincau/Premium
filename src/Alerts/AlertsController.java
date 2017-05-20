@@ -23,8 +23,8 @@ public class AlertsController extends Observable {
     }
 
     public ArrayList getAlerts(){
-        Employee selectedUser = LoginController.getInstance().getSelectedUser();
-        if (selectedUser != null) list = provider.getAlerts(selectedUser.getId());
+        Employee loggedUser = LoginController.getInstance().getLoggedUser();
+        if (loggedUser != null) list = provider.getAlerts(loggedUser.getId());
         return list;
     }
 
@@ -40,7 +40,7 @@ public class AlertsController extends Observable {
         if (add_all == false) {
             id_user = provider.id_user(name);
         }
-        Alert alert = new Alert(id_alert, LoginController.getInstance().getSelectedUser().getId(), text, calendar1, calendar2, status);
+        Alert alert = new Alert(id_alert, LoginController.getInstance().getLoggedUser().getId(), text, calendar1, calendar2, status);
         list.add(alert);
         provider.insertNotification(alert, id_user);
 
@@ -65,5 +65,7 @@ public class AlertsController extends Observable {
 
     public void setRead(Alert alert) {
         provider.setRead(LoginController.getInstance().getLoggedUser().getId(), alert.getId_alert());
+        setChanged();
+        notifyObservers();
     }
 }

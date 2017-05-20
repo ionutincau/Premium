@@ -81,8 +81,8 @@ public class loginUI {
             Tab notificari = FXMLLoader.load(this.getClass().getResource("../Alerts/alerts_" + usertype + ".fxml"));
             tabPane.getTabs().add(notificari);
 
-            Tab alerts = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
-            tabPane.getTabs().add(alerts);
+            Tab requests = FXMLLoader.load(this.getClass().getResource("../Requests/requests_user.fxml"));
+            tabPane.getTabs().add(requests);
 
             if (!AlertsProvider.unreadAlerts(loginController.getLoggedUser().getId()).isEmpty()) {
                 UtilFunctions.showInfo("Aveti alerte necitite\nVerificati tabul Alerte!");

@@ -19,9 +19,9 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button id="adaugaNotificareButton" fx:id="adaugaNotificareButton" contentDisplay="CENTER" mnemonicParsing="false" text="Adauga" HBox.hgrow="NEVER" />
-                              <Button id="editeazaNotificareButton" fx:id="editeazaNotificareButton" contentDisplay="CENTER" layoutX="284.0" layoutY="48.0" mnemonicParsing="false" text="Editeaza" />
-                              <Button id="stergeNotificareButton" fx:id="stergeNotificareButton" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Sterge" />
+                              <Button id="adaugaNotificareButton" fx:id="adaugaNotificareButton" onAction="#addAlert" contentDisplay="CENTER" mnemonicParsing="false" text="Adauga" HBox.hgrow="NEVER" />
+                              <Button id="editeazaNotificareButton" fx:id="editeazaNotificareButton" onAction="#editAlert" contentDisplay="CENTER" layoutX="284.0" layoutY="48.0" mnemonicParsing="false" text="Editeaza" />
+                              <Button id="stergeNotificareButton" fx:id="stergeNotificareButton" onAction="#deleteAlert" contentDisplay="CENTER" layoutX="310.0" layoutY="48.0" mnemonicParsing="false" text="Sterge" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
