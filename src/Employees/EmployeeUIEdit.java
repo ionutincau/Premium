@@ -70,12 +70,36 @@ public class EmployeeUIEdit implements Initializable{
         try {
             int idJob = controller.idJob(jobChoiceBox.getSelectionModel().getSelectedItem().toString());
             int idDepartment = controller.idDepartment(departmentChoiceBox.getSelectionModel().getSelectedItem().toString());
-            controller.addEmployee(firstNameTextField.getText(), lastNameTextField.getText(), userNameTextField.getText(), passwordTextField.getText(), cnpTextField.getText(), idJob, idDepartment, emailTextField.getText(), phoneTextField.getText(), roleChoiceBox.getSelectionModel().getSelectedItem().toString());
-            Stage stage = (Stage) addUserButton.getScene().getWindow();
-            stage.close();
+            if(firstNameTextField.getText().isEmpty()){UtilFunctions.showInfo("Introduceti Prenume!");}
+            else if(lastNameTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Nume!");}}
+            else if(userNameTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Username!");}}
+            else if(passwordTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Password!");}}
+            else if(cnpTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti CNP!");}}
+            else if(emailTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Email!");}}
+            else if(phoneTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Phone!");}}
+            else if (!firstNameTextField.getText().matches("[a-zA-Z_]+")) {
+                    UtilFunctions.showInfo("Prenume invalid!");
+            }
+            else if (!lastNameTextField.getText().matches("[a-zA-Z_]+")) {
+                UtilFunctions.showInfo("Nume invalid!");
+            }
+            else if (cnpTextField.getText().matches("[a-zA-Z_]+")) {
+                    UtilFunctions.showInfo("CNP invalid!");
+            }
+            else if (phoneTextField.getText().matches("[a-zA-Z_]+")) {
+                    UtilFunctions.showInfo("Numar de telefon invalid");
+            }
+            else {
+                    controller.addEmployee(firstNameTextField.getText(), lastNameTextField.getText(), userNameTextField.getText(), passwordTextField.getText(), cnpTextField.getText(), idJob, idDepartment, emailTextField.getText(), phoneTextField.getText(), roleChoiceBox.getSelectionModel().getSelectedItem().toString());
+                    Stage stage = (Stage) addUserButton.getScene().getWindow();
+                    stage.close();
+            }
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");
+        }
+        catch (NullPointerException e){
+            UtilFunctions.showInfo("Introduceti toate datele!\n");
         }
         catch (Exception e) {
             UtilFunctions.showInfo(e.getMessage());
@@ -86,12 +110,30 @@ public class EmployeeUIEdit implements Initializable{
         try {
             int idJob = controller.idJob(jobChoiceBox.getSelectionModel().getSelectedItem().toString());
             int idDepartment = controller.idDepartment(departmentChoiceBox.getSelectionModel().getSelectedItem().toString());
-            controller.editEmployee(current_id,firstNameTextField.getText(), lastNameTextField.getText(), userNameTextField.getText(), passwordTextField.getText(), cnpTextField.getText(), idJob, idDepartment, emailTextField.getText(), phoneTextField.getText(), roleChoiceBox.getSelectionModel().getSelectedItem().toString());
-            Stage stage = (Stage) addUserButton.getScene().getWindow();
-            stage.close();
+
+            if(firstNameTextField.getText().isEmpty()){UtilFunctions.showInfo("Introduceti Prenume!");}
+            else if(lastNameTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Nume!");}}
+            else if(userNameTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Username!");}}
+            else if(passwordTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Password!");}}
+            else if(cnpTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti CNP!");}}
+            else if(emailTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Email!");}}
+            else if(phoneTextField.getText().isEmpty()){{UtilFunctions.showInfo("Introduceti Phone!");}}
+            else{
+                if(!firstNameTextField.getText().matches("[a-zA-Z_]+")){UtilFunctions.showInfo("Prenume invalid!");}
+                else if(!lastNameTextField.getText().matches("[a-zA-Z_]+")){UtilFunctions.showInfo("Nume invalid!");}
+                else if(cnpTextField.getText().matches("[a-zA-Z_]+")){UtilFunctions.showInfo("CNP invalid!");}
+                else if(phoneTextField.getText().matches("[a-zA-Z_]+")){UtilFunctions.showInfo("Numar de telefon invalid");}
+                else{
+                    controller.editEmployee(current_id,firstNameTextField.getText(), lastNameTextField.getText(), userNameTextField.getText(), passwordTextField.getText(), cnpTextField.getText(), idJob, idDepartment, emailTextField.getText(), phoneTextField.getText(), roleChoiceBox.getSelectionModel().getSelectedItem().toString());
+                    Stage stage = (Stage) addUserButton.getScene().getWindow();
+                    stage.close();}
+            }
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");
+        }
+        catch (NullPointerException e){
+            UtilFunctions.showInfo("Introduceti toate datele!\n");
         }
         catch (Exception e) {
             UtilFunctions.showInfo(e.getMessage());
