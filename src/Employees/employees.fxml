@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <Tab id="employees" fx:id="employees" text="Angajati" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Employees.EmployessUI">
    <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
             <HBox layoutY="13.0" prefHeight="27.0">
                <children>
-                  <Label textFill="cornflowerblue" text="Utilizator selectat: " >
+                  <Label text="Utilizator selectat: " textFill="cornflowerblue">
                       <HBox.margin>
                           <Insets left="15.0" />
                       </HBox.margin>
                   </Label>
-                  <Label textFill="cornflowerblue" layoutX="150.0" fx:id="selectedUser" text="" >
+                  <Label fx:id="selectedUser" layoutX="150.0" text="" textFill="cornflowerblue">
                        <HBox.margin>
                            <Insets left="5.0" right="5.0" />
                        </HBox.margin>
@@ -30,22 +33,22 @@
                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                  </padding>
              </HBox>
-            <ListView fx:id="employeesList" layoutY="82.0" prefHeight="240.0" prefWidth="600.0" VBox.vgrow="ALWAYS"/>
-            <HBox layoutX="14.0" layoutY="330.0" prefHeight="30.0" prefWidth="573.0">
+            <ListView fx:id="employeesList" layoutY="82.0" prefHeight="240.0" prefWidth="600.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0" VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER" layoutX="14.0" layoutY="330.0" prefHeight="50.0" prefWidth="573.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="addButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Adauga">
+                  <Button fx:id="addButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Adauga">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin></Button>
-                  <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Editeaza">
+                  <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Editeaza">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin></Button>
-                  <Button fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Sterge">
+                  <Button fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Sterge">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin></Button>
-                  <Button fx:id="selectButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="Selecteaza">
+                  <Button fx:id="selectButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Selecteaza">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin></Button>
