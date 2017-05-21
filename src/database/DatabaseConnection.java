@@ -15,8 +15,8 @@ public class DatabaseConnection {
 
     private DatabaseConnection() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
-            //connection = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11172843", "sql11172843", "bWvSWZ4R9f");
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/premium", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://sql11.freesqldatabase.com:3306/sql11172843", "sql11172843", "bWvSWZ4R9f");
         }
         catch (Exception e) {
             System.out.println("Database connection error");

@@ -45,12 +45,22 @@ public class DepartmentsUIEdit implements Initializable{
 
     public void Add() {
         try {
-            controller.addDepartment(departmentNameTextField.getText(), departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
-            Stage stage = (Stage)departmentOKButton.getScene().getWindow();
-            stage.close();
+            if(departmentNameTextField.getText().isEmpty()){UtilFunctions.showInfo("Introduceti numele departamentului!");}
+            else if(!departmentNameTextField.getText().matches("[a-zA-Z_]+")){
+                UtilFunctions.showInfo("Numele departamentului nu poate fi numar!");
+            }
+            else{
+                controller.addDepartment(departmentNameTextField.getText(), departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
+                Stage stage = (Stage) departmentOKButton.getScene().getWindow();
+                stage.close();
+            }
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");
+        }
+        catch(NullPointerException e)
+        {
+            UtilFunctions.showInfo("Alegeti Manager");
         }
         catch (Exception e) {
             UtilFunctions.showInfo(e.getMessage());
@@ -59,12 +69,23 @@ public class DepartmentsUIEdit implements Initializable{
 
     public  void Edit() {
         try {
-            controller.editDepartment(department.getId(),departmentNameTextField.getText(),departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
-            Stage stage = (Stage) departmentOKButton.getScene().getWindow();
-            stage.close();
+            if(departmentNameTextField.getText().isEmpty()){UtilFunctions.showInfo("Introduceti numele departamentului!");}
+            else if(!departmentNameTextField.getText().matches("[a-zA-Z_]+")){
+                UtilFunctions.showInfo("Numele departamentului nu poate fi numar!");
+            }
+            else{
+                controller.editDepartment(department.getId(),departmentNameTextField.getText(),departmentManagerChoiceBox.getSelectionModel().getSelectedItem().toString());
+                Stage stage = (Stage) departmentOKButton.getScene().getWindow();
+                stage.close();
+            }
+
         }
         catch (NumberFormatException e) {
             UtilFunctions.showInfo("Format invalid!\n");
+        }
+        catch(NullPointerException e)
+        {
+            UtilFunctions.showInfo("Alegeti Manager");
         }
         catch (Exception e) {
             UtilFunctions.showInfo(e.getMessage());
