@@ -99,7 +99,7 @@ public class ClockingController extends Observable {
         notifyObservers();
     }
 
-    public void add(String date, String hour_in, String hour_break, String hour_work, String  hour_out) throws ParseException {
+    public void add(String date, String hour_in, String hour_break, String hour_work, String  hour_out) throws Exception {
         Calendar calendar = UtilFunctions.formatDate(date);
         int h_in = getMinutes(hour_in);
         int h_break = getMinutes(hour_break);
@@ -108,9 +108,10 @@ public class ClockingController extends Observable {
         int id = provider.getAvaliableId();
         Clocking clocking = new Clocking(id, calendar, h_in, h_break, h_work, h_out);
 
+        Employee user = LoginController.getInstance().getSelectedUser();
+        if (user == null) throw new Exception("Selectati un angajat");
+        provider.insertClocking(clocking, user.getId());
         list.add(clocking);
-        provider.insertClocking(clocking, LoginController.getInstance().getSelectedUser().getId());
-
         setChanged();
         notifyObservers();
     }

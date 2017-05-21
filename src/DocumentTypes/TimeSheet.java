@@ -80,7 +80,7 @@ public class TimeSheet implements Serializable {
             document.add(dailyReport);
         }
         catch (Exception e) {
-            UtilFunctions.showInfo("Cererea nu a putut fi creata");
+            e.printStackTrace();
         }
         document.close();
     }

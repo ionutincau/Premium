@@ -1,13 +1,8 @@
 package Requests;
 
-import Documents.Document;
 import Documents.DocumentsController;
-import Documents.DocumentsProvider;
 import Login.LoginController;
 import Utils.UtilFunctions;
-
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -79,25 +74,29 @@ public class RequestsController extends Observable {
 
     public void saveRequestUserAndDoc(String docType) {
         int id_document = 0;
-        if (docType.equals("Adeverinta de vechime in munca")) {
-            id_document = documentsController.addWorkedPeriodRequest();
+        try {
+            if (docType.equals("Adeverinta de vechime in munca")) {
+                id_document = documentsController.addWorkedPeriodRequest();
+            }
+            if (docType.equals("Adeverinta de venit")) {
+                id_document = documentsController.addIncomeRequest(UtilFunctions.dialog("Prezenta serveste la: "));
+            }
+            if (docType.equals("Cerere de concediu")) {
+                id_document = documentsController.addVacationRequest(UtilFunctions.dialog("Data inceput: "), UtilFunctions.dialog("Data sfarsit: "));
+            }
+            Request request = new Request(RequestsProvider.getAvaliableId(), id_document, "pending", null);
+            provider.insertRequest(request);
+            requests.add(request);
         }
-        if (docType.equals("Adeverinta de venit")) {
-            id_document = documentsController.addIncomeRequest(UtilFunctions.dialog("Prezenta serveste la: "));
+        catch (Exception e) {
+            UtilFunctions.showInfo(e.getMessage());
         }
-        if (docType.equals("Cerere de concediu")) {
-            id_document = documentsController.addVacationRequest(UtilFunctions.dialog("Data inceput: "), UtilFunctions.dialog("Data sfarsit: "));
-        }
-        Request request = new Request(RequestsProvider.getAvaliableId(), id_document, "pending", null);
-        provider.insertRequest(request);
-        requests.add(request);
 
         setChanged();
         notifyObservers();
     }
 
-    public void updateRequests(RequestsUser requestsUser,String status)
-    {
+    public void updateRequests(RequestsUser requestsUser,String status) {
         Calendar cal=new GregorianCalendar();
         requestsUser.setDate_approval(cal);
         requestsUser.setStatus(status);
@@ -106,7 +105,6 @@ public class RequestsController extends Observable {
         setChanged();
         notifyObservers();
     }
-
 }
 
 

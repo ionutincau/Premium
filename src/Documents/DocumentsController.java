@@ -34,7 +34,7 @@ public class DocumentsController {
         return id_document;
     }
 
-    public int addIncomeRequest(String value) {
+    public int addIncomeRequest(String value) throws Exception {
         int id_document = DocumentsProvider.getAvaliableId();
         Income v = new Income(value);
         Document d = new Document(id_document, LoginController.getInstance().getLoggedUser().getId(), v.getFilenameName(), v.getDate(), 3, v);

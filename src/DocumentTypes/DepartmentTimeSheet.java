@@ -63,7 +63,7 @@ public class DepartmentTimeSheet implements Serializable {
 
         }
         catch (Exception e) {
-            UtilFunctions.showInfo("Adeverinta nu a putut fi creata!");
+            e.printStackTrace();
         }
         document.close();
     }

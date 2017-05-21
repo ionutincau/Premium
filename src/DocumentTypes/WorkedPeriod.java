@@ -110,7 +110,7 @@ public class WorkedPeriod  implements Serializable {
             document.add(footer2);
         }
         catch (Exception e) {
-            UtilFunctions.showInfo("Adeverinta nu a putut fi creata!");
+            e.printStackTrace();
         }
         document.close();
     }

@@ -77,7 +77,7 @@ public class Vacation implements Serializable {
             document.add(endDate);
         }
         catch (Exception e) {
-            UtilFunctions.showInfo("Cererea nu a putut fi creata");
+            e.printStackTrace();
         }
 
         document.close();

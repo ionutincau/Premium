@@ -4,7 +4,6 @@ import Employees.Employee;
 import JobsHistory.JobsHistoryController;
 import Login.LoginController;
 
-import Utils.UtilFunctions;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -44,20 +43,20 @@ public class Income implements Serializable {
     private Calendar date;
     private String purpose;
 
-    private Integer salary1;
-    private Integer salary2;
-    private Integer salary3;
+    private Integer salary1 = 0;
+    private Integer salary2 = 0;
+    private Integer salary3 = 0;
     private String month1;
     private String month2;
     private String month3;
 
-    public Income(String purpose) {
+    public Income(String purpose) throws Exception {
         int userID = LoginController.getInstance().getLoggedUser().getId();
         JobsHistoryController jobsHistoryController = new JobsHistoryController();
         List<Integer> salaries = jobsHistoryController.getLastThreeSalaries(userID);
-        salary1 = salaries.get(0);
-        salary2 = salaries.get(1);
-        salary3 = salaries.get(2);
+        if (salaries.size() > 0) salary1 = salaries.get(0);
+        if (salaries.size() > 1) salary2 = salaries.get(1);
+        if (salaries.size() > 2) salary3 = salaries.get(2);
 
         Employee user = LoginController.getInstance().getLoggedUser();
         name = user.getLast_name() + " " + user.getFirst_name();
@@ -115,7 +114,7 @@ public class Income implements Serializable {
             document.add(footer2);
         }
         catch (Exception e) {
-            Utils.UtilFunctions.showInfo("Cererea nu a putut fi creata");
+            e.printStackTrace();
         }
 
         document.close();

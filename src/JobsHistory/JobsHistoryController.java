@@ -94,19 +94,15 @@ public class JobsHistoryController extends Observable{
         notifyObservers();
     }
 
-    public int getVacationDays(int id_employee) {
-        return provider.getVacationDays(id_employee);
-    }
-
     public List<Integer> getLastThreeSalaries(int employeeID)
     {
         return provider.getLastThreeSalaries(employeeID);
     }
 
-    public java.sql.Date getStartDate(int employeeID)
-    {
+    public java.sql.Date getStartDate(int employeeID) throws Exception {
         return provider.getStartDate(employeeID);
     }
+
     public String getDepartmentName(int id)
     {
         return provider.GetNameDepartment(id);
