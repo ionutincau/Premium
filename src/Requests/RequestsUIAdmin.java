@@ -35,18 +35,26 @@ public class RequestsUIAdmin implements Initializable,Observer {
         cereriListView.setFixedCellSize(48);
         cereriListView.getItems().addAll(0,controller.getRequestsListForAdmin());
 
-        cereriAcceptateLabel.setText("Acceptate: "+controller.getNrAcc());
-        cereriRespinseLabel.setText("Respinse: "+controller.getNrRes());
-        cereriTotalLabel.setText("Total: "+controller.getMaxAcc());
-        cereriInAsteptareLabel.setText("In asteptare: "+controller.getNrPending());
+        int request_acc=controller.getNrAcc();
+        int request_dec=controller.getNrRes();
+        int request_pend=controller.getNrPending();
+        int total=request_acc+request_dec+request_pend;
+        cereriAcceptateLabel.setText("Acceptate: "+request_acc);
+        cereriRespinseLabel.setText("Respinse: "+request_dec);
+        cereriTotalLabel.setText("Total: "+total);
+        cereriInAsteptareLabel.setText("In asteptare: "+request_pend);
     }
     @Override
     public void update(Observable o, Object arg) {
         cereriListView.getItems().clear();
         cereriListView.getItems().addAll(0,controller.getRequestsListForAdmin());
-        cereriAcceptateLabel.setText("Acceptate: "+controller.getNrAcc());
-        cereriRespinseLabel.setText("Respinse: "+controller.getNrRes());
-        cereriTotalLabel.setText("Total: "+controller.getMaxAcc());
-        cereriInAsteptareLabel.setText("In asteptare: "+controller.getNrPending());
+        int request_acc=controller.getNrAcc();
+        int request_dec=controller.getNrRes();
+        int request_pend=controller.getNrPending();
+        int total=request_acc+request_dec+request_pend;
+        cereriAcceptateLabel.setText("Acceptate: "+request_acc);
+        cereriRespinseLabel.setText("Respinse: "+request_dec);
+        cereriTotalLabel.setText("Total: "+total);
+        cereriInAsteptareLabel.setText("In asteptare: "+request_pend);
     }
 }
