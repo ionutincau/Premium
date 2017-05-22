@@ -47,4 +47,15 @@ public class UtilFunctions {
         else month = "" + d;
         return day + "." + month + "." + calendar.get(Calendar.YEAR);
     }
+
+    public static String get_time_format(int n) {
+        if (n == 0) return "00:00";
+        int hours = n / 60;
+        int minutes = n % 60;
+        String h = "" + hours;
+        String m = "" + minutes;
+        if (hours < 10) h = "0" + h;
+        if (minutes < 10) m = "0" + m;
+        return h + ":" + m;
+    }
 }

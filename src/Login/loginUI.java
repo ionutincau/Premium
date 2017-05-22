@@ -58,19 +58,21 @@ public class loginUI {
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tab.fxml"));
                 Tab arhiva = FXMLLoader.load(this.getClass().getResource("../JobsHistory/jobs_history_tab.fxml"));
 
-                tabPane.getTabs().add(arhiva);
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
+                tabPane.getTabs().add(arhiva);
             }
             if (usertype.equals("hr")) {
                 Tab angajati = FXMLLoader.load(this.getClass().getResource("../Employees/employees.fxml"));
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tabHR.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tabHR.fxml"));
+                Tab reports = FXMLLoader.load(this.getClass().getResource("../Reports/reports_tab.fxml"));
 
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
+                tabPane.getTabs().add(reports);
             }
 
             Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));
