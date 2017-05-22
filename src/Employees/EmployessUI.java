@@ -93,7 +93,7 @@ public class EmployessUI implements Initializable,Observer {
             editController.initData(name,employee,controller);
             Stage stage = new Stage();
             stage.setTitle(name);
-            stage.setScene(new Scene(root, 300, 250));
+            stage.setScene(new Scene(root, 600, 500));
             stage.show();
         }
         catch (IOException e)

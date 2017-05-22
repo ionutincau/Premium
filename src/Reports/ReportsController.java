@@ -1,15 +1,9 @@
 package Reports;
 
 import Clocking.Clocking;
-import DocumentTypes.Income;
 import DocumentTypes.TimeSheet;
-import DocumentTypes.Vacation;
-import DocumentTypes.WorkedPeriod;
-import Documents.Document;
-import Documents.DocumentsProvider;
 import Employees.Employee;
 import Employees.EmployeesProvider;
-import Requests.RequestsUser;
 import Utils.UtilFunctions;
 import Clocking.ClockingProvider;
 

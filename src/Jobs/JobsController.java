@@ -34,8 +34,8 @@ public class JobsController extends Observable {
     }
 
     public void addJob(String name,String min_salary,String max_number,int id_documnet) {
-        int id_job=idJob();
-        int Max_number=Integer.getInteger(max_number);
+        int id_job = idJob();
+        int Max_number = Integer.parseInt(max_number);
         Job j = new Job(id_job, name, min_salary, Max_number, id_documnet);
         provider.insertJob(j);
         list.add(j);

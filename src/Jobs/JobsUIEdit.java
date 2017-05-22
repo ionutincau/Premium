@@ -45,7 +45,7 @@ public class JobsUIEdit implements Initializable {
 
     public void Add() {
         try {
-            controller.addJob(jobNameTextField.getText(),minimumSalaryTextField.getText(),employeeNumberLabel.getText(),1);
+            controller.addJob(jobNameTextField.getText(), minimumSalaryTextField.getText(), employeeNumberTextField.getText(),1);
             Stage stage = (Stage)jobOKButton.getScene().getWindow();
             stage.close();
         }

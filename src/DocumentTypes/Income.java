@@ -91,7 +91,8 @@ public class Income implements Serializable {
             LineSeparator ls = new LineSeparator();
             document.add(new Chunk(ls));
 
-            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + startDate + t4 + job + t5 + department + t6 + "\n\n");
+            String dateFormat2 = new SimpleDateFormat("dd.MM.yyyy").format(startDate.getTime());
+            Paragraph para = new Paragraph("\n\t" + t1 + name + t2 + company + t3 + dateFormat2 + t4 + job + t5 + department + t6 + "\n\n");
             document.add(para);
 
             Paragraph monthlySalary = new Paragraph(month1 + dots + salary1 + "\n" + month2 + dots + salary2 + "\n" + month3 + dots + salary3 + "\n");

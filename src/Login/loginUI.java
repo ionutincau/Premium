@@ -68,11 +68,13 @@ public class loginUI {
                 Tab departamente = FXMLLoader.load(this.getClass().getResource("../Departments/departments_tabHR.fxml"));
                 Tab job = FXMLLoader.load(this.getClass().getResource("../Jobs/jobs_tabHR.fxml"));
                 Tab reports = FXMLLoader.load(this.getClass().getResource("../Reports/reports_tab.fxml"));
+                Tab arhiva = FXMLLoader.load(this.getClass().getResource("../JobsHistory/jobs_history_tab.fxml"));
 
                 tabPane.getTabs().add(angajati);
                 tabPane.getTabs().add(departamente);
                 tabPane.getTabs().add(job);
                 tabPane.getTabs().add(reports);
+                tabPane.getTabs().add(arhiva);
             }
 
             Tab pontaj = FXMLLoader.load(this.getClass().getResource("../Clocking/clocking_" + usertype + ".fxml"));

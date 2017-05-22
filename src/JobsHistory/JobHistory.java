@@ -1,5 +1,9 @@
 package JobsHistory;
 
+import Departments.DepartmentsProvider;
+import Employees.EmployeesProvider;
+import Utils.UtilFunctions;
+
 import java.util.Calendar;
 
 /**
@@ -83,13 +87,13 @@ public class JobHistory {
 
     @Override
     public String toString() {
-        return "JobHistory{" +
-                "id_job=" + id_job +
-                ", start_date=" + start_date +
-                ", end_date=" + end_date +
-                ", id_employee=" + id_employee +
-                ", id_department=" + id_department +
-                ", status='" + status + '\'' +
-                '}';
+        DepartmentsProvider departmentsProvider = new DepartmentsProvider();
+        EmployeesProvider employeesProvider = new EmployeesProvider();
+        return UtilFunctions.get_date_format(start_date) +
+                " - " + UtilFunctions.get_date_format(end_date) +
+                "      " + departmentsProvider.GetNameManager(id_employee) +
+                "      " + employeesProvider.getJob(id_job) +
+                "      " + employeesProvider.getDepartment(id_department) +
+                "      " + status;
     }
 }

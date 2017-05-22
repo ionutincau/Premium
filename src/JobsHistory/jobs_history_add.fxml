@@ -18,13 +18,13 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label minWidth="40.0" text="Tip:" />
+                        <Label minWidth="40.0" text="Job:" />
                         <ChoiceBox id="jobHistoryJobChoiceBox" fx:id="jobHistoryJobChoiceBox" prefWidth="3000.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label minWidth="40.0" text="Tip:" />
+                        <Label minWidth="40.0" text="Departament:" />
                         <ChoiceBox id="jobHistoryDepartmentChoiceBox" fx:id="jobHistoryDepartmentChoiceBox" prefWidth="3000.0" />
                     </children>
                 </HBox>
